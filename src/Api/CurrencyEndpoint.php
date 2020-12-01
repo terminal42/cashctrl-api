@@ -1,0 +1,51 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Terminal42\CashctrlApi\Api;
+
+use Terminal42\CashctrlApi\ClientInterface;
+use Terminal42\CashctrlApi\Entity\Currency;
+use Terminal42\CashctrlApi\Result;
+
+/**
+ * @method Currency read(int $id)
+ * @method Currency[] list()
+ * @method Result create(Currency $entity)
+ * @method Result update(Currency $entity)
+ * @method Result delete(array $ids)
+ */
+class CurrencyEndpoint extends AbstractEndpoint
+{
+    public function __construct(ClientInterface $client)
+    {
+        parent::__construct($client, 'currency');
+    }
+
+    public function tree(int $parent = null): array
+    {
+        $params = [];
+
+        if (null !== $parent) {
+            $params['id'] = $parent;
+        }
+
+        return $this->client->get('currency/tree.json', $params);
+    }
+
+    public function exchangerate(string $from, string $to, \DateTime $date = null): float
+    {
+        $params = ['from' => $from, 'to' => $to];
+
+        if (null !== $date) {
+            $params['date'] = $date->format('Y-m-d');
+        }
+
+        return $this->client->get('currency/exchangerate', $params);
+    }
+
+    protected function createInstance(array $data): Currency
+    {
+        return Currency::create($data);
+    }
+}

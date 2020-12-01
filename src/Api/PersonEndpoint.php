@@ -1,0 +1,34 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Terminal42\CashctrlApi\Api;
+
+use Terminal42\CashctrlApi\ClientInterface;
+use Terminal42\CashctrlApi\Entity\Person;
+use Terminal42\CashctrlApi\Result;
+
+/**
+ * @method Person read(int $id)
+ * @method Person[] list()
+ * @method Result create(Person $entity)
+ * @method Result update(Person $entity)
+ * @method Result delete(array $ids)
+ */
+class PersonEndpoint extends AbstractEndpoint
+{
+    public function __construct(ClientInterface $client)
+    {
+        parent::__construct($client, 'person');
+    }
+
+    public function listFiltered(): PersonListFilter
+    {
+        return new PersonListFilter($this->client);
+    }
+
+    protected function createInstance(array $data): Person
+    {
+        return Person::create($data);
+    }
+}

@@ -1,0 +1,43 @@
+{
+    "name": "terminal42/cashctrl-api",
+    "type": "library",
+    "description": "API client for cashctrl.com",
+    "license": "LGPL-3.0+",
+    "authors": [
+        {
+            "name": "terminal42 gmbh",
+            "homepage": "https://www.terminal42.ch/"
+        }
+    ],
+    "funding": [
+        {
+            "type": "github",
+            "url": "https://github.com/terminal42"
+        },
+        {
+            "type": "other",
+            "url": "https://ko-fi.com/terminal42"
+        }
+    ],
+    "require": {
+        "php": "^7.4 || ^8.0",
+        "ext-json": "*",
+
+        "psr/http-message": "^1.0",
+        "php-http/client-implementation": "^1.0",
+        "php-http/httplug": "^1.0",
+        "php-http/message-factory": "^1.0",
+        "php-http/discovery": "^1.0"
+    },
+    "require-dev": {
+        "php-http/guzzle6-adapter": "^1.1"
+    },
+    "suggest": {
+        "php-http/guzzle6-adapter": "Guzzle or any other httpPlug compatible implementation."
+    },
+    "autoload": {
+        "psr-4": {
+            "Terminal42\\CashctrlApi\\": "src"
+        }
+    }
+}
