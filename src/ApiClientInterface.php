@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Terminal42\CashctrlApi;
 
-interface ClientInterface
+interface ApiClientInterface
 {
     public function get(string $url, array $params = []);
 

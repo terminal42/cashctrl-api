@@ -2,17 +2,17 @@
 
 namespace Terminal42\CashctrlApi\Api;
 
-use Terminal42\CashctrlApi\ClientInterface;
+use Terminal42\CashctrlApi\ApiClientInterface;
 use Terminal42\CashctrlApi\Entity\EntityInterface;
 use Terminal42\CashctrlApi\Exception\DomainException;
 use Terminal42\CashctrlApi\Result;
 
 abstract class AbstractEndpoint
 {
-    protected ClientInterface $client;
+    protected ApiClientInterface $client;
     protected string $urlPrefix;
 
-    public function __construct(ClientInterface $client, string $urlPrefix)
+    public function __construct(ApiClientInterface $client, string $urlPrefix)
     {
         $this->client = $client;
         $this->urlPrefix = $urlPrefix;
