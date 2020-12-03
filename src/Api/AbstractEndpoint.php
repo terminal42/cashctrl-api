@@ -20,7 +20,7 @@ abstract class AbstractEndpoint
 
     public function read(int $id): EntityInterface
     {
-        return $this->createInstance($this->get('read.json', ['id' => $id]));
+        return $this->createInstance($this->get('read.json', ['id' => $id])->data());
     }
 
     /**
@@ -30,7 +30,7 @@ abstract class AbstractEndpoint
     {
         return array_map(function (array $data) {
             return $this->createInstance($data);
-        }, $this->get('list.json'));
+        }, $this->get('list.json')->data());
     }
 
     public function create(EntityInterface $entity): Result
@@ -56,7 +56,7 @@ abstract class AbstractEndpoint
         return $this->post('delete.json', ['ids' => $ids]);
     }
 
-    protected function get(string $url, array $params = [])
+    protected function get(string $url, array $params = []): Result
     {
         return $this->client->get($this->urlPrefix.'/'.$url, $params);
     }

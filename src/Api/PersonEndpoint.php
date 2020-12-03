@@ -27,6 +27,11 @@ class PersonEndpoint extends AbstractEndpoint
         return new PersonListFilter($this->client);
     }
 
+    public function categorize(array $ids, int $target): Result
+    {
+        return $this->post('categorize.json', ['ids' => implode(',', $ids), 'target' => $target]);
+    }
+
     protected function createInstance(array $data): Person
     {
         return Person::create($data);

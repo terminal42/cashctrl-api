@@ -13,6 +13,7 @@ trait PropertiesTrait
 
         $data = [];
         foreach ($props as $prop) {
+            $prop->setAccessible(true);
             $value = $prop->getValue($this);
 
             if (null === $value) {
@@ -24,10 +25,9 @@ trait PropertiesTrait
                 $value = $value->format('Y-m-d');
             }
 
-            // TODO auto oder manuell?
-            //if (\is_array($value)) {
-            //    $value = \json_encode($value, JSON_THROW_ON_ERROR);
-            //}
+            if (\is_array($value) || $value instanceof \JsonSerializable) {
+                $value = \json_encode($value, JSON_THROW_ON_ERROR);
+            }
 
             $data[$prop->getName()] = $value;
         }
@@ -56,14 +56,15 @@ trait PropertiesTrait
             $type = $prop->getType();
 
             // Ignore properties of unknown types
-            if ($type && !$type->isBuiltin()) {
+            if (null !== $type && !$type->isBuiltin()) {
                 continue;
             }
 
-            if ($type->isBuiltin()) {
+            if (null !== $type && $type->isBuiltin()) {
                 settype($value, (string) $type);
             }
 
+            $prop->setAccessible(true);
             $prop->setValue($instance, $v);
         }
 

@@ -22,18 +22,7 @@ class CurrencyEndpoint extends AbstractEndpoint
         parent::__construct($client, 'currency');
     }
 
-    public function tree(int $parent = null): array
-    {
-        $params = [];
-
-        if (null !== $parent) {
-            $params['id'] = $parent;
-        }
-
-        return $this->client->get('currency/tree.json', $params);
-    }
-
-    public function exchangerate(string $from, string $to, \DateTime $date = null): float
+    public function exchangerate(string $from, string $to, \DateTime $date = null): Result
     {
         $params = ['from' => $from, 'to' => $to];
 
@@ -41,7 +30,7 @@ class CurrencyEndpoint extends AbstractEndpoint
             $params['date'] = $date->format('Y-m-d');
         }
 
-        return $this->client->get('currency/exchangerate', $params);
+        return $this->get('exchangerate', $params);
     }
 
     protected function createInstance(array $data): Currency

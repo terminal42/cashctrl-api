@@ -22,6 +22,17 @@ class PersonCategoryEndpoint extends AbstractEndpoint
         parent::__construct($client, 'person/category');
     }
 
+    public function tree(int $parent = null): Result
+    {
+        $params = [];
+
+        if (null !== $parent) {
+            $params['id'] = $parent;
+        }
+
+        return $this->get('tree.json', $params);
+    }
+
     protected function createInstance(array $data): PersonCategory
     {
         return PersonCategory::create($data);

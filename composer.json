@@ -2,7 +2,7 @@
     "name": "terminal42/cashctrl-api",
     "type": "library",
     "description": "API client for cashctrl.com",
-    "license": "LGPL-3.0+",
+    "license": "MIT",
     "authors": [
         {
             "name": "terminal42 gmbh",
@@ -24,9 +24,17 @@
         "ext-json": "*",
         "psr/http-client": "^1.0"
     },
+    "suggest": {
+        "ext-dom": "To read and write custom fields."
+    },
     "autoload": {
         "psr-4": {
             "Terminal42\\CashctrlApi\\": "src"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-main": "1.0.x-dev"
         }
     }
 }

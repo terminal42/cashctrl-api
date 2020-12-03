@@ -4,18 +4,11 @@ declare(strict_types=1);
 
 namespace Terminal42\CashctrlApi;
 
-class Result
+class Result extends \ArrayObject
 {
-    private array $responseData;
-
-    public function __construct(array $responseData)
-    {
-        $this->responseData = $responseData;
-    }
-
     public function isSuccessful(): bool
     {
-        return (bool) ($this->responseData['success'] ?? false);
+        return (bool) ($this['success'] ?? false);
     }
 
     public function hasErrors(): bool
@@ -23,8 +16,22 @@ class Result
         return !$this->isSuccessful();
     }
 
-    public function getErrors(): array
+    public function errors(): array
     {
-        return $this->responseData['errors'] ?? [];
+        if (isset($this['errors'])) {
+            return (array) $this['errors'];
+        }
+
+        return isset($this['errorMessage']) ? [$this['errorMessage']] : [];
+    }
+
+    public function insertId(): ?int
+    {
+        return isset($this['insertId']) ? (int) $this['insertId'] : null;
+    }
+
+    public function data(): ?array
+    {
+        return isset($this['data']) ? (array) $this['data'] : null;
     }
 }

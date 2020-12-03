@@ -5,29 +5,38 @@ declare(strict_types=1);
 namespace Terminal42\CashctrlApi\Entity;
 
 use Terminal42\CashctrlApi\Exception\BadMethodCallException;
+use Terminal42\CashctrlApi\Exception\RuntimeException;
 
 class Person extends AbstractEntity
 {
     protected ?string $company;
     protected ?string $firstName;
     protected ?string $lastName;
-    //protected ?array $addresses;
-    protected ?string $bic;
-    protected ?int $categoryId;
-    //protected ?array $contacts;
-    //protected $custom;
-    protected ?\DateTime $dateBirth;
-    protected ?string $department;
-    protected ?float $discountPercentage;
-    protected ?string $iban;
-    protected ?string $industry;
-    protected ?bool $isInactive;
-    protected ?string $language;
-    protected ?string $notes;
-    protected ?string $nr;
-    protected ?string $position;
-    protected ?int $sequenceNumberId;
-    protected ?int $titleId;
+    protected ?string $bic = null;
+    protected ?int $categoryId = null;
+    protected /*?string*/ $custom = null;
+    protected ?\DateTime $dateBirth = null;
+    protected ?string $department = null;
+    protected ?float $discountPercentage = null;
+    protected ?string $iban = null;
+    protected ?string $industry = null;
+    protected ?bool $isInactive = null;
+    protected ?string $language = null;
+    protected ?string $notes = null;
+    protected ?string $nr = null;
+    protected ?string $position = null;
+    protected ?int $sequenceNumberId = null;
+    protected ?int $titleId = null;
+
+    /**
+     * @var PersonAddress[]
+     */
+    protected ?array $addresses = null;
+
+    /**
+     * @var PersonContact[]
+     */
+    protected ?array $contacts = null;
 
     public function __construct(?string $company, ?string $firstName, ?string $lastName, int $id = null)
     {
@@ -94,6 +103,17 @@ class Person extends AbstractEntity
     public function setCategoryId(?int $categoryId): self
     {
         $this->categoryId = $categoryId;
+        return $this;
+    }
+
+    public function getCustom(): ?string
+    {
+        return $this->custom;
+    }
+
+    public function setCustom(?string $custom): Person
+    {
+        $this->custom = $custom;
         return $this;
     }
 
@@ -227,5 +247,172 @@ class Person extends AbstractEntity
     {
         $this->titleId = $titleId;
         return $this;
+    }
+
+    /**
+     * @return PersonAddress[]|null
+     */
+    public function getAddresses(): ?array
+    {
+        return $this->addresses;
+    }
+
+    /**
+     * @param PersonAddress[] $addresses
+     */
+    public function setAddresses(?array $addresses): self
+    {
+        $this->addresses = null;
+
+        if (null === $addresses) {
+            return $this;
+        }
+
+        foreach ($addresses as $address) {
+            $this->addAddress($address);
+        }
+
+        return $this;
+    }
+
+    public function addAddress(PersonAddress $address): self
+    {
+        if (null === $this->addresses) {
+            $this->addresses = [];
+        }
+
+        $this->addresses[] = $address;
+
+        return $this;
+    }
+
+    public function removeAddress(PersonAddress $address): self
+    {
+        if (null === $this->addresses) {
+            return $this;
+        }
+
+        if (false !== ($key = array_search($address, $this->addresses, true))) {
+            unset($this->addresses[$key]);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return PersonContact[]|null
+     */
+    public function getContacts(): ?array
+    {
+        return $this->contacts;
+    }
+
+    /**
+     * @param PersonContact[] $contacts
+     */
+    public function setContacts(?array $contacts): self
+    {
+        $this->contacts = null;
+
+        if (null === $contacts) {
+            return $this;
+        }
+
+        foreach ($contacts as $contact) {
+            $this->addContact($contact);
+        }
+
+        return $this;
+    }
+
+    public function addContact(PersonContact $contact): self
+    {
+        if (null === $this->contacts) {
+            $this->contacts = [];
+        }
+
+        $this->contacts[] = $contact;
+
+        return $this;
+    }
+
+    public function removeContact(PersonContact $contact): self
+    {
+        if (null === $this->contacts) {
+            return $this;
+        }
+
+        if (false !== ($key = array_search($contact, $this->contacts, true))) {
+            unset($this->contacts[$key]);
+        }
+
+        return $this;
+    }
+
+    public function setCustomfield(int $id, ?string $value): self
+    {
+        if (!\extension_loaded('dom')) {
+            throw new \LogicException('Extension DOM is required.');
+        }
+
+        $data = [];
+        if (null !== $this->custom) {
+            $dom = new \DOMDocument();
+            if (!$dom->loadXML($this->custom)) {
+                throw new RuntimeException('Failed to load customField XML');
+            }
+
+            $dom->normalizeDocument();
+            foreach ($dom->getElementsByTagName('values') as $values) {
+                foreach ($values->childNodes as $field) {
+                    $data[(string) $field->nodeName] = (string) $field->nodeValue;
+                }
+            }
+        }
+
+        if (null === $value) {
+            unset($data['customField'.$id]);
+        } else {
+            $data['customField'.$id] = $value;
+        }
+
+        $dom = new \DOMDocument();
+        $values = $dom->createElement('values');
+        $dom->appendChild($values);
+        foreach ($data as $k => $v) {
+            $field = $dom->createElement($k, $v);
+            $values->appendChild($field);
+        }
+
+        $this->custom = $dom->saveXML($dom->documentElement);
+
+        return $this;
+    }
+
+    public static function create(array $data): Person
+    {
+        $instance = parent::create($data);
+
+        if (isset($data['addresses']) && \is_array($data['addresses'])) {
+            $instance->setAddresses(null);
+            foreach ($data['addresses'] as $row) {
+                $instance->addAddress(new PersonAddress(
+                    $row['type'],
+                    $row['address'],
+                    $row['zip'],
+                    $row['city'],
+                    $row['country']
+                ));
+            }
+        }
+
+        if (isset($data['contacts']) && \is_array($data['contacts'])) {
+            $instance->setContacts(null);
+            foreach ($data['contacts'] as $row) {
+                $instance->addContact(new PersonContact($row['address'], $row['purpose'], $row['type']));
+            }
+        }
+
+        return $instance;
     }
 }
