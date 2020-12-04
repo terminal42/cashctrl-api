@@ -15,7 +15,7 @@ class Person extends AbstractEntity
     protected ?string $bic = null;
     protected ?int $categoryId = null;
     protected /*?string*/ $custom = null;
-    protected ?\DateTime $dateBirth = null;
+    protected ?string $dateBirth = null;
     protected ?string $department = null;
     protected ?float $discountPercentage = null;
     protected ?string $iban = null;
@@ -117,12 +117,12 @@ class Person extends AbstractEntity
         return $this;
     }
 
-    public function getDateBirth(): ?\DateTime
+    public function getDateBirth(): ?string
     {
         return $this->dateBirth;
     }
 
-    public function setDateBirth(?\DateTime $dateBirth): self
+    public function setDateBirth(?string $dateBirth): self
     {
         $this->dateBirth = $dateBirth;
         return $this;

@@ -32,8 +32,20 @@ class CustomfieldEndpoint extends AbstractEndpoint
     /**
      * @return Customfield[]
      */
-    public function list(string $type): array
+    public function list(string $type = null): array
     {
+        if (null === $type) {
+            return array_merge(
+                $this->list(self::TYPE_JOURNAL),
+                $this->list(self::TYPE_ACCOUNT),
+                $this->list(self::TYPE_PERSON),
+                $this->list(self::TYPE_INVENTORY_STOCK),
+                $this->list(self::TYPE_INVENTORY_SERVICE),
+                $this->list(self::TYPE_INVENTORY_ASSET),
+                $this->list(self::TYPE_ORDER),
+            );
+        }
+
         return array_map(function (array $data) {
             return $this->createInstance($data);
         }, $this->get('list.json', ['type' => $type])->data());

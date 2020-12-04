@@ -6,7 +6,10 @@ namespace Terminal42\CashctrlApi;
 
 interface ApiClientInterface
 {
-    public function get(string $url, array $params = []): Result;
+    /**
+     * @return Result|string
+     */
+    public function get(string $url, array $params = []);
 
     public function post(string $url, array $params): Result;
 }

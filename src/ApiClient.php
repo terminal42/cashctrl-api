@@ -33,9 +33,9 @@ class ApiClient implements ApiClientInterface
     }
 
     /**
-     * @return array|string|int|float|null
+     * @return Result|string
      */
-    public function get(string $url, array $params = []): Result
+    public function get(string $url, array $params = [])
     {
         $query = empty($params) ? '' : '?'.http_build_query($params);
         $request = $this->requestFactory->createRequest('GET', $this->apiBase.$url.$query);
