@@ -22,6 +22,22 @@ class AccountEndpoint extends AbstractEndpoint
         parent::__construct($client, 'account');
     }
 
+    public function balance(int $id, \DateTime $date = null)
+    {
+        $params = ['id' => $id];
+
+        if (null !== $date) {
+            $params['date'] = $date->format('Y-m-d');
+        }
+
+        return $this->get('balance', $params);
+    }
+
+    public function categorize(array $ids, int $target)
+    {
+        return $this->post('categorize.json', ['ids' => implode(',', $ids), 'target' => $target]);
+    }
+
     protected function createInstance(array $data): Account
     {
         return Account::create($data);

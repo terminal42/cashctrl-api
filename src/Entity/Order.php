@@ -4,6 +4,56 @@ declare(strict_types=1);
 
 namespace Terminal42\CashctrlApi\Entity;
 
+/**
+ * @property-read $createdBy
+ * @property-read $lastUpdated
+ * @property-read $lastUpdatedBy
+ * @property-read $associateName
+ * @property-read $recurrenceId
+ * @property-read $responsiblePersonId
+ * @property-read $responsiblePersonName
+ * @property-read $statusId
+ * @property-read $type
+ * @property-read $bookType
+ * @property-read $taxType
+ * @property-read $date
+ * @property-read $dateDeliveryStart
+ * @property-read $dateDeliveryEnd
+ * @property-read $dateLastBooked
+ * @property-read $subTotal
+ * @property-read $tax
+ * @property-read $total
+ * @property-read $open
+ * @property-read $groupOpen
+ * @property-read $currencyRate
+ * @property-read $discountPercentage
+ * @property-read $qrReference
+ * @property-read $searchIndex
+ * @property-read $nameSingular
+ * @property-read $statusName
+ * @property-read $icon
+ * @property-read $actionId
+ * @property-read $sentStatusId
+ * @property-read $sent
+ * @property-read $sentBy
+ * @property-read $downloaded
+ * @property-read $downloadedBy
+ * @property-read $currencyCode
+ * @property-read $qrReferenceUpdatable
+ * @property-read $iso11649Reference
+ * @property-read $defaultCurrencyTotal
+ * @property-read $roundingDifference
+ * @property-read $foreignCurrency
+ * @property-read $due
+ * @property-read $isBook
+ * @property-read $isRemoveStock
+ * @property-read $isAddStock
+ * @property-read $isClosed
+ * @property-read $isDisplayItemGross
+ * @property-read $hasDueDays
+ * @property-read $isCreditNote
+ *
+ */
 class Order extends AbstractEntity
 {
     public const RECURRENCE_YEARLY = 'YEARLY';
@@ -41,13 +91,13 @@ class Order extends AbstractEntity
     protected ?int $statusId = null;
 
 
-    public function __construct(int $associateId, int $categoryId, \DateTime $date, int $id = null)
+    public function __construct(int $associateId, int $categoryId, \DateTime $date = null, int $id = null)
     {
         parent::__construct($id);
 
         $this->associateId = $associateId;
         $this->categoryId = $categoryId;
-        $this->date = $date;
+        $this->date = $date ?? new \DateTime();
     }
 
     public function getAssociateId(): int
@@ -193,14 +243,49 @@ class Order extends AbstractEntity
         return $this;
     }
 
+    /**
+     * @return OrderItem[]|null
+     */
     public function getItems(): ?array
     {
         return $this->items;
     }
 
+    /**
+     * @param OrderItem[]|null $items
+     */
     public function setItems(?array $items): self
     {
-        $this->items = $items;
+        $this->items = null;
+
+        foreach ($items as $item) {
+            $this->addItem($item);
+        }
+
+        return $this;
+    }
+
+    public function addItem(OrderItem $item): self
+    {
+        if (null === $this->items) {
+            $this->items = [];
+        }
+
+        $this->items[] = $item;
+
+        return $this;
+    }
+
+    public function removeItem(OrderItem $item): self
+    {
+        if (null === $this->items) {
+            return $this;
+        }
+
+        if (false !== ($key = array_search($item, $this->items, true))) {
+            unset($this->items[$key]);
+        }
+
         return $this;
     }
 

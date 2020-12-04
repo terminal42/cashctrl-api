@@ -8,22 +8,51 @@ use Terminal42\CashctrlApi\ApiClientInterface;
 use Terminal42\CashctrlApi\Entity\OrderDocument;
 use Terminal42\CashctrlApi\Result;
 
-/**
- * @method OrderDocument read(int $id)
- * @method OrderDocument[] list()
- * @method Result create(OrderDocument $entity)
- * @method Result update(OrderDocument $entity)
- * @method Result delete(array $ids)
- */
-class OrderDocumentEndpoint extends AbstractEndpoint
+class OrderDocumentEndpoint
 {
+    private ApiClientInterface $client;
+
     public function __construct(ApiClientInterface $client)
     {
-        parent::__construct($client, 'order/document');
+        $this->client = $client;
     }
 
-    protected function createInstance(array $data): OrderDocument
+    public function read(int $id): OrderDocument
     {
-        return OrderDocument::create($data);
+        return OrderDocument::create(
+            $this->client->get('order/document/read.json', ['id' => $id])->data()
+        );
+    }
+
+    public function downloadPdf(array $ids, string $language = null): string
+    {
+        $params = ['ids' => implode(',', $ids)];
+
+        if (null !== $language) {
+            $params['lang'] = $language;
+        }
+
+        return (string) $this->client->get('order/document/read.pdf', $params);
+    }
+
+    public function downloadZip(array $ids, string $language = null): string
+    {
+        $params = ['ids' => implode(',', $ids)];
+
+        if (null !== $language) {
+            $params['lang'] = $language;
+        }
+
+        return (string) $this->client->get('order/document/read.zip', $params);
+    }
+
+    /**
+     * @param array $params
+     */
+    public function update(int $id, array $params = []): Result
+    {
+        $params['id'] = $id;
+
+        return $this->client->post('order/document/update.json', $params);
     }
 }

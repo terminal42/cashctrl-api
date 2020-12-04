@@ -6,6 +6,8 @@ namespace Terminal42\CashctrlApi\Entity;
 
 trait PropertiesTrait
 {
+    private array $additionalData = [];
+
     public function toArray(): array
     {
         $ref = new \ReflectionClass($this);
@@ -44,6 +46,7 @@ trait PropertiesTrait
 
         foreach ($data as $k => $v) {
             if (!$ref->hasProperty($k)) {
+                $instance->additionalData[$k] = $v;
                 continue;
             }
 
@@ -55,13 +58,14 @@ trait PropertiesTrait
 
             $type = $prop->getType();
 
-            // Ignore properties of unknown types
-            if (null !== $type && !$type->isBuiltin()) {
-                continue;
-            }
-
-            if (null !== $type && $type->isBuiltin()) {
-                settype($value, (string) $type);
+            if (null !== $type && null !== $v) {
+                if ($type->isBuiltin()) {
+                    settype($v, (string) $type);
+                } elseif (\is_a((string) $type, \DateTime::class, true)) {
+                    $v = \DateTime::createFromFormat('Y-m-d H:i:s.v', $v);
+                } else {
+                    continue;
+                }
             }
 
             $prop->setAccessible(true);
@@ -69,5 +73,11 @@ trait PropertiesTrait
         }
 
         return $instance;
+    }
+
+    /** @noinspection MagicMethodsValidityInspection */
+    public function __get(string $key)
+    {
+        return $this->additionalData[$key] ?? null;
     }
 }
