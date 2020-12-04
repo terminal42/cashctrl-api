@@ -91,11 +91,11 @@ class ApiClient implements ApiClientInterface
         }
 
         if (isset($exceptions[$statusCode])) {
-            throw new $exceptions[$statusCode];
+            throw new $exceptions[$statusCode]($response);
         }
 
         if ($statusCode >= 500) {
-            throw new ServerErrorException();
+            throw new ServerErrorException($response);
         }
     }
 

@@ -4,10 +4,17 @@ declare(strict_types=1);
 
 namespace Terminal42\CashctrlApi\Exception;
 
-class NotFoundException extends \RuntimeException
+use Psr\Http\Message\ResponseInterface;
+
+class NotFoundException extends ResponseException
 {
-    public function __construct(\Throwable $previous = null)
+    public function __construct(ResponseInterface $response, \Throwable $previous = null)
     {
-        parent::__construct('The requested endpoint doesn\'t exist.', 404, $previous);
+        parent::__construct(
+            'The requested endpoint doesn\'t exist.',
+            404,
+            $previous,
+            $response
+        );
     }
 }

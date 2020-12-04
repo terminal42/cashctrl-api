@@ -4,10 +4,17 @@ declare(strict_types=1);
 
 namespace Terminal42\CashctrlApi\Exception;
 
-class ServerErrorException extends \RuntimeException
+use Psr\Http\Message\ResponseInterface;
+
+class ServerErrorException extends ResponseException
 {
-    public function __construct(int $code = 500, \Throwable $previous = null)
+    public function __construct(ResponseInterface $response, \Throwable $previous = null)
     {
-        parent::__construct('Something went wrong on our end - not your fault. Please contact support.', $code, $previous);
+        parent::__construct(
+            'Something went wrong on our end - not your fault. Please contact support.',
+            $response->getStatusCode(),
+            $previous,
+            $response
+        );
     }
 }
