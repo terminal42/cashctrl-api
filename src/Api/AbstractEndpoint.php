@@ -18,9 +18,15 @@ abstract class AbstractEndpoint
         $this->urlPrefix = $urlPrefix;
     }
 
-    public function read(int $id): EntityInterface
+    public function read(int $id): ?EntityInterface
     {
-        return $this->createInstance($this->get('read.json', ['id' => $id])->data());
+        $result = $this->get('read.json', ['id' => $id], false);
+
+        if (!$result->isSuccessful()) {
+            return null;
+        }
+
+        return $this->createInstance($result->data());
     }
 
     /**
@@ -56,14 +62,14 @@ abstract class AbstractEndpoint
         return $this->post('delete.json', ['ids' => $ids]);
     }
 
-    protected function get(string $url, array $params = []): Result
+    protected function get(string $url, array $params = [], bool $throwValidationError = true): Result
     {
-        return $this->client->get($this->urlPrefix.'/'.$url, $params);
+        return $this->client->get($this->urlPrefix.'/'.$url, $params, $throwValidationError);
     }
 
-    protected function post(string $url, array $params): Result
+    protected function post(string $url, array $params, bool $throwValidationError = true): Result
     {
-        return $this->client->post($this->urlPrefix.'/'.$url, $params);
+        return $this->client->post($this->urlPrefix.'/'.$url, $params, $throwValidationError);
     }
 
     abstract protected function createInstance(array $data): EntityInterface;

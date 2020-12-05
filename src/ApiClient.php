@@ -35,7 +35,7 @@ class ApiClient implements ApiClientInterface
     /**
      * @return Result|string
      */
-    public function get(string $url, array $params = [])
+    public function get(string $url, array $params = [], bool $throwValidationError = true)
     {
         $query = empty($params) ? '' : '?'.http_build_query($params);
         $request = $this->requestFactory->createRequest('GET', $this->apiBase.$url.$query);
@@ -50,10 +50,10 @@ class ApiClient implements ApiClientInterface
             return $content;
         }
 
-        return $this->createResult($content);
+        return $this->createResult($content, $throwValidationError);
     }
 
-    public function post(string $url, array $params): Result
+    public function post(string $url, array $params, bool $throwValidationError = true): Result
     {
         $request = $this->requestFactory
             ->createRequest('POST', $this->apiBase.$url)
@@ -71,7 +71,7 @@ class ApiClient implements ApiClientInterface
             throw new RuntimeException('Expected JSON response for POST request.');
         }
 
-        return $this->createResult($content);
+        return $this->createResult($content, $throwValidationError);
     }
 
     private function throwExceptionForStatus(ResponseInterface $response): void
@@ -104,11 +104,11 @@ class ApiClient implements ApiClientInterface
         return false !== strpos(implode(';', (array) $response->getHeader('Content-Type')), 'application/json');
     }
 
-    private function createResult(string $content): Result
+    private function createResult(string $content, bool $throwValidationError = true): Result
     {
         $result = new Result(\json_decode($content, true, 512, JSON_THROW_ON_ERROR));
 
-        if (!$result->isSuccessful()) {
+        if ($throwValidationError && !$result->isSuccessful()) {
             throw new ValidationErrorException($result);
         }
 

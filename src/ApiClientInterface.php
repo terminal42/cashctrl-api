@@ -9,7 +9,7 @@ interface ApiClientInterface
     /**
      * @return Result|string
      */
-    public function get(string $url, array $params = []);
+    public function get(string $url, array $params = [], bool $throwValidationError = true);
 
-    public function post(string $url, array $params): Result;
+    public function post(string $url, array $params, bool $throwValidationError = true): Result;
 }

@@ -32,7 +32,11 @@ class ValidationErrorException extends RuntimeException
         $lines = [];
 
         foreach ($errors as $error) {
-            $lines[] = sprintf('%s: %s', $error['field'], $error['message']);
+            if (!is_array($error)) {
+                $lines[] = $error;
+            } else {
+                $lines[] = sprintf('%s: %s', $error['field'], $error['message']);
+            }
         }
 
         return implode("\n", $lines);
