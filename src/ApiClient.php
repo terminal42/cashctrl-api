@@ -19,10 +19,17 @@ use Terminal42\CashctrlApi\Exception\ValidationErrorException;
 
 class ApiClient implements ApiClientInterface
 {
+    private const THROTTLE_REQUESTS = 4;
+    private const THROTTLE_NANOSEC = 1000000000;
+
     private ClientInterface $httpClient;
     private RequestFactoryInterface $requestFactory;
     private StreamFactoryInterface $streamFactory;
     private string $apiBase;
+
+    private bool $throttled = false;
+    private int $requestCount = 0;
+    private ?int $lastRequest = null;
 
     public function __construct(ClientInterface $httpClient, RequestFactoryInterface $requestFactory, StreamFactoryInterface $streamFactory, string $subdomain, string $apiKey)
     {
@@ -37,6 +44,8 @@ class ApiClient implements ApiClientInterface
      */
     public function get(string $url, array $params = [], bool $throwValidationError = true)
     {
+        $this->throttle();
+
         $query = empty($params) ? '' : '?'.http_build_query($params);
         $request = $this->requestFactory->createRequest('GET', $this->apiBase.$url.$query);
 
@@ -55,6 +64,8 @@ class ApiClient implements ApiClientInterface
 
     public function post(string $url, array $params, bool $throwValidationError = true): Result
     {
+        $this->throttle();
+
         $request = $this->requestFactory
             ->createRequest('POST', $this->apiBase.$url)
             ->withHeader('Content-Type', 'application/x-www-form-urlencoded')
@@ -72,6 +83,42 @@ class ApiClient implements ApiClientInterface
         }
 
         return $this->createResult($content, $throwValidationError);
+    }
+
+    public function enableAutoThrottle(): self
+    {
+        $this->throttled = true;
+
+        return $this;
+    }
+
+    private function throttle()
+    {
+        if (!$this->throttled) {
+            return;
+        }
+
+        $this->requestCount++;
+
+        if (!$this->lastRequest) {
+            $this->lastRequest = hrtime(true);
+            return;
+        }
+
+        if ($this->requestCount <= self::THROTTLE_REQUESTS) {
+            return;
+        }
+
+        $time = hrtime(true);
+        $diff = $time - $this->lastRequest;
+
+        if ($diff < self::THROTTLE_NANOSEC) {
+            // add 100ms for safety
+            usleep((int) ((self::THROTTLE_NANOSEC - $diff) / 1000 + 100));
+        }
+
+        $this->lastRequest = hrtime(true);
+        $this->requestCount = 0;
     }
 
     private function throwExceptionForStatus(ResponseInterface $response): void
