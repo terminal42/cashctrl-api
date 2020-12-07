@@ -10,7 +10,7 @@ use Terminal42\CashctrlApi\Result;
 
 /**
  * @method Text read(int $id)
- * @method Text[] list()
+ * @method Text[]|ListFilter list()
  * @method Result create(Text $entity)
  * @method Result update(Text $entity)
  * @method Result delete(array $ids)

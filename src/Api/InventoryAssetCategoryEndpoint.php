@@ -10,7 +10,7 @@ use Terminal42\CashctrlApi\Result;
 
 /**
  * @method InventoryAssetCategory read(int $id)
- * @method InventoryAssetCategory[] list()
+ * @method InventoryAssetCategory[]|ListFilter list()
  * @method Result create(InventoryAssetCategory $entity)
  * @method Result update(InventoryAssetCategory $entity)
  * @method Result delete(array $ids)

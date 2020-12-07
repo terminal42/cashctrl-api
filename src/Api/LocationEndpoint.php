@@ -10,7 +10,7 @@ use Terminal42\CashctrlApi\Result;
 
 /**
  * @method Location read(int $id)
- * @method Location[] list()
+ * @method Location[]|ListFilter list()
  * @method Result create(Location $entity)
  * @method Result update(Location $entity)
  * @method Result delete(array $ids)

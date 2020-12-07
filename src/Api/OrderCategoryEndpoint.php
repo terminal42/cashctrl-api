@@ -10,7 +10,7 @@ use Terminal42\CashctrlApi\Result;
 
 /**
  * @method OrderCategory read(int $id)
- * @method OrderCategory[] list()
+ * @method OrderCategory[]|ListFilter list()
  * @method Result create(OrderCategory $entity)
  * @method Result update(OrderCategory $entity)
  * @method Result delete(array $ids)

@@ -10,7 +10,7 @@ use Terminal42\CashctrlApi\Result;
 
 /**
  * @method Account read(int $id)
- * @method Account[] list()
+ * @method Account[]|ListFilter list()
  * @method Result create(Account $account)
  * @method Result update(Account $account)
  * @method Result delete(array $ids)

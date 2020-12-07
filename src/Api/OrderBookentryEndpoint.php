@@ -10,7 +10,7 @@ use Terminal42\CashctrlApi\Result;
 
 /**
  * @method OrderBookentry read(int $id)
- * @method OrderBookentry[] list()
+ * @method OrderBookentry[]|ListFilter list()
  * @method Result create(OrderBookentry $entity)
  * @method Result update(OrderBookentry $entity)
  * @method Result delete(array $ids)

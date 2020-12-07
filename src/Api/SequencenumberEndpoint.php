@@ -10,7 +10,7 @@ use Terminal42\CashctrlApi\Entity\Sequencenumber;
 
 /**
  * @method Sequencenumber read(int $id)
- * @method Sequencenumber[] list()
+ * @method Sequencenumber[]|ListFilter list()
  * @method Result create(Sequencenumber $entity)
  * @method Result update(Sequencenumber $entity)
  * @method Result delete(array $ids)

@@ -29,14 +29,11 @@ abstract class AbstractEndpoint
         return $this->createInstance($result->data());
     }
 
-    /**
-     * @return array<EntityInterface>
-     */
-    public function list(): array
+    public function list(): ListFilter
     {
-        return array_map(function (array $data) {
+        return new ListFilter($this->client, $this->urlPrefix, function (array $data) {
             return $this->createInstance($data);
-        }, $this->get('list.json')->data());
+        });
     }
 
     public function create(EntityInterface $entity): Result

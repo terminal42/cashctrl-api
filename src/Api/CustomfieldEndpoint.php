@@ -30,25 +30,13 @@ class CustomfieldEndpoint extends AbstractEndpoint
     }
 
     /**
-     * @return Customfield[]
+     * @return Customfield[]|CustomfieldListFilter
      */
-    public function list(string $type = null): array
+    public function list(): CustomfieldListFilter
     {
-        if (null === $type) {
-            return array_merge(
-                $this->list(self::TYPE_JOURNAL),
-                $this->list(self::TYPE_ACCOUNT),
-                $this->list(self::TYPE_PERSON),
-                $this->list(self::TYPE_INVENTORY_STOCK),
-                $this->list(self::TYPE_INVENTORY_SERVICE),
-                $this->list(self::TYPE_INVENTORY_ASSET),
-                $this->list(self::TYPE_ORDER),
-            );
-        }
-
-        return array_map(function (array $data) {
+        return new CustomfieldListFilter($this->client, 'customfield', function (array $data) {
             return $this->createInstance($data);
-        }, $this->get('list.json', ['type' => $type])->data());
+        });
     }
 
     public function reorder(array $ids, int $target, bool $before = true): Result

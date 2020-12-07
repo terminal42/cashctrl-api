@@ -10,7 +10,6 @@ use Terminal42\CashctrlApi\Result;
 
 /**
  * @method Person read(int $id)
- * @method Person[] list()
  * @method Result create(Person $entity)
  * @method Result update(Person $entity)
  * @method Result delete(array $ids)
@@ -22,9 +21,14 @@ class PersonEndpoint extends AbstractEndpoint
         parent::__construct($client, 'person');
     }
 
-    public function listFiltered(): PersonListFilter
+    /**
+     * @return Person[]|PersonListFilter
+     */
+    public function list(): PersonListFilter
     {
-        return new PersonListFilter($this->client);
+        return new PersonListFilter($this->client, 'person', function (array $data) {
+            return $this->createInstance($data);
+        });
     }
 
     public function categorize(array $ids, int $target): Result

@@ -10,7 +10,7 @@ use Terminal42\CashctrlApi\Result;
 
 /**
  * @method JournalImport read(int $id)
- * @method JournalImport[] list()
+ * @method JournalImport[]|ListFilter list()
  * @method Result create(JournalImport $entity)
  * @method Result update(JournalImport $entity)
  * @method Result delete(array $ids)

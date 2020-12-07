@@ -10,7 +10,7 @@ use Terminal42\CashctrlApi\Result;
 
 /**
  * @method Rounding read(int $id)
- * @method Rounding[] list()
+ * @method Rounding[]|ListFilter list()
  * @method Result create(Rounding $entity)
  * @method Result update(Rounding $entity)
  * @method Result delete(array $ids)

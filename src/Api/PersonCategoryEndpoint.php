@@ -10,7 +10,7 @@ use Terminal42\CashctrlApi\Result;
 
 /**
  * @method PersonCategory read(int $id)
- * @method PersonCategory[] list()
+ * @method PersonCategory[]|ListFilter list()
  * @method Result create(PersonCategory $entity)
  * @method Result update(PersonCategory $entity)
  * @method Result delete(array $ids)

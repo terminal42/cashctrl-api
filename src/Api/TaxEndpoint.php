@@ -10,7 +10,7 @@ use Terminal42\CashctrlApi\Result;
 
 /**
  * @method Tax read(int $id)
- * @method Tax[] list()
+ * @method Tax[]|ListFilter list()
  * @method Result create(Tax $entity)
  * @method Result update(Tax $entity)
  * @method Result delete(array $ids)

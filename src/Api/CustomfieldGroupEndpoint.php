@@ -10,7 +10,7 @@ use Terminal42\CashctrlApi\Result;
 
 /**
  * @method CustomfieldGroup read(int $id)
- * @method CustomfieldGroup[] list()
+ * @method CustomfieldGroup[]|ListFilter list()
  * @method Result create(CustomfieldGroup $entity)
  * @method Result update(CustomfieldGroup $entity)
  * @method Result delete(array $ids)
