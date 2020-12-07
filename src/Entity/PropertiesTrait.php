@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Terminal42\CashctrlApi\Entity;
 
+use Terminal42\CashctrlApi\ApiClientInterface;
+
 trait PropertiesTrait
 {
     private array $additionalData = [];
@@ -62,7 +64,7 @@ trait PropertiesTrait
                 if ($type->isBuiltin()) {
                     settype($v, (string) $type);
                 } elseif (\is_a((string) $type, \DateTime::class, true)) {
-                    $v = \DateTime::createFromFormat('Y-m-d H:i:s.v', $v);
+                    $v = \DateTime::createFromFormat(ApiClientInterface::DATE_FORMAT, $v);
                 } else {
                     continue;
                 }

@@ -6,6 +6,8 @@ namespace Terminal42\CashctrlApi;
 
 interface ApiClientInterface
 {
+    public const DATE_FORMAT = 'Y-m-d H:i:s.v';
+
     /**
      * @return Result|string
      */
