@@ -8,7 +8,7 @@ class Result extends \ArrayObject
 {
     public function isSuccessful(): bool
     {
-        return (bool) ($this['success'] ?? false);
+        return (bool) ($this['success'] ?? true);
     }
 
     public function hasErrors(): bool
