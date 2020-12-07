@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Terminal42\CashctrlApi\Entity;
 
 use Terminal42\CashctrlApi\Exception\BadMethodCallException;
-use Terminal42\CashctrlApi\Exception\RuntimeException;
+use Terminal42\CashctrlApi\XmlHelper;
 
 class Person extends AbstractEntity
 {
@@ -14,7 +14,7 @@ class Person extends AbstractEntity
     protected ?string $lastName;
     protected ?string $bic = null;
     protected ?int $categoryId = null;
-    protected /*?string*/ $custom = null;
+    protected ?string $custom = null;
     protected ?string $dateBirth = null;
     protected ?string $department = null;
     protected ?float $discountPercentage = null;
@@ -308,7 +308,7 @@ class Person extends AbstractEntity
     }
 
     /**
-     * @param PersonContact[] $contacts
+     * @param PersonContact[]|null $contacts
      */
     public function setContacts(?array $contacts): self
     {
@@ -349,25 +349,23 @@ class Person extends AbstractEntity
         return $this;
     }
 
-    public function setCustomfield(int $id, ?string $value): self
+    public function getCustomfield(int $id): ?string
     {
-        if (!\extension_loaded('dom')) {
-            throw new \LogicException('Extension DOM is required.');
+        if (null === $this->custom) {
+            return null;
         }
 
-        $data = [];
-        if (null !== $this->custom) {
-            $dom = new \DOMDocument();
-            if (!$dom->loadXML($this->custom)) {
-                throw new RuntimeException('Failed to load customField XML');
-            }
+        $data = XmlHelper::parseValues($this->custom);
 
-            $dom->normalizeDocument();
-            foreach ($dom->getElementsByTagName('values') as $values) {
-                foreach ($values->childNodes as $field) {
-                    $data[(string) $field->nodeName] = (string) $field->nodeValue;
-                }
-            }
+        return $data['customField'.$id] ?? null;
+    }
+
+    public function setCustomfield(int $id, ?string $value): self
+    {
+        $data = [];
+
+        if (null !== $this->custom) {
+            $data = XmlHelper::parseValues($this->custom);
         }
 
         if (null === $value) {
@@ -376,15 +374,7 @@ class Person extends AbstractEntity
             $data['customField'.$id] = $value;
         }
 
-        $dom = new \DOMDocument();
-        $values = $dom->createElement('values');
-        $dom->appendChild($values);
-        foreach ($data as $k => $v) {
-            $field = $dom->createElement($k, $v);
-            $values->appendChild($field);
-        }
-
-        $this->custom = $dom->saveXML($dom->documentElement);
+        $this->custom = XmlHelper::dumpValues($data);
 
         return $this;
     }
