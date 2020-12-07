@@ -17,6 +17,7 @@ namespace Terminal42\CashctrlApi\Entity;
  * @property-read $bookType
  * @property-read $taxType
  * @property-read $date
+ * @property-read $dateDue
  * @property-read $dateDeliveryStart
  * @property-read $dateDeliveryEnd
  * @property-read $dateLastBooked
@@ -71,7 +72,6 @@ class Order extends AbstractEntity
     protected ?int $accountId = null;
     protected ?int $currencyId = null;
     protected ?float $currencyRate = null;
-    //protected ?string $custom = null;
     protected ?string $description = null;
     protected ?float $discountPercentage = null;
     protected ?int $dueDays = null;
