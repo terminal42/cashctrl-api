@@ -113,8 +113,7 @@ class ApiClient implements ApiClientInterface
         $diff = $time - $this->lastRequest;
 
         if ($diff < self::THROTTLE_NANOSEC) {
-            // add 100ms for safety
-            usleep((int) ((self::THROTTLE_NANOSEC - $diff) / 1000 + 100));
+            usleep((int) (self::THROTTLE_NANOSEC / 1000));
         }
 
         $this->lastRequest = hrtime(true);
