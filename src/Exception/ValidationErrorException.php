@@ -12,9 +12,9 @@ class ValidationErrorException extends RuntimeException
 
     public function __construct(Result $result, \Throwable $previous = null)
     {
-        parent::__construct($this->generateMessage($result->errors()), 0, $previous);
-
         $this->result = $result;
+
+        parent::__construct($this->generateMessage(), 0, $previous);
     }
 
     public function getResult(): Result
@@ -27,9 +27,14 @@ class ValidationErrorException extends RuntimeException
         return $this->result->errors();
     }
 
-    private function generateMessage(array $errors)
+    private function generateMessage()
     {
         $lines = [];
+        $errors = $this->getErrors();
+
+        if (empty($errors)) {
+            return \json_encode($this->result->getArrayCopy(), JSON_THROW_ON_ERROR);
+        }
 
         foreach ($errors as $error) {
             if (!is_array($error)) {
