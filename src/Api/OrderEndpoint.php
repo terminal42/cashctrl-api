@@ -10,7 +10,6 @@ use Terminal42\CashctrlApi\Result;
 
 /**
  * @method Order read(int $id)
- * @method Order[]|ListFilter list()
  * @method Result create(Order $entity)
  * @method Result update(Order $entity)
  * @method Result delete(array $ids)
@@ -20,6 +19,16 @@ class OrderEndpoint extends AbstractEndpoint
     public function __construct(ApiClientInterface $client)
     {
         parent::__construct($client, 'order');
+    }
+
+    /**
+     * @return Order[]|OrderListFilter
+     */
+    public function list(): OrderListFilter
+    {
+        return new OrderListFilter($this->client, 'order', function (array $data) {
+            return $this->createInstance($data);
+        });
     }
 
     public function statusInfo(int $id)
