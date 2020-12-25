@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace Terminal42\CashctrlApi\Entity;
 
-use Terminal42\CashctrlApi\ApiClientInterface;
+use Terminal42\CashctrlApi\ApiClient;
+use Terminal42\CashctrlApi\Exception\InvalidArgumentException;
 
 trait PropertiesTrait
 {
@@ -64,7 +65,11 @@ trait PropertiesTrait
                 if ($type->isBuiltin()) {
                     settype($v, (string) $type);
                 } elseif (\is_a((string) $type, \DateTime::class, true)) {
-                    $v = \DateTime::createFromFormat(ApiClientInterface::DATE_FORMAT, $v);
+                    try {
+                        $v = ApiClient::parseDateTime($v);
+                    } catch (InvalidArgumentException $e) {
+                        continue;
+                    }
                 } else {
                     continue;
                 }

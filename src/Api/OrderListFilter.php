@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Terminal42\CashctrlApi\Api;
 
 use Terminal42\CashctrlApi\ApiClientInterface;
-use Terminal42\CashctrlApi\Entity\Person;
 use Terminal42\CashctrlApi\Exception\DomainException;
+use Terminal42\CashctrlApi\Entity\Order;
 
 class OrderListFilter extends ListFilter
 {
@@ -37,7 +37,7 @@ class OrderListFilter extends ListFilter
     }
 
     /**
-     * @return Person[]
+     * @return Order[]
      */
     public function get(): array
     {

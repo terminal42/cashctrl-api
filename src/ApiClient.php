@@ -16,6 +16,7 @@ use Terminal42\CashctrlApi\Exception\ServerErrorException;
 use Psr\Http\Message\StreamFactoryInterface;
 use Terminal42\CashctrlApi\Exception\RuntimeException;
 use Terminal42\CashctrlApi\Exception\ValidationErrorException;
+use Terminal42\CashctrlApi\Exception\InvalidArgumentException;
 
 class ApiClient implements ApiClientInterface
 {
@@ -90,6 +91,21 @@ class ApiClient implements ApiClientInterface
         $this->throttled = true;
 
         return $this;
+    }
+
+    public static function parseDateTime(string $datetime): \DateTime
+    {
+        $result = \DateTime::createFromFormat(
+            self::DATE_FORMAT,
+            $datetime,
+            new \DateTimeZone(self::DATE_TIMEZONE)
+        );
+
+        if (!$result instanceof \DateTime) {
+            throw new InvalidArgumentException($datetime.' could not be parsed to DateTime with format "'.self::DATE_FORMAT.'"');
+        }
+
+        return $result;
     }
 
     private function throttle()
