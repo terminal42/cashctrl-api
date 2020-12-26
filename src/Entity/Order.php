@@ -18,13 +18,13 @@ namespace Terminal42\CashctrlApi\Entity;
  * @property-read $taxType
  * @property-read $date
  * @property-read $dateDue
- * @property-read $dateDeliveryStart
- * @property-read $dateDeliveryEnd
- * @property-read $dateLastBooked
- * @property-read $subTotal
- * @property-read $tax
- * @property-read $total
- * @property-read $open
+ * @property-read string|null $dateDeliveryStart
+ * @property-read string|null $dateDeliveryEnd
+ * @property-read string|null $dateLastBooked
+ * @property-read float $subTotal
+ * @property-read float $tax
+ * @property-read float $total
+ * @property-read float $open
  * @property-read $groupOpen
  * @property-read $currencyRate
  * @property-read $discountPercentage
@@ -37,22 +37,22 @@ namespace Terminal42\CashctrlApi\Entity;
  * @property-read $sentStatusId
  * @property-read $sent
  * @property-read $sentBy
- * @property-read $downloaded
- * @property-read $downloadedBy
- * @property-read $currencyCode
+ * @property-read string|null $downloaded
+ * @property-read string|null $downloadedBy
+ * @property-read string $currencyCode
  * @property-read $qrReferenceUpdatable
  * @property-read $iso11649Reference
  * @property-read $defaultCurrencyTotal
  * @property-read $roundingDifference
  * @property-read $foreignCurrency
  * @property-read $due
- * @property-read $isBook
- * @property-read $isRemoveStock
- * @property-read $isAddStock
- * @property-read $isClosed
- * @property-read $isDisplayItemGross
- * @property-read $hasDueDays
- * @property-read $isCreditNote
+ * @property-read bool $isBook
+ * @property-read bool $isRemoveStock
+ * @property-read bool $isAddStock
+ * @property-read bool $isClosed
+ * @property-read bool $isDisplayItemGross
+ * @property-read bool $hasDueDays
+ * @property-read bool $isCreditNote
  *
  */
 class Order extends AbstractEntity
