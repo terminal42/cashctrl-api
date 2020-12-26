@@ -19,7 +19,7 @@ class ListFilter implements \IteratorAggregate
     private string $urlPrefix;
     private \Closure $createInstance;
 
-    protected ?array $filters = null;
+    protected ?array $filter = null;
 
     public function __construct(ApiClientInterface $client, string $urlPrefix, \Closure $createInstance)
     {
@@ -45,8 +45,8 @@ class ListFilter implements \IteratorAggregate
 
     public function filter(string $property, $value, string $comparison = null): self
     {
-        if (null === $this->filters) {
-            $this->filters = [];
+        if (null === $this->filter) {
+            $this->filter = [];
         }
 
         $filter = ['field' => $property, 'value' => $value];
@@ -55,7 +55,7 @@ class ListFilter implements \IteratorAggregate
             $filter['comparison'] = $comparison;
         }
 
-        $this->filters[] = $filter;
+        $this->filter[] = $filter;
 
         return $this;
     }
