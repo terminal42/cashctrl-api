@@ -7,6 +7,7 @@ namespace Terminal42\CashctrlApi\Api;
 use Terminal42\CashctrlApi\ApiClientInterface;
 use Terminal42\CashctrlApi\Entity\OrderCategory;
 use Terminal42\CashctrlApi\Result;
+use Terminal42\CashctrlApi\Api\Filter\ListFilter;
 
 /**
  * @method OrderCategory read(int $id)

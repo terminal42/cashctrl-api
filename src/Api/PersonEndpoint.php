@@ -7,6 +7,7 @@ namespace Terminal42\CashctrlApi\Api;
 use Terminal42\CashctrlApi\ApiClientInterface;
 use Terminal42\CashctrlApi\Entity\Person;
 use Terminal42\CashctrlApi\Result;
+use Terminal42\CashctrlApi\Api\Filter\PersonListFilter;
 
 /**
  * @method Person read(int $id)
@@ -14,7 +15,7 @@ use Terminal42\CashctrlApi\Result;
  * @method Result update(Person $entity)
  * @method Result delete(array $ids)
  */
-class PersonEndpoint extends AbstractEndpoint
+class PersonEndpoint extends AbstractCRUDEndpoint
 {
     public function __construct(ApiClientInterface $client)
     {

@@ -7,6 +7,7 @@ namespace Terminal42\CashctrlApi\Api;
 use Terminal42\CashctrlApi\ApiClientInterface;
 use Terminal42\CashctrlApi\Entity\Customfield;
 use Terminal42\CashctrlApi\Result;
+use Terminal42\CashctrlApi\Api\Filter\CustomfieldListFilter;
 
 /**
  * @method Customfield read(int $id)
@@ -14,7 +15,7 @@ use Terminal42\CashctrlApi\Result;
  * @method Result update(Customfield $customfield)
  * @method Result delete(array $ids)
  */
-class CustomfieldEndpoint extends AbstractEndpoint
+class CustomfieldEndpoint extends AbstractCRUDEndpoint
 {
     public const TYPE_JOURNAL = 'JOURNAL';
     public const TYPE_ACCOUNT = 'ACCOUNT';
@@ -32,11 +33,16 @@ class CustomfieldEndpoint extends AbstractEndpoint
     /**
      * @return Customfield[]|CustomfieldListFilter
      */
-    public function list(): CustomfieldListFilter
+    public function list(string $type): CustomfieldListFilter
     {
-        return new CustomfieldListFilter($this->client, 'customfield', function (array $data) {
-            return $this->createInstance($data);
-        });
+        return new CustomfieldListFilter(
+            $this->client,
+            $this->urlPrefix,
+            function (array $data) {
+                return $this->createInstance($data);
+            },
+            $type
+        );
     }
 
     public function reorder(array $ids, int $target, bool $before = true): Result

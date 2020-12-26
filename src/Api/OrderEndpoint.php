@@ -7,6 +7,7 @@ namespace Terminal42\CashctrlApi\Api;
 use Terminal42\CashctrlApi\ApiClientInterface;
 use Terminal42\CashctrlApi\Entity\Order;
 use Terminal42\CashctrlApi\Result;
+use Terminal42\CashctrlApi\Api\Filter\OrderListFilter;
 
 /**
  * @method Order read(int $id)
@@ -14,7 +15,7 @@ use Terminal42\CashctrlApi\Result;
  * @method Result update(Order $entity)
  * @method Result delete(array $ids)
  */
-class OrderEndpoint extends AbstractEndpoint
+class OrderEndpoint extends AbstractCRUDEndpoint
 {
     public function __construct(ApiClientInterface $client)
     {

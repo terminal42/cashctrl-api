@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Terminal42\CashctrlApi\Entity;
 
+/**
+ * @method static create(array $data): self
+ */
 abstract class AbstractEntity implements EntityInterface
 {
     use PropertiesTrait;

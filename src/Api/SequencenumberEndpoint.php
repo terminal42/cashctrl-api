@@ -7,6 +7,7 @@ namespace Terminal42\CashctrlApi\Api;
 use Terminal42\CashctrlApi\ApiClientInterface;
 use Terminal42\CashctrlApi\Result;
 use Terminal42\CashctrlApi\Entity\Sequencenumber;
+use Terminal42\CashctrlApi\Api\Filter\ListFilter;
 
 /**
  * @method Sequencenumber read(int $id)
@@ -27,7 +28,7 @@ class SequencenumberEndpoint extends AbstractEndpoint
         return (string) $this->get('get', ['id' => $id, 'categoryId' => $categoryId]);
     }
 
-    public function getByType(string $type, int $categoryId = null)
+    public function getByType(string $type, int $categoryId = null): string
     {
         return (string) $this->get('get', ['type' => $type, 'categoryId' => $categoryId]);
     }
