@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Terminal42\CashctrlApi\Entity;
 
+use Terminal42\CashctrlApi\XmlHelper;
+
 /**
  * @property-read $createdBy
  * @property-read $lastUpdated
@@ -89,6 +91,7 @@ class Order extends AbstractEntity
     protected ?int $sequenceNumberId = null;
     protected ?\DateTime $startDate = null;
     protected ?int $statusId = null;
+    protected ?string $custom = null;
 
 
     public function __construct(int $associateId, int $categoryId, \DateTime $date = null, int $id = null)
@@ -385,6 +388,47 @@ class Order extends AbstractEntity
     public function setStatusId(?int $statusId): self
     {
         $this->statusId = $statusId;
+        return $this;
+    }
+
+    public function getCustom(): ?string
+    {
+        return $this->custom;
+    }
+
+    public function setCustom(?string $custom): self
+    {
+        $this->custom = $custom;
+        return $this;
+    }
+
+    public function getCustomfield(int $id): ?string
+    {
+        if (null === $this->custom) {
+            return null;
+        }
+
+        $data = XmlHelper::parseValues($this->custom);
+
+        return $data['customField'.$id] ?? null;
+    }
+
+    public function setCustomfield(int $id, ?string $value): self
+    {
+        $data = [];
+
+        if (null !== $this->custom) {
+            $data = XmlHelper::parseValues($this->custom);
+        }
+
+        if (null === $value) {
+            unset($data['customField'.$id]);
+        } else {
+            $data['customField'.$id] = $value;
+        }
+
+        $this->custom = XmlHelper::dumpValues($data);
+
         return $this;
     }
 }

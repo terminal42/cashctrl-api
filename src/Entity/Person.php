@@ -111,7 +111,7 @@ class Person extends AbstractEntity
         return $this->custom;
     }
 
-    public function setCustom(?string $custom): Person
+    public function setCustom(?string $custom): self
     {
         $this->custom = $custom;
         return $this;
