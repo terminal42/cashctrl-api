@@ -44,6 +44,10 @@ abstract class AbstractCRUDEndpoint
             throw new DomainException('Entity MUST have an ID to call "update.json" endpoint.');
         }
 
+        if ($entity->isPartial()) {
+            $entity = $entity->merge($this->read($entity->getId()));
+        }
+
         return $this->post('update.json', $entity->toArray());
     }
 
@@ -62,5 +66,5 @@ abstract class AbstractCRUDEndpoint
         return $this->client->post($this->urlPrefix.'/'.$url, $params, $throwValidationError);
     }
 
-    abstract protected function createInstance(array $data): EntityInterface;
+    abstract protected function createInstance(array $data, bool $partial = false): EntityInterface;
 }

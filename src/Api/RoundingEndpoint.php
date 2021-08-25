@@ -23,8 +23,8 @@ class RoundingEndpoint extends AbstractEndpoint
         parent::__construct($client, 'rounding');
     }
 
-    protected function createInstance(array $data): Rounding
+    protected function createInstance(array $data, bool $partial = false): Rounding
     {
-        return Rounding::create($data);
+        return Rounding::create($data, $partial);
     }
 }

@@ -34,8 +34,8 @@ class OrderBookentryEndpoint extends AbstractCRUDEndpoint
         );
     }
 
-    protected function createInstance(array $data): OrderBookentry
+    protected function createInstance(array $data, bool $partial = false): OrderBookentry
     {
-        return OrderBookentry::create($data);
+        return OrderBookentry::create($data, $partial);
     }
 }

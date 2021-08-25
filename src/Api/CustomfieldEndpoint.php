@@ -54,8 +54,8 @@ class CustomfieldEndpoint extends AbstractCRUDEndpoint
         ]);
     }
 
-    protected function createInstance(array $data): Customfield
+    protected function createInstance(array $data, bool $partial = false): Customfield
     {
-        return Customfield::create($data);
+        return Customfield::create($data, $partial);
     }
 }

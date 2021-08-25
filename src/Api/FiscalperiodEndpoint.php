@@ -23,8 +23,8 @@ class FiscalperiodEndpoint extends AbstractEndpoint
         parent::__construct($client, 'fiscalperiod');
     }
 
-    protected function createInstance(array $data): Fiscalperiod
+    protected function createInstance(array $data, bool $partial = false): Fiscalperiod
     {
-        return Fiscalperiod::create($data);
+        return Fiscalperiod::create($data, $partial);
     }
 }

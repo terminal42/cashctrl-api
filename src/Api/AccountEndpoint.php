@@ -39,8 +39,8 @@ class AccountEndpoint extends AbstractEndpoint
         return $this->post('categorize.json', ['ids' => implode(',', $ids), 'target' => $target]);
     }
 
-    protected function createInstance(array $data): Account
+    protected function createInstance(array $data, bool $partial = false): Account
     {
-        return Account::create($data);
+        return Account::create($data, $partial);
     }
 }

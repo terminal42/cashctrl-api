@@ -10,6 +10,7 @@ use Terminal42\CashctrlApi\Exception\InvalidArgumentException;
 trait PropertiesTrait
 {
     private array $additionalData = [];
+    private bool $partial = false;
 
     public function toArray(): array
     {
@@ -40,12 +41,34 @@ trait PropertiesTrait
         return $data;
     }
 
-    public static function create(array $data): self
+    public function isPartial(): bool
+    {
+        return $this->partial;
+    }
+
+    public function merge(EntityInterface $entity): self
+    {
+        $targetClass = get_class($this);
+
+        if (!$entity instanceof $targetClass) {
+            throw new InvalidArgumentException(sprintf('Cannot merge "%s" with "%s"', get_class($entity), get_class($this)));
+        }
+
+        $data = array_merge(
+            $entity->toArray(),
+            $this->toArray()
+        );
+
+        return static::create($data, !$this->isPartial() || !$entity->isPartial());
+    }
+
+    public static function create(array $data, bool $partial = false): self
     {
         $ref = new \ReflectionClass(static::class);
 
         /** @var self $instance */
         $instance = $ref->newInstanceWithoutConstructor();
+        $instance->partial = $partial;
 
         foreach ($data as $k => $v) {
             if (!$ref->hasProperty($k)) {

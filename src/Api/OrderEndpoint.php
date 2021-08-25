@@ -28,7 +28,7 @@ class OrderEndpoint extends AbstractCRUDEndpoint
     public function list(): OrderListFilter
     {
         return new OrderListFilter($this->client, 'order', function (array $data) {
-            return $this->createInstance($data);
+            return $this->createInstance($data, true);
         });
     }
 
@@ -66,8 +66,8 @@ class OrderEndpoint extends AbstractCRUDEndpoint
         return $this->get('dossier.json', ['id' => $id]);
     }
 
-    protected function createInstance(array $data): Order
+    protected function createInstance(array $data, bool $partial = false): Order
     {
-        return Order::create($data);
+        return Order::create($data, $partial);
     }
 }

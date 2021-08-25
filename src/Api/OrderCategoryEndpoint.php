@@ -23,8 +23,8 @@ class OrderCategoryEndpoint extends AbstractEndpoint
         parent::__construct($client, 'order/category');
     }
 
-    protected function createInstance(array $data): OrderCategory
+    protected function createInstance(array $data, bool $partial = false): OrderCategory
     {
-        return OrderCategory::create($data);
+        return OrderCategory::create($data, $partial);
     }
 }

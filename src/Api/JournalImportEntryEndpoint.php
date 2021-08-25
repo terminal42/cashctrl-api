@@ -23,8 +23,8 @@ class JournalImportEntryEndpoint extends AbstractEndpoint
         parent::__construct($client, 'journal/import/entry');
     }
 
-    protected function createInstance(array $data): JournalImportEntry
+    protected function createInstance(array $data, bool $partial = false): JournalImportEntry
     {
-        return JournalImportEntry::create($data);
+        return JournalImportEntry::create($data, $partial);
     }
 }

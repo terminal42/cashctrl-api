@@ -23,8 +23,8 @@ class InventoryServiceCategoryEndpoint extends AbstractEndpoint
         parent::__construct($client, 'inventory/service/category');
     }
 
-    protected function createInstance(array $data): InventoryServiceCategory
+    protected function createInstance(array $data, bool $partial = false): InventoryServiceCategory
     {
-        return InventoryServiceCategory::create($data);
+        return InventoryServiceCategory::create($data, $partial);
     }
 }

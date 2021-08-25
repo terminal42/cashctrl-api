@@ -379,9 +379,9 @@ class Person extends AbstractEntity
         return $this;
     }
 
-    public static function create(array $data): Person
+    public static function create(array $data, bool $partial = false): Person
     {
-        $instance = parent::create($data);
+        $instance = parent::create($data, $partial);
 
         if (isset($data['addresses']) && \is_array($data['addresses'])) {
             $instance->setAddresses(null);

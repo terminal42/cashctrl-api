@@ -23,8 +23,8 @@ class InventoryServiceEndpoint extends AbstractEndpoint
         parent::__construct($client, 'inventory/service');
     }
 
-    protected function createInstance(array $data): InventoryService
+    protected function createInstance(array $data, bool $partial = false): InventoryService
     {
-        return InventoryService::create($data);
+        return InventoryService::create($data, $partial);
     }
 }

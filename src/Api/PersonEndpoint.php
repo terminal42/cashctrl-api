@@ -37,8 +37,8 @@ class PersonEndpoint extends AbstractCRUDEndpoint
         return $this->post('categorize.json', ['ids' => implode(',', $ids), 'target' => $target]);
     }
 
-    protected function createInstance(array $data): Person
+    protected function createInstance(array $data, bool $partial = false): Person
     {
-        return Person::create($data);
+        return Person::create($data, $partial);
     }
 }

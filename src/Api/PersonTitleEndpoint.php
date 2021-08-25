@@ -23,8 +23,8 @@ class PersonTitleEndpoint extends AbstractEndpoint
         parent::__construct($client, 'person/title');
     }
 
-    protected function createInstance(array $data): PersonTitle
+    protected function createInstance(array $data, bool $partial = false): PersonTitle
     {
-        return PersonTitle::create($data);
+        return PersonTitle::create($data, $partial);
     }
 }

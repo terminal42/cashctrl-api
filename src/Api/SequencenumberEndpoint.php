@@ -33,8 +33,8 @@ class SequencenumberEndpoint extends AbstractEndpoint
         return (string) $this->get('get', ['type' => $type, 'categoryId' => $categoryId]);
     }
 
-    protected function createInstance(array $data): Sequencenumber
+    protected function createInstance(array $data, bool $partial = false): Sequencenumber
     {
-        return Sequencenumber::create($data);
+        return Sequencenumber::create($data, $partial);
     }
 }

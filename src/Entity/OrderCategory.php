@@ -354,9 +354,9 @@ class OrderCategory extends AbstractEntity
         return $this;
     }
 
-    public static function create(array $data): self
+    public static function create(array $data, bool $partial = false): self
     {
-        $instance = parent::create($data);
+        $instance = parent::create($data, $partial);
 
         if (isset($data['status']) && \is_array($data['status'])) {
             $instance->setStatus([]);

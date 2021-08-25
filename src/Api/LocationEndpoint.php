@@ -23,8 +23,8 @@ class LocationEndpoint extends AbstractEndpoint
         parent::__construct($client, 'location');
     }
 
-    protected function createInstance(array $data): Location
+    protected function createInstance(array $data, bool $partial = false): Location
     {
-        return Location::create($data);
+        return Location::create($data, $partial);
     }
 }

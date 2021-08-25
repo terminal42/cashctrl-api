@@ -23,8 +23,8 @@ class JournalEndpoint extends AbstractEndpoint
         parent::__construct($client, 'journal');
     }
 
-    protected function createInstance(array $data): Journal
+    protected function createInstance(array $data, bool $partial = false): Journal
     {
-        return Journal::create($data);
+        return Journal::create($data, $partial);
     }
 }

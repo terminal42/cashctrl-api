@@ -23,8 +23,8 @@ class OrderTemplateEndpoint extends AbstractEndpoint
         parent::__construct($client, 'order/template');
     }
 
-    protected function createInstance(array $data): OrderTemplate
+    protected function createInstance(array $data, bool $partial = false): OrderTemplate
     {
-        return OrderTemplate::create($data);
+        return OrderTemplate::create($data, $partial);
     }
 }

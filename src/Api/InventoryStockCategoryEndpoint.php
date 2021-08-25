@@ -23,8 +23,8 @@ class InventoryStockCategoryEndpoint extends AbstractEndpoint
         parent::__construct($client, 'inventory/stock/category');
     }
 
-    protected function createInstance(array $data): InventoryStockCategory
+    protected function createInstance(array $data, bool $partial = false): InventoryStockCategory
     {
-        return InventoryStockCategory::create($data);
+        return InventoryStockCategory::create($data, $partial);
     }
 }

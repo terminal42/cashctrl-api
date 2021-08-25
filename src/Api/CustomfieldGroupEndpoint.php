@@ -23,8 +23,8 @@ class CustomfieldGroupEndpoint extends AbstractEndpoint
         parent::__construct($client, 'customfield/group');
     }
 
-    protected function createInstance(array $data): CustomfieldGroup
+    protected function createInstance(array $data, bool $partial = false): CustomfieldGroup
     {
-        return CustomfieldGroup::create($data);
+        return CustomfieldGroup::create($data, $partial);
     }
 }

@@ -23,8 +23,8 @@ class TaxEndpoint extends AbstractEndpoint
         parent::__construct($client, 'tax');
     }
 
-    protected function createInstance(array $data): Tax
+    protected function createInstance(array $data, bool $partial = false): Tax
     {
-        return Tax::create($data);
+        return Tax::create($data, $partial);
     }
 }

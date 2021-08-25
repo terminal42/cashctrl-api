@@ -9,7 +9,7 @@ abstract class AbstractEndpoint extends AbstractCRUDEndpoint
     public function list(): ListFilter
     {
         return new ListFilter($this->client, $this->urlPrefix, function (array $data) {
-            return $this->createInstance($data);
+            return $this->createInstance($data, true);
         });
     }
 }

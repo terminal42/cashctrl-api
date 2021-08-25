@@ -23,8 +23,8 @@ class InventoryAssetEndpoint extends AbstractEndpoint
         parent::__construct($client, 'inventory/asset');
     }
 
-    protected function createInstance(array $data): InventoryAsset
+    protected function createInstance(array $data, bool $partial = false): InventoryAsset
     {
-        return InventoryAsset::create($data);
+        return InventoryAsset::create($data, $partial);
     }
 }

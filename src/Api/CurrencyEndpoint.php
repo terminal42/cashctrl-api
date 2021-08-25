@@ -34,8 +34,8 @@ class CurrencyEndpoint extends AbstractEndpoint
         return $this->get('exchangerate', $params);
     }
 
-    protected function createInstance(array $data): Currency
+    protected function createInstance(array $data, bool $partial = false): Currency
     {
-        return Currency::create($data);
+        return Currency::create($data, $partial);
     }
 }

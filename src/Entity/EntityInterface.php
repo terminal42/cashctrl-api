@@ -10,5 +10,9 @@ interface EntityInterface
 
     public function toArray(): array;
 
-    public static function create(array $data);
+    public function isPartial(): bool;
+
+    public function merge(EntityInterface $entity): self;
+
+    public static function create(array $data, bool $partial = false);
 }

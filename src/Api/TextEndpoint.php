@@ -23,8 +23,8 @@ class TextEndpoint extends AbstractEndpoint
         parent::__construct($client, 'text');
     }
 
-    protected function createInstance(array $data): Text
+    protected function createInstance(array $data, bool $partial = false): Text
     {
-        return Text::create($data);
+        return Text::create($data, $partial);
     }
 }

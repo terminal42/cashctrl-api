@@ -34,8 +34,8 @@ class PersonCategoryEndpoint extends AbstractEndpoint
         return $this->get('tree.json', $params);
     }
 
-    protected function createInstance(array $data): PersonCategory
+    protected function createInstance(array $data, bool $partial = false): PersonCategory
     {
-        return PersonCategory::create($data);
+        return PersonCategory::create($data, $partial);
     }
 }
