@@ -23,6 +23,11 @@ class FiscalperiodEndpoint extends AbstractEndpoint
         parent::__construct($client, 'fiscalperiod');
     }
 
+    public function switch(int $id)
+    {
+        return $this->get('switch.json', ['id' => $id]);
+    }
+
     protected function createInstance(array $data): Fiscalperiod
     {
         return Fiscalperiod::create($data);
