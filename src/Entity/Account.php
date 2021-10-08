@@ -9,12 +9,12 @@ class Account extends AbstractEntity
     protected int $categoryId;
     protected string $name;
     protected string $number;
-    protected ?int $currencyId;
-    protected ?bool $isInactive;
-    protected ?string $notes;
-    protected ?float $targetMax;
-    protected ?float $targetMin;
-    protected ?int $taxId;
+    protected ?int $currencyId = null;
+    protected ?bool $isInactive = null;
+    protected ?string $notes = null;
+    protected ?float $targetMax = null;
+    protected ?float $targetMin = null;
+    protected ?int $taxId = null;
 
     public function __construct(int $categoryId, string $name, string $number, int $id = null)
     {
