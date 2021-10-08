@@ -10,10 +10,10 @@ use Terminal42\CashctrlApi\Result;
 use Terminal42\CashctrlApi\Api\Filter\ListFilter;
 
 /**
- * @method JournalEndpoint read(int $id)
- * @method JournalEndpoint[]|ListFilter list()
- * @method Result create(JournalEndpoint $entity)
- * @method Result update(JournalEndpoint $entity)
+ * @method Journal read(int $id)
+ * @method Journal[]|ListFilter list()
+ * @method Result create(Journal $entity)
+ * @method Result update(Journal $entity)
  * @method Result delete(array $ids)
  */
 class JournalEndpoint extends AbstractEndpoint
