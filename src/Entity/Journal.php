@@ -28,7 +28,7 @@ class Journal extends AbstractEntity
     protected ?string $associateId = null;
     protected ?int $currencyId = null;
     protected ?float $currencyRate = null;
-    protected ?\DateTime $dateAdded = null;
+    protected ?\DateTimeInterface $dateAdded = null;
     protected ?int $daysBefore = null;
     protected ?string $notes = null;
     protected ?string $notifyEmail = null;
@@ -39,10 +39,10 @@ class Journal extends AbstractEntity
     protected ?int $sequenceNumberId = null;
     protected ?int $taxId = null;
     protected ?string $recurrence = null;
-    protected ?\DateTime $startDate = null;
-    protected ?\DateTime $endDate = null;
+    protected ?\DateTimeInterface $startDate = null;
+    protected ?\DateTimeInterface $endDate = null;
 
-    public function __construct(float $amount, int $creditId, int $debitId, \DateTime $dateAdded, int $id = null)
+    public function __construct(float $amount, int $creditId, int $debitId, \DateTimeInterface $dateAdded, int $id = null)
     {
         parent::__construct($id);
 
@@ -129,12 +129,12 @@ class Journal extends AbstractEntity
         return $this;
     }
 
-    public function getDateAdded(): ?\DateTime
+    public function getDateAdded(): ?\DateTimeInterface
     {
         return $this->dateAdded;
     }
 
-    public function setDateAdded(?\DateTime $dateAdded): Journal
+    public function setDateAdded(?\DateTimeInterface $dateAdded): Journal
     {
         $this->dateAdded = $dateAdded;
         return $this;
@@ -250,23 +250,23 @@ class Journal extends AbstractEntity
         return $this;
     }
 
-    public function getStartDate(): ?\DateTime
+    public function getStartDate(): ?\DateTimeInterface
     {
         return $this->startDate;
     }
 
-    public function setStartDate(?\DateTime $startDate): Journal
+    public function setStartDate(?\DateTimeInterface $startDate): Journal
     {
         $this->startDate = $startDate;
         return $this;
     }
 
-    public function getEndDate(): ?\DateTime
+    public function getEndDate(): ?\DateTimeInterface
     {
         return $this->endDate;
     }
 
-    public function setEndDate(?\DateTime $endDate): Journal
+    public function setEndDate(?\DateTimeInterface $endDate): Journal
     {
         $this->endDate = $endDate;
         return $this;

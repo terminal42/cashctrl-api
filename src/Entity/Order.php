@@ -70,14 +70,14 @@ class Order extends AbstractEntity
 
     protected int $associateId;
     protected int $categoryId;
-    protected \DateTime $date;
+    protected \DateTimeInterface $date;
     protected ?int $accountId = null;
     protected ?int $currencyId = null;
     protected ?float $currencyRate = null;
     protected ?string $description = null;
     protected ?float $discountPercentage = null;
     protected ?int $dueDays = null;
-    protected ?\DateTime $endDate = null;
+    protected ?\DateTimeInterface $endDate = null;
     protected ?int $groupId = null;
     protected ?bool $isDisplayItemGross = null;
     protected ?bool $isGrouped = null;
@@ -89,12 +89,12 @@ class Order extends AbstractEntity
     protected ?int $responsiblePersonId = null;
     protected ?int $roundingId = null;
     protected ?int $sequenceNumberId = null;
-    protected ?\DateTime $startDate = null;
+    protected ?\DateTimeInterface $startDate = null;
     protected ?int $statusId = null;
     protected ?string $custom = null;
 
 
-    public function __construct(int $associateId, int $categoryId, \DateTime $date = null, int $id = null)
+    public function __construct(int $associateId, int $categoryId, \DateTimeInterface $date = null, int $id = null)
     {
         parent::__construct($id);
 
@@ -125,12 +125,12 @@ class Order extends AbstractEntity
         return $this;
     }
 
-    public function getDate(): \DateTime
+    public function getDate(): \DateTimeInterface
     {
         return $this->date;
     }
 
-    public function setDate(\DateTime $date): self
+    public function setDate(\DateTimeInterface $date): self
     {
         $this->date = $date;
         return $this;
@@ -202,12 +202,12 @@ class Order extends AbstractEntity
         return $this;
     }
 
-    public function getEndDate(): ?\DateTime
+    public function getEndDate(): ?\DateTimeInterface
     {
         return $this->endDate;
     }
 
-    public function setEndDate(?\DateTime $endDate): self
+    public function setEndDate(?\DateTimeInterface $endDate): self
     {
         $this->endDate = $endDate;
         return $this;
@@ -369,12 +369,12 @@ class Order extends AbstractEntity
         return $this;
     }
 
-    public function getStartDate(): ?\DateTime
+    public function getStartDate(): ?\DateTimeInterface
     {
         return $this->startDate;
     }
 
-    public function setStartDate(?\DateTime $startDate): self
+    public function setStartDate(?\DateTimeInterface $startDate): self
     {
         $this->startDate = $startDate;
         return $this;

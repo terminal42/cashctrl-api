@@ -23,7 +23,7 @@ class AccountEndpoint extends AbstractEndpoint
         parent::__construct($client, 'account');
     }
 
-    public function balance(int $id, \DateTime $date = null)
+    public function balance(int $id, \DateTimeInterface $date = null)
     {
         $params = ['id' => $id];
 

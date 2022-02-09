@@ -23,7 +23,7 @@ class CurrencyEndpoint extends AbstractEndpoint
         parent::__construct($client, 'currency');
     }
 
-    public function exchangerate(string $from, string $to, \DateTime $date = null): Result
+    public function exchangerate(string $from, string $to, \DateTimeInterface $date = null): Result
     {
         $params = ['from' => $from, 'to' => $to];
 

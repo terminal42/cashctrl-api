@@ -28,7 +28,7 @@ class OrderBookentry extends AbstractEntity
     protected int $orderId;
     protected ?int $currencyId = null;
     protected ?float $currencyRate = null;
-    protected ?\DateTime $date = null;
+    protected ?\DateTimeInterface $date = null;
     protected ?string $description = null;
     protected ?string $reference = null;
     protected ?int $taxId = null;

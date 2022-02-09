@@ -42,7 +42,7 @@ class OrderEndpoint extends AbstractCRUDEndpoint
         return $this->post('update_status.json', ['id' => $id, 'statusId' => $statusId]);
     }
 
-    public function updateRecurrence(int $id, \DateTime $endDate = null, string $recurrence = null, \DateTime $startDate = null)
+    public function updateRecurrence(int $id, \DateTimeInterface $endDate = null, string $recurrence = null, \DateTimeInterface $startDate = null)
     {
         $params = ['id' => $id];
 

@@ -10,8 +10,8 @@ class Fiscalperiod extends AbstractEntity
     public const TYPE_LATEST = 'LATEST';
 
     protected ?string $name = null;
-    protected ?\DateTime $start = null;
-    protected ?\DateTime $end = null;
+    protected ?\DateTimeInterface $start = null;
+    protected ?\DateTimeInterface $end = null;
     protected ?string $type = null;
     protected ?bool $isCustom = null;
 
@@ -30,23 +30,23 @@ class Fiscalperiod extends AbstractEntity
         return $this;
     }
 
-    public function getStart(): ?\DateTime
+    public function getStart(): ?\DateTimeInterface
     {
         return $this->start;
     }
 
-    public function setStart(?\DateTime $start): Fiscalperiod
+    public function setStart(?\DateTimeInterface $start): Fiscalperiod
     {
         $this->start = $start;
         return $this;
     }
 
-    public function getEnd(): ?\DateTime
+    public function getEnd(): ?\DateTimeInterface
     {
         return $this->end;
     }
 
-    public function setEnd(?\DateTime $end): Fiscalperiod
+    public function setEnd(?\DateTimeInterface $end): Fiscalperiod
     {
         $this->end = $end;
         return $this;
