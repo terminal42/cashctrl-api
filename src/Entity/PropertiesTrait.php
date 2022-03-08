@@ -63,8 +63,8 @@ trait PropertiesTrait
 
             if (null !== $type && null !== $v) {
                 if ($type->isBuiltin()) {
-                    settype($v, (string) $type);
-                } elseif (\is_a((string) $type, \DateTimeInterface::class, true)) {
+                    settype($v, $type->getName());
+                } elseif (\is_a($type->getName(), \DateTimeInterface::class, true)) {
                     try {
                         $v = ApiClient::parseDateTime($v);
                     } catch (InvalidArgumentException $e) {
