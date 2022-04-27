@@ -70,6 +70,6 @@ class OrderCategoryStatus implements \JsonSerializable
             'isBook' => $this->isBook,
             'isClosed' => $this->isClosed,
             'isRemoveStock' => $this->isRemoveStock,
-        ]);
+        ], static fn ($v) => null !== $v);
     }
 }

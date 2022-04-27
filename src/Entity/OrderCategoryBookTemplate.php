@@ -24,6 +24,6 @@ class OrderCategoryBookTemplate implements \JsonSerializable
             'name' => $this->name,
             'isAllowTax' => $this->isAllowTax,
             'taxId' => $this->taxId,
-        ]);
+        ], static fn ($v) => null !== $v);
     }
 }

@@ -34,6 +34,6 @@ class PersonAddress implements \JsonSerializable
             'zip' => $this->zip,
             'city' => $this->city,
             'country' => $this->country,
-        ]);
+        ], static fn ($v) => null !== $v);
     }
 }

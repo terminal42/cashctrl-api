@@ -44,6 +44,6 @@ class OrderItem implements \JsonSerializable
             'taxId' => $this->taxId,
             'type' => $this->type,
             'unitId' => $this->unitId,
-        ]);
+        ], static fn ($v) => null !== $v);
     }
 }
