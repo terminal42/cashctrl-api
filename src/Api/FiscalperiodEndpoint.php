@@ -10,7 +10,7 @@ use Terminal42\CashctrlApi\Result;
 use Terminal42\CashctrlApi\Api\Filter\ListFilter;
 
 /**
- * @method Fiscalperiod read(int $id)
+ * @method Fiscalperiod|null read(int $id)
  * @method Fiscalperiod[]|ListFilter list()
  * @method Result create(Fiscalperiod $entity)
  * @method Result update(Fiscalperiod $entity)

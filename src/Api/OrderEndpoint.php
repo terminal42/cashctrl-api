@@ -10,7 +10,7 @@ use Terminal42\CashctrlApi\Result;
 use Terminal42\CashctrlApi\Api\Filter\OrderListFilter;
 
 /**
- * @method Order read(int $id)
+ * @method Order|null read(int $id)
  * @method Result create(Order $entity)
  * @method Result update(Order $entity)
  * @method Result delete(array $ids)

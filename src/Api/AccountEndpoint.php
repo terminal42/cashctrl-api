@@ -10,7 +10,7 @@ use Terminal42\CashctrlApi\Entity\Account;
 use Terminal42\CashctrlApi\Result;
 
 /**
- * @method Account read(int $id)
+ * @method Account|null read(int $id)
  * @method Result create(Account $account)
  * @method Result update(Account $account)
  * @method Result delete(array $ids)

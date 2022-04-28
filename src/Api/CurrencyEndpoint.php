@@ -10,7 +10,7 @@ use Terminal42\CashctrlApi\Result;
 use Terminal42\CashctrlApi\Api\Filter\ListFilter;
 
 /**
- * @method Currency read(int $id)
+ * @method Currency|null read(int $id)
  * @method Currency[]|ListFilter list()
  * @method Result create(Currency $entity)
  * @method Result update(Currency $entity)

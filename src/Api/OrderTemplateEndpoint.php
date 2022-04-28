@@ -10,7 +10,7 @@ use Terminal42\CashctrlApi\Result;
 use Terminal42\CashctrlApi\Api\Filter\ListFilter;
 
 /**
- * @method OrderTemplate read(int $id)
+ * @method OrderTemplate|null read(int $id)
  * @method OrderTemplate[]|ListFilter list()
  * @method Result create(OrderTemplate $entity)
  * @method Result update(OrderTemplate $entity)

@@ -10,7 +10,7 @@ use Terminal42\CashctrlApi\Result;
 use Terminal42\CashctrlApi\Api\Filter\CustomfieldListFilter;
 
 /**
- * @method Customfield read(int $id)
+ * @method Customfield|null read(int $id)
  * @method Result create(Customfield $customfield)
  * @method Result update(Customfield $customfield)
  * @method Result delete(array $ids)

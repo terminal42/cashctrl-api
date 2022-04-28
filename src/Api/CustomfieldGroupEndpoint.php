@@ -10,7 +10,7 @@ use Terminal42\CashctrlApi\Result;
 use Terminal42\CashctrlApi\Api\Filter\ListFilter;
 
 /**
- * @method CustomfieldGroup read(int $id)
+ * @method CustomfieldGroup|null read(int $id)
  * @method CustomfieldGroup[]|ListFilter list()
  * @method Result create(CustomfieldGroup $entity)
  * @method Result update(CustomfieldGroup $entity)

@@ -10,7 +10,7 @@ use Terminal42\CashctrlApi\Result;
 use Terminal42\CashctrlApi\Api\Filter\ListFilter;
 
 /**
- * @method InventoryService read(int $id)
+ * @method InventoryService|null read(int $id)
  * @method InventoryService[]|ListFilter list()
  * @method Result create(InventoryService $entity)
  * @method Result update(InventoryService $entity)

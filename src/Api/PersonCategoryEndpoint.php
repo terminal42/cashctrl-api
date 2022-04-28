@@ -10,7 +10,7 @@ use Terminal42\CashctrlApi\Result;
 use Terminal42\CashctrlApi\Api\Filter\ListFilter;
 
 /**
- * @method PersonCategory read(int $id)
+ * @method PersonCategory|null read(int $id)
  * @method PersonCategory[]|ListFilter list()
  * @method Result create(PersonCategory $entity)
  * @method Result update(PersonCategory $entity)

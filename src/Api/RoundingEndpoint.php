@@ -10,7 +10,7 @@ use Terminal42\CashctrlApi\Result;
 use Terminal42\CashctrlApi\Api\Filter\ListFilter;
 
 /**
- * @method Rounding read(int $id)
+ * @method Rounding|null read(int $id)
  * @method Rounding[]|ListFilter list()
  * @method Result create(Rounding $entity)
  * @method Result update(Rounding $entity)
