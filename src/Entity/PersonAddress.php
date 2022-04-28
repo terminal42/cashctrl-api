@@ -4,18 +4,20 @@ declare(strict_types=1);
 
 namespace Terminal42\CashctrlApi\Entity;
 
-class PersonAddress implements \JsonSerializable
+class PersonAddress implements PropertiesInterface
 {
+    use PropertiesTrait;
+
     public const TYPE_MAIN = 'MAIN';
     public const TYPE_INVOICE = 'INVOICE';
     public const TYPE_DELIVERY = 'DELIVERY';
     public const TYPE_OTHER = 'OTHER';
 
-    public string $type;
-    public ?string $address = null;
-    public ?string $zip = null;
-    public ?string $city = null;
-    public ?string $country = null;
+    protected string $type;
+    protected ?string $address = null;
+    protected ?string $zip = null;
+    protected ?string $city = null;
+    protected ?string $country = null;
 
     public function __construct(string $type, string $address = null, string $zip = null, string $city = null, string $country = null)
     {
@@ -26,14 +28,58 @@ class PersonAddress implements \JsonSerializable
         $this->country = $country;
     }
 
-    public function jsonSerialize(): array
+    public function getType(): string
     {
-        return array_filter([
-            'type' => $this->type,
-            'address' => $this->address,
-            'zip' => $this->zip,
-            'city' => $this->city,
-            'country' => $this->country,
-        ], static fn ($v) => null !== $v);
+        return $this->type;
+    }
+
+    public function setType(string $type): self
+    {
+        $this->type = $type;
+        return $this;
+    }
+
+    public function getAddress(): ?string
+    {
+        return $this->address;
+    }
+
+    public function setAddress(?string $address): self
+    {
+        $this->address = $address;
+        return $this;
+    }
+
+    public function getZip(): ?string
+    {
+        return $this->zip;
+    }
+
+    public function setZip(?string $zip): self
+    {
+        $this->zip = $zip;
+        return $this;
+    }
+
+    public function getCity(): ?string
+    {
+        return $this->city;
+    }
+
+    public function setCity(?string $city): self
+    {
+        $this->city = $city;
+        return $this;
+    }
+
+    public function getCountry(): ?string
+    {
+        return $this->country;
+    }
+
+    public function setCountry(?string $country): self
+    {
+        $this->country = $country;
+        return $this;
     }
 }

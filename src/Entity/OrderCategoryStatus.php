@@ -6,8 +6,10 @@ namespace Terminal42\CashctrlApi\Entity;
 
 use Terminal42\CashctrlApi\XmlHelper;
 
-class OrderCategoryStatus implements \JsonSerializable
+class OrderCategoryStatus implements PropertiesInterface
 {
+    use PropertiesTrait;
+
     public const ICON_BLUE = 'BLUE';
     public const ICON_GREEN = 'GREEN';
     public const ICON_RED = 'RED';
@@ -19,18 +21,95 @@ class OrderCategoryStatus implements \JsonSerializable
     public const ICON_VIOLET = 'VIOLET';
     public const ICON_PINK = 'PINK';
 
-    public string $icon;
-    public string $name;
-    public ?string $actionId = null;
-    public ?bool $isAddStock = null;
-    public ?bool $isBook = null;
-    public ?bool $isClosed = null;
-    public ?bool $isRemoveStock = null;
+    protected string $icon;
+    protected string $name;
+    protected ?string $actionId = null;
+    protected ?bool $isAddStock = null;
+    protected ?bool $isBook = null;
+    protected ?bool $isClosed = null;
+    protected ?bool $isRemoveStock = null;
 
     public function __construct(string $icon, string $name)
     {
         $this->icon = $icon;
         $this->name = $name;
+    }
+
+    public function getIcon(): string
+    {
+        return $this->icon;
+    }
+
+    public function setIcon(string $icon): self
+    {
+        $this->icon = $icon;
+        return $this;
+    }
+
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): self
+    {
+        $this->name = $name;
+        return $this;
+    }
+
+    public function getActionId(): ?string
+    {
+        return $this->actionId;
+    }
+
+    public function setActionId(?string $actionId): self
+    {
+        $this->actionId = $actionId;
+        return $this;
+    }
+
+    public function getIsAddStock(): ?bool
+    {
+        return $this->isAddStock;
+    }
+
+    public function setIsAddStock(?bool $isAddStock): self
+    {
+        $this->isAddStock = $isAddStock;
+        return $this;
+    }
+
+    public function getIsBook(): ?bool
+    {
+        return $this->isBook;
+    }
+
+    public function setIsBook(?bool $isBook): self
+    {
+        $this->isBook = $isBook;
+        return $this;
+    }
+
+    public function getIsClosed(): ?bool
+    {
+        return $this->isClosed;
+    }
+
+    public function setIsClosed(?bool $isClosed): self
+    {
+        $this->isClosed = $isClosed;
+        return $this;
+    }
+
+    public function getIsRemoveStock(): ?bool
+    {
+        return $this->isRemoveStock;
+    }
+
+    public function setIsRemoveStock(?bool $isRemoveStock): self
+    {
+        $this->isRemoveStock = $isRemoveStock;
+        return $this;
     }
 
     public function getLocaleName(string $language): string
@@ -58,18 +137,5 @@ class OrderCategoryStatus implements \JsonSerializable
         $this->name = XmlHelper::dumpValues($data);
 
         return $this;
-    }
-
-    public function jsonSerialize(): array
-    {
-        return array_filter([
-            'icon' => $this->icon,
-            'name' => $this->name,
-            'actionId' => $this->actionId,
-            'isAddStock' => $this->isAddStock,
-            'isBook' => $this->isBook,
-            'isClosed' => $this->isClosed,
-            'isRemoveStock' => $this->isRemoveStock,
-        ], static fn ($v) => null !== $v);
     }
 }

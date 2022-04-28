@@ -55,7 +55,6 @@ use Terminal42\CashctrlApi\XmlHelper;
  * @property-read bool $isDisplayItemGross
  * @property-read bool $hasDueDays
  * @property-read bool $isCreditNote
- *
  */
 class Order extends AbstractEntity
 {
@@ -430,5 +429,18 @@ class Order extends AbstractEntity
         $this->custom = XmlHelper::dumpValues($data);
 
         return $this;
+    }
+
+    public static function create(array $data): self
+    {
+        if (\is_array($data['items'])) {
+            $items = [];
+            foreach ($data['items'] as $item) {
+                $items[] = OrderItem::create($item);
+            }
+            $data['items'] = $items;
+        }
+
+        return parent::create($data);
     }
 }

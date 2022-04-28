@@ -28,9 +28,9 @@ trait PropertiesTrait
             // TODO what about time?
             if ($value instanceof \DateTimeInterface) {
                 $value = $value->format('Y-m-d');
-            }
-
-            if (\is_array($value) || $value instanceof \JsonSerializable) {
+            } elseif ($value instanceof PropertiesInterface) {
+                $value = $value->toArray();
+            } elseif (\is_array($value) || $value instanceof \JsonSerializable) {
                 $value = \json_encode($value, JSON_THROW_ON_ERROR);
             }
 
@@ -70,6 +70,10 @@ trait PropertiesTrait
                     } catch (InvalidArgumentException $e) {
                         continue;
                     }
+                } elseif (is_a($type->getName(), PropertiesInterface::class, true)) {
+                    /** @var PropertiesInterface $class */
+                    $class = $type->getName();
+                    $v = $class::create($v);
                 } else {
                     continue;
                 }
