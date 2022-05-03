@@ -25,12 +25,9 @@ trait PropertiesTrait
                 continue;
             }
 
-            // TODO what about time?
-            if ($value instanceof \DateTimeInterface) {
-                $value = $value->format('Y-m-d');
-            } elseif ($value instanceof PropertiesInterface) {
-                $value = $value->toArray();
-            } elseif (\is_array($value) || $value instanceof \JsonSerializable) {
+            $value = $this->convertValue($value);
+
+            if (\is_array($value) || $value instanceof \JsonSerializable) {
                 $value = \json_encode($value, JSON_THROW_ON_ERROR);
             }
 
@@ -38,6 +35,22 @@ trait PropertiesTrait
         }
 
         return $data;
+    }
+
+    private function convertValue($value)
+    {
+        if (\is_array($value)) {
+            foreach ($value as &$v) {
+                $v = $this->convertValue($v);
+            }
+        } elseif ($value instanceof \DateTimeInterface) {
+            // TODO what about time?
+            $value = $value->format('Y-m-d');
+        } elseif ($value instanceof PropertiesInterface) {
+            $value = $value->toArray();
+        }
+
+        return $value;
     }
 
     public static function create(array $data): self
