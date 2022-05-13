@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace Terminal42\CashctrlApi\Entity;
 
-class PersonContact implements \JsonSerializable
+class PersonContact implements PropertiesInterface
 {
+    use PropertiesTrait;
+
     public const PURPOSE_PRIVATE = 'PRIVATE';
     public const PURPOSE_WORK = 'WORK';
     public const PURPOSE_RECEPTION = 'RECEPTION';
@@ -19,9 +21,9 @@ class PersonContact implements \JsonSerializable
     public const TYPE_WEBSITE = 'WEBSITE';
     public const TYPE_OTHER = 'OTHER';
 
-    public string $address;
-    public string $purpose;
-    public string $type;
+    protected string $address;
+    protected string $purpose;
+    protected string $type;
 
     public function __construct(string $address, string $purpose, string $type)
     {
@@ -30,12 +32,36 @@ class PersonContact implements \JsonSerializable
         $this->type = $type;
     }
 
-    public function jsonSerialize(): array
+    public function getAddress(): string
     {
-        return [
-            'address' => $this->address,
-            'purpose' => $this->purpose,
-            'type' => $this->type,
-        ];
+        return $this->address;
+    }
+
+    public function setAddress(string $address): self
+    {
+        $this->address = $address;
+        return $this;
+    }
+
+    public function getPurpose(): string
+    {
+        return $this->purpose;
+    }
+
+    public function setPurpose(string $purpose): self
+    {
+        $this->purpose = $purpose;
+        return $this;
+    }
+
+    public function getType(): string
+    {
+        return $this->type;
+    }
+
+    public function setType(string $type): self
+    {
+        $this->type = $type;
+        return $this;
     }
 }
