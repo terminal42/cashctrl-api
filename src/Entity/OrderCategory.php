@@ -363,11 +363,11 @@ class OrderCategory extends AbstractEntity
             $instance->setStatus([]);
             foreach ($data['status'] as $row) {
                 $status = new OrderCategoryStatus($row['icon'], $row['name']);
-                $status->actionId = $row['actionId'] ?? null;
-                $status->isAddStock = $row['isAddStock'] ?? null;
-                $status->isBook = $row['isBook'] ?? null;
-                $status->isClosed = $row['isClosed'] ?? null;
-                $status->isRemoveStock = $row['isRemoveStock'] ?? null;
+                $status->setActionId($row['actionId']);
+                $status->setIsAddStock($row['isAddStock'] ?? null);
+                $status->setIsBook($row['isBook'] ?? null);
+                $status->setIsClosed($row['isClosed'] ?? null);
+                $status->setIsRemoveStock($row['isRemoveStock'] ?? null);
                 $instance->addStatus($status);
             }
         }
