@@ -286,6 +286,7 @@ class Order extends AbstractEntity
 
         if (false !== ($key = array_search($item, $this->items, true))) {
             unset($this->items[$key]);
+            $this->items = array_values($this->items);
         }
 
         return $this;

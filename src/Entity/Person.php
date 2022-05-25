@@ -294,6 +294,7 @@ class Person extends AbstractEntity
 
         if (false !== ($key = array_search($address, $this->addresses, true))) {
             unset($this->addresses[$key]);
+            $this->addresses = array_values($this->addresses);
         }
 
         return $this;
@@ -344,6 +345,7 @@ class Person extends AbstractEntity
 
         if (false !== ($key = array_search($contact, $this->contacts, true))) {
             unset($this->contacts[$key]);
+            $this->contacts = array_values($this->contacts);
         }
 
         return $this;

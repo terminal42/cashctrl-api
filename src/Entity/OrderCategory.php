@@ -349,6 +349,7 @@ class OrderCategory extends AbstractEntity
 
         if (false !== ($key = array_search($bookTemplate, $this->bookTemplates, true))) {
             unset($this->bookTemplates[$key]);
+            $this->bookTemplates = array_values($this->bookTemplates);
         }
 
         return $this;
