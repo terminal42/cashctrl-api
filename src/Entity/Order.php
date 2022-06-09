@@ -434,7 +434,7 @@ class Order extends AbstractEntity
 
     public static function create(array $data): self
     {
-        if (\is_array($data['items'])) {
+        if (\is_array($data['items'] ?? null)) {
             $items = [];
             foreach ($data['items'] as $item) {
                 $items[] = OrderItem::create($item);
