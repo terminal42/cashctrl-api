@@ -401,7 +401,7 @@ class Person extends AbstractEntity
         if (isset($data['contacts']) && \is_array($data['contacts'])) {
             $instance->setContacts(null);
             foreach ($data['contacts'] as $row) {
-                $instance->addContact(new PersonContact($row['address'], $row['purpose'], $row['type']));
+                $instance->addContact(new PersonContact($row['address'], $row['type']));
             }
         }
 

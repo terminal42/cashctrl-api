@@ -8,27 +8,25 @@ class PersonContact implements PropertiesInterface
 {
     use PropertiesTrait;
 
-    public const PURPOSE_PRIVATE = 'PRIVATE';
-    public const PURPOSE_WORK = 'WORK';
-    public const PURPOSE_RECEPTION = 'RECEPTION';
-    public const PURPOSE_INVOICE = 'INVOICE';
-
-    public const TYPE_EMAIL = 'EMAIL';
-    public const TYPE_PHONE = 'PHONE';
-    public const TYPE_MOBILE = 'MOBILE';
+    public const TYPE_EMAIL_INVOICE = 'EMAIL_INVOICE';
+    public const TYPE_EMAIL_WORK = 'EMAIL_WORK';
+    public const TYPE_EMAIL_PRIVATE = 'EMAIL_PRIVATE';
+    public const TYPE_PHONE_RECEPTION = 'PHONE_RECEPTION';
+    public const TYPE_PHONE_WORK = 'PHONE_WORK';
+    public const TYPE_PHONE_PRIVATE = 'PHONE_PRIVATE';
+    public const TYPE_MOBILE_WORK = 'MOBILE_WORK';
+    public const TYPE_MOBILE_PRIVATE = 'MOBILE_PRIVATE';
     public const TYPE_FAX = 'FAX';
-    public const TYPE_SKYPE = 'SKYPE';
     public const TYPE_WEBSITE = 'WEBSITE';
+    public const TYPE_MESSENGER = 'MESSENGER';
     public const TYPE_OTHER = 'OTHER';
 
     protected string $address;
-    protected string $purpose;
     protected string $type;
 
-    public function __construct(string $address, string $purpose, string $type)
+    public function __construct(string $address, string $type)
     {
         $this->address = $address;
-        $this->purpose = $purpose;
         $this->type = $type;
     }
 
@@ -40,17 +38,6 @@ class PersonContact implements PropertiesInterface
     public function setAddress(string $address): self
     {
         $this->address = $address;
-        return $this;
-    }
-
-    public function getPurpose(): string
-    {
-        return $this->purpose;
-    }
-
-    public function setPurpose(string $purpose): self
-    {
-        $this->purpose = $purpose;
         return $this;
     }
 
