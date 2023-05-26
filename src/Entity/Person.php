@@ -27,6 +27,7 @@ class Person extends AbstractEntity
     protected ?string $position = null;
     protected ?int $sequenceNumberId = null;
     protected ?int $titleId = null;
+    protected ?string $vatUid = null;
 
     /**
      * @var PersonAddress[]
@@ -246,6 +247,17 @@ class Person extends AbstractEntity
     public function setTitleId(?int $titleId): self
     {
         $this->titleId = $titleId;
+        return $this;
+    }
+
+    public function getVatUid(): ?string
+    {
+        return $this->vatUid;
+    }
+
+    public function setVatUid(?string $vatUid): self
+    {
+        $this->vatUid = $vatUid;
         return $this;
     }
 
