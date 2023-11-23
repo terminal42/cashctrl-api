@@ -27,6 +27,7 @@ class ApiClient implements ApiClientInterface
     private RequestFactoryInterface $requestFactory;
     private StreamFactoryInterface $streamFactory;
     private string $apiBase;
+    private string $apiKey;
 
     private bool $throttled = false;
     private int $requestCount = 0;
@@ -37,7 +38,8 @@ class ApiClient implements ApiClientInterface
         $this->httpClient = $httpClient;
         $this->requestFactory = $requestFactory;
         $this->streamFactory = $streamFactory;
-        $this->apiBase = 'https://'.$apiKey.'@'.$subdomain.'.cashctrl.com/api/v1/';
+        $this->apiBase = 'https://'.$subdomain.'.cashctrl.com/api/v1/';
+        $this->apiKey = $apiKey;
     }
 
     /**
@@ -48,7 +50,10 @@ class ApiClient implements ApiClientInterface
         $this->throttle();
 
         $query = empty($params) ? '' : '?'.http_build_query($params);
-        $request = $this->requestFactory->createRequest('GET', $this->apiBase.$url.$query);
+        $request = $this->requestFactory
+            ->createRequest('GET', $this->apiBase.$url.$query)
+            ->withHeader('Authorization', 'Basic '.base64_encode($this->apiKey.':'))
+        ;
 
         $response = $this->httpClient->sendRequest($request);
 
@@ -70,6 +75,7 @@ class ApiClient implements ApiClientInterface
         $request = $this->requestFactory
             ->createRequest('POST', $this->apiBase.$url)
             ->withHeader('Content-Type', 'application/x-www-form-urlencoded')
+            ->withHeader('Authorization', 'Basic '.base64_encode($this->apiKey.':'))
             ->withBody($this->streamFactory->createStream(http_build_query($params)))
         ;
 
