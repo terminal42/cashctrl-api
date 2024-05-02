@@ -28,8 +28,6 @@ use Terminal42\CashctrlApi\XmlHelper;
  * @property-read float $total
  * @property-read float $open
  * @property-read $groupOpen
- * @property-read $currencyRate
- * @property-read $discountPercentage
  * @property-read $qrReference
  * @property-read $searchIndex
  * @property-read $nameSingular
@@ -52,7 +50,6 @@ use Terminal42\CashctrlApi\XmlHelper;
  * @property-read bool $isRemoveStock
  * @property-read bool $isAddStock
  * @property-read bool $isClosed
- * @property-read bool $isDisplayItemGross
  * @property-read bool $hasDueDays
  * @property-read bool $isCreditNote
  */
@@ -67,12 +64,19 @@ class Order extends AbstractEntity
     public const RECURRENCE_BI_WEEKLY = 'BI_WEEKLY';
     public const RECURRENCE_DAILY = 'DAILY';
 
+    public const NOTIFY_TYPE_NONE = 'NONE';
+    public const NOTIFY_TYPE_USER = 'USER';
+    public const NOTIFY_TYPE_PERSON = 'PERSON';
+    public const NOTIFY_TYPE_RESPONSIBLE_PERSON = 'RESPONSIBLE_PERSON';
+    public const NOTIFY_TYPE_EMAIL = 'EMAIL';
+
     protected int $associateId;
     protected int $categoryId;
     protected \DateTimeInterface $date;
     protected ?int $accountId = null;
     protected ?int $currencyId = null;
     protected ?float $currencyRate = null;
+    protected ?int $daysBefore = null;
     protected ?string $description = null;
     protected ?float $discountPercentage = null;
     protected ?int $dueDays = null;
@@ -81,7 +85,12 @@ class Order extends AbstractEntity
     protected ?bool $isDisplayItemGross = null;
     protected ?bool $isGrouped = null;
     protected ?array $items = null;
+    protected ?string $language = null;
     protected ?string $notes = null;
+    protected ?string $notifyEmail = null;
+    protected ?int $notifyPersonId = null;
+    protected ?string $notifyType = null;
+    protected ?int $notifyUserId = null;
     protected ?string $nr = null;
     protected ?int $previousId = null;
     protected ?string $recurrence = null;
@@ -165,6 +174,17 @@ class Order extends AbstractEntity
     public function setCurrencyRate(?float $currencyRate): self
     {
         $this->currencyRate = $currencyRate;
+        return $this;
+    }
+
+    public function getDaysBefore(): ?int
+    {
+        return $this->daysBefore;
+    }
+
+    public function setDaysBefore(?int $daysBefore): self
+    {
+        $this->daysBefore = $daysBefore;
         return $this;
     }
 
@@ -292,6 +312,17 @@ class Order extends AbstractEntity
         return $this;
     }
 
+    public function getLanguage(): ?string
+    {
+        return $this->language;
+    }
+
+    public function setLanguage(?string $language): self
+    {
+        $this->language = $language;
+        return $this;
+    }
+
     public function getNotes(): ?string
     {
         return $this->notes;
@@ -300,6 +331,50 @@ class Order extends AbstractEntity
     public function setNotes(?string $notes): self
     {
         $this->notes = $notes;
+        return $this;
+    }
+
+    public function getNotifyEmail(): ?string
+    {
+        return $this->notifyEmail;
+    }
+
+    public function setNotifyEmail(?string $notifyEmail): self
+    {
+        $this->notifyEmail = $notifyEmail;
+        return $this;
+    }
+
+    public function getNotifyPersonId(): ?int
+    {
+        return $this->notifyPersonId;
+    }
+
+    public function setNotifyPersonId(?int $notifyPersonId): self
+    {
+        $this->notifyPersonId = $notifyPersonId;
+        return $this;
+    }
+
+    public function getNotifyType(): ?string
+    {
+        return $this->notifyType;
+    }
+
+    public function setNotifyType(?string $notifyType): self
+    {
+        $this->notifyType = $notifyType;
+        return $this;
+    }
+
+    public function getNotifyUserId(): ?int
+    {
+        return $this->notifyUserId;
+    }
+
+    public function setNotifyUserId(?int $notifyUserId): self
+    {
+        $this->notifyUserId = $notifyUserId;
         return $this;
     }
 
