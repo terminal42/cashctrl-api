@@ -25,7 +25,7 @@ class ValidationErrorException extends RuntimeException
         return $this->result->errors();
     }
 
-    private function generateMessage()
+    private function generateMessage(): string
     {
         $lines = [];
         $errors = $this->getErrors();

@@ -4,17 +4,11 @@ declare(strict_types=1);
 
 namespace Terminal42\CashctrlApi\Api;
 
-use Terminal42\CashctrlApi\Api\Filter\ListFilter;
 use Terminal42\CashctrlApi\ApiClientInterface;
 use Terminal42\CashctrlApi\Entity\Location;
-use Terminal42\CashctrlApi\Result;
 
 /**
- * @method Location|null              read(int $id)
- * @method array<Location>|ListFilter list()
- * @method Result                     create(Location $entity)
- * @method Result                     update(Location $entity)
- * @method Result                     delete(array $ids)
+ * @extends AbstractEndpoint<Location>
  */
 class LocationEndpoint extends AbstractEndpoint
 {

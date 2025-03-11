@@ -8,6 +8,9 @@ use Terminal42\CashctrlApi\ApiClientInterface;
 use Terminal42\CashctrlApi\Entity\Order;
 use Terminal42\CashctrlApi\Exception\DomainException;
 
+/**
+ * @extends ListFilter<Order>
+ */
 class OrderListFilter extends ListFilter
 {
     public const TYPE_SALES = 'SALES';
@@ -49,9 +52,6 @@ class OrderListFilter extends ListFilter
         $this->client = $client;
     }
 
-    /**
-     * @return array<Order>
-     */
     public function get(): array
     {
         if (null !== $this->columns) {
@@ -61,22 +61,22 @@ class OrderListFilter extends ListFilter
         return parent::get();
     }
 
-    public function getExcel()
+    public function getExcel(): string
     {
         return $this->client->get('order/list.xlsx', $this->toArray());
     }
 
-    public function getCsv()
+    public function getCsv(): string
     {
         return $this->client->get('order/list.csv', $this->toArray());
     }
 
-    public function getPdf()
+    public function getPdf(): string
     {
         return $this->client->get('order/list.pdf', $this->toArray());
     }
 
-    public function getVCard()
+    public function getVCard(): string
     {
         return $this->client->get('order/list.vcf', $this->toArray());
     }

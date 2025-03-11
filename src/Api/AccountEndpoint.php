@@ -10,10 +10,7 @@ use Terminal42\CashctrlApi\Entity\Account;
 use Terminal42\CashctrlApi\Result;
 
 /**
- * @method Account|null read(int $id)
- * @method Result       create(Account $account)
- * @method Result       update(Account $account)
- * @method Result       delete(array $ids)
+ * @extends AbstractEndpoint<Account>
  */
 class AccountEndpoint extends AbstractEndpoint
 {
@@ -22,15 +19,12 @@ class AccountEndpoint extends AbstractEndpoint
         parent::__construct($client, 'account');
     }
 
-    /**
-     * @return array<Account>|AccountListFilter
-     */
     public function list(): AccountListFilter
     {
         return new AccountListFilter($this->client, 'account', fn (array $data) => $this->createInstance($data));
     }
 
-    public function balance(int $id, \DateTimeInterface|null $date = null)
+    public function balance(int $id, \DateTimeInterface|null $date = null): string
     {
         $params = ['id' => $id];
 

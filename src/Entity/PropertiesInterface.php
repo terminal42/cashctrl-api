@@ -8,5 +8,5 @@ interface PropertiesInterface
 {
     public function toArray(): array;
 
-    public static function create(array $data);
+    public static function create(array $data): static;
 }

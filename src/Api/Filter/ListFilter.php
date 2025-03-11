@@ -5,13 +5,14 @@ declare(strict_types=1);
 namespace Terminal42\CashctrlApi\Api\Filter;
 
 use Terminal42\CashctrlApi\ApiClientInterface;
-use Terminal42\CashctrlApi\Entity\EntityInterface;
-use Terminal42\CashctrlApi\Entity\PropertiesTrait;
 
+/**
+ * @template TEntity
+ *
+ * @implements \IteratorAggregate<TEntity>
+ */
 class ListFilter implements \IteratorAggregate
 {
-    use PropertiesTrait;
-
     public const EQUALS = 'eq';
 
     public const NOT_EQUALS = 'neq';
@@ -19,19 +20,22 @@ class ListFilter implements \IteratorAggregate
     protected array|null $filter = null;
 
     public function __construct(
-        private ApiClientInterface $client,
-        private string $urlPrefix,
-        private \Closure $createInstance,
+        private readonly ApiClientInterface $client,
+        private readonly string $urlPrefix,
+        private readonly \Closure $createInstance,
     ) {
     }
 
+    /**
+     * @return \ArrayIterator<int, TEntity>
+     */
     public function getIterator(): \ArrayIterator
     {
         return new \ArrayIterator($this->get());
     }
 
     /**
-     * @return array<EntityInterface>
+     * @return array<TEntity>
      */
     public function get(): array
     {
@@ -40,7 +44,10 @@ class ListFilter implements \IteratorAggregate
         return array_map($this->createInstance, $result->data());
     }
 
-    public function filter(string $property, $value, string|null $comparison = null): self
+    /**
+     * @return ListFilter<TEntity>
+     */
+    public function filter(string $property, float|string $value, string|null $comparison = null): self
     {
         if (null === $this->filter) {
             $this->filter = [];
@@ -55,5 +62,21 @@ class ListFilter implements \IteratorAggregate
         $this->filter[] = $filter;
 
         return $this;
+    }
+
+    /**
+     * @return array{
+     *     filter: array<array{
+     *         field: string,
+     *         value: float|string,
+     *         comparison?: string
+     *     }>
+     * }
+     */
+    public function toArray(): array
+    {
+        return [
+            'filter' => $this->filter,
+        ];
     }
 }

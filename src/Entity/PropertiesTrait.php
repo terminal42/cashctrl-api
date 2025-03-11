@@ -9,10 +9,15 @@ use Terminal42\CashctrlApi\Exception\InvalidArgumentException;
 
 trait PropertiesTrait
 {
+    /**
+     * @var array<string, mixed>
+     */
     private array $additionalData = [];
 
     /**
      * @noinspection MagicMethodsValidityInspection
+     *
+     * @return string|mixed
      */
     public function __get(string $key)
     {
@@ -27,7 +32,6 @@ trait PropertiesTrait
         $data = [];
 
         foreach ($props as $prop) {
-            $prop->setAccessible(true);
             $value = $prop->getValue($this);
 
             if (null === $value) {
@@ -46,11 +50,10 @@ trait PropertiesTrait
         return $data;
     }
 
-    public static function create(array $data): self
+    public static function create(array $data): static
     {
         $ref = new \ReflectionClass(static::class);
 
-        /** @var self $instance */
         $instance = $ref->newInstanceWithoutConstructor();
 
         foreach ($data as $k => $v) {
@@ -67,31 +70,35 @@ trait PropertiesTrait
 
             $type = $prop->getType();
 
-            if (null !== $type && null !== $v) {
+            if ($type instanceof \ReflectionNamedType && null !== $v) {
+                $class = $type->getName();
+
                 if ($type->isBuiltin()) {
-                    settype($v, $type->getName());
-                } elseif (is_a($type->getName(), \DateTimeInterface::class, true)) {
+                    settype($v, $class);
+                } elseif (is_a($class, \DateTimeInterface::class, true)) {
                     try {
                         $v = ApiClient::parseDateTime($v);
                     } catch (InvalidArgumentException) {
                         continue;
                     }
-                } elseif (is_a($type->getName(), PropertiesInterface::class, true)) {
-                    /** @var PropertiesInterface $class */
-                    $class = $type->getName();
+                } elseif (is_a($class, PropertiesInterface::class, true)) {
                     $v = $class::create($v);
                 } else {
                     continue;
                 }
             }
 
-            $prop->setAccessible(true);
             $prop->setValue($instance, $v);
         }
 
         return $instance;
     }
 
+    /**
+     * @param array|mixed|string $value
+     *
+     * @return array|mixed|string
+     */
     private function convertValue($value)
     {
         if (\is_array($value)) {

@@ -8,6 +8,9 @@ use Terminal42\CashctrlApi\ApiClientInterface;
 use Terminal42\CashctrlApi\Entity\Person;
 use Terminal42\CashctrlApi\Exception\DomainException;
 
+/**
+ * @extends ListFilter<Person>
+ */
 class PersonListFilter extends ListFilter
 {
     protected int|null $categoryId = null;
@@ -39,9 +42,6 @@ class PersonListFilter extends ListFilter
         $this->client = $client;
     }
 
-    /**
-     * @return array<Person>
-     */
     public function get(): array
     {
         if (null !== $this->columns) {
@@ -51,22 +51,22 @@ class PersonListFilter extends ListFilter
         return parent::get();
     }
 
-    public function getExcel()
+    public function getExcel(): string
     {
         return $this->client->get('person/list.xlsx', $this->toArray());
     }
 
-    public function getCsv()
+    public function getCsv(): string
     {
         return $this->client->get('person/list.csv', $this->toArray());
     }
 
-    public function getPdf()
+    public function getPdf(): string
     {
         return $this->client->get('person/list.pdf', $this->toArray());
     }
 
-    public function getVCard()
+    public function getVCard(): string
     {
         return $this->client->get('person/list.vcf', $this->toArray());
     }

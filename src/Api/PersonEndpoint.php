@@ -10,10 +10,7 @@ use Terminal42\CashctrlApi\Entity\Person;
 use Terminal42\CashctrlApi\Result;
 
 /**
- * @method Person|null read(int $id)
- * @method Result      create(Person $entity)
- * @method Result      update(Person $entity)
- * @method Result      delete(array $ids)
+ * @extends AbstractCRUDEndpoint<Person>
  */
 class PersonEndpoint extends AbstractCRUDEndpoint
 {
@@ -22,9 +19,6 @@ class PersonEndpoint extends AbstractCRUDEndpoint
         parent::__construct($client, 'person');
     }
 
-    /**
-     * @return array<Person>|PersonListFilter
-     */
     public function list(): PersonListFilter
     {
         return new PersonListFilter($this->client, 'person', fn (array $data) => $this->createInstance($data));

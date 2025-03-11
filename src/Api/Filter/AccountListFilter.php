@@ -8,6 +8,9 @@ use Terminal42\CashctrlApi\ApiClientInterface;
 use Terminal42\CashctrlApi\Entity\Account;
 use Terminal42\CashctrlApi\Exception\DomainException;
 
+/**
+ * @extends ListFilter<Account>
+ */
 class AccountListFilter extends ListFilter
 {
     protected int|null $categoryId = null;
@@ -49,17 +52,17 @@ class AccountListFilter extends ListFilter
         return parent::get();
     }
 
-    public function getExcel()
+    public function getExcel(): string
     {
         return $this->client->get('account/list.xlsx', $this->toArray());
     }
 
-    public function getCsv()
+    public function getCsv(): string
     {
         return $this->client->get('account/list.csv', $this->toArray());
     }
 
-    public function getPdf()
+    public function getPdf(): string
     {
         return $this->client->get('account/list.pdf', $this->toArray());
     }

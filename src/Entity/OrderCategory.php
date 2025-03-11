@@ -399,7 +399,7 @@ class OrderCategory extends AbstractEntity
         return $this;
     }
 
-    public static function create(array $data): self
+    public static function create(array $data): static
     {
         $instance = parent::create($data);
 

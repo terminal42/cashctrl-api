@@ -44,7 +44,17 @@ class OrderDocumentEndpoint
     }
 
     /**
-     * @psalm-param array{footer: string, header: string, isDisplayItemGross: bool, language: string, orgAddress: string, orgLocationId: int, recipientAddress: string, recipientAddressId: int, templateId: int} $params
+     * @param array{
+     *     footer?: string,
+     *     header?: string,
+     *     isDisplayItemGross?: bool,
+     *     language?: string,
+     *     orgAddress?: string,
+     *     orgLocationId?: int,
+     *     recipientAddress?: string,
+     *     recipientAddressId?: int,
+     *     templateId?: int,
+     * } $params
      */
     public function update(int $id, array $params = []): Result
     {

@@ -10,10 +10,7 @@ use Terminal42\CashctrlApi\Entity\Order;
 use Terminal42\CashctrlApi\Result;
 
 /**
- * @method Order|null read(int $id)
- * @method Result     create(Order $entity)
- * @method Result     update(Order $entity)
- * @method Result     delete(array $ids)
+ * @extends AbstractCRUDEndpoint<Order>
  */
 class OrderEndpoint extends AbstractCRUDEndpoint
 {
@@ -22,25 +19,22 @@ class OrderEndpoint extends AbstractCRUDEndpoint
         parent::__construct($client, 'order');
     }
 
-    /**
-     * @return array<Order>|OrderListFilter
-     */
     public function list(): OrderListFilter
     {
         return new OrderListFilter($this->client, 'order', fn (array $data) => $this->createInstance($data));
     }
 
-    public function statusInfo(int $id)
+    public function statusInfo(int $id): Result|string
     {
         return $this->get('status_info.json', ['id' => $id]);
     }
 
-    public function updateStatus(int $id, int $statusId)
+    public function updateStatus(int $id, int $statusId): Result
     {
         return $this->post('update_status.json', ['id' => $id, 'statusId' => $statusId]);
     }
 
-    public function updateRecurrence(int $id, \DateTimeInterface|null $endDate = null, string|null $recurrence = null, \DateTimeInterface|null $startDate = null)
+    public function updateRecurrence(int $id, \DateTimeInterface|null $endDate = null, string|null $recurrence = null, \DateTimeInterface|null $startDate = null): Result
     {
         $params = ['id' => $id];
 
@@ -59,7 +53,7 @@ class OrderEndpoint extends AbstractCRUDEndpoint
         return $this->post('update_recurrence.json', $params);
     }
 
-    public function dossier(int $id)
+    public function dossier(int $id): Result
     {
         return $this->get('dossier.json', ['id' => $id]);
     }

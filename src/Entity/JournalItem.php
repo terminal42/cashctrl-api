@@ -12,9 +12,9 @@ class JournalItem implements PropertiesInterface
 
     protected string|null $associateId = null;
 
-    protected $credit;
+    protected float|string $credit;
 
-    protected $debit;
+    protected float|string $debit;
 
     protected string|null $description = null;
 
@@ -50,36 +50,24 @@ class JournalItem implements PropertiesInterface
         return $this;
     }
 
-    /**
-     * @return float|string|null
-     */
-    public function getCredit()
+    public function getCredit(): float|string|null
     {
         return $this->credit;
     }
 
-    /**
-     * @param float|string|null $credit
-     */
-    public function setCredit($credit): self
+    public function setCredit(float|string|null $credit): self
     {
         $this->credit = $credit;
 
         return $this;
     }
 
-    /**
-     * @return float|string|null
-     */
-    public function getDebit()
+    public function getDebit(): float|string|null
     {
         return $this->debit;
     }
 
-    /**
-     * @param float|string|null $debit
-     */
-    public function setDebit($debit): self
+    public function setDebit(float|string|null $debit): self
     {
         $this->debit = $debit;
 

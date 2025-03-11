@@ -4,17 +4,11 @@ declare(strict_types=1);
 
 namespace Terminal42\CashctrlApi\Api;
 
-use Terminal42\CashctrlApi\Api\Filter\ListFilter;
 use Terminal42\CashctrlApi\ApiClientInterface;
 use Terminal42\CashctrlApi\Entity\Sequencenumber;
-use Terminal42\CashctrlApi\Result;
 
 /**
- * @method Sequencenumber|null              read(int $id)
- * @method array<Sequencenumber>|ListFilter list()
- * @method Result                           create(Sequencenumber $entity)
- * @method Result                           update(Sequencenumber $entity)
- * @method Result                           delete(array $ids)
+ * @extends AbstractEndpoint<Sequencenumber>
  */
 class SequencenumberEndpoint extends AbstractEndpoint
 {

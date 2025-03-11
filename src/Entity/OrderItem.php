@@ -16,8 +16,8 @@ namespace Terminal42\CashctrlApi\Entity;
  * @property array       $allocations
  * @property int         $pos
  * @property string|null $taxName
- * @property             $discountInherited
- * @property             $discountEffective
+ * @property mixed       $discountInherited
+ * @property mixed       $discountEffective
  * @property float       $netTotal
  * @property float       $defaultCurrencyNetTotal
  * @property float       $defaultCurrencyGrossTotal

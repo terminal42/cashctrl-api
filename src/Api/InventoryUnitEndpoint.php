@@ -4,17 +4,11 @@ declare(strict_types=1);
 
 namespace Terminal42\CashctrlApi\Api;
 
-use Terminal42\CashctrlApi\Api\Filter\ListFilter;
 use Terminal42\CashctrlApi\ApiClientInterface;
 use Terminal42\CashctrlApi\Entity\InventoryUnit;
-use Terminal42\CashctrlApi\Result;
 
 /**
- * @method InventoryUnit|null              read(int $id)
- * @method array<InventoryUnit>|ListFilter list()
- * @method Result                          create(InventoryUnit $entity)
- * @method Result                          update(InventoryUnit $entity)
- * @method Result                          delete(array $ids)
+ * @extends AbstractEndpoint<InventoryUnit>
  */
 class InventoryUnitEndpoint extends AbstractEndpoint
 {

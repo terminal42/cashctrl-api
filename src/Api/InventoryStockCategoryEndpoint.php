@@ -4,17 +4,11 @@ declare(strict_types=1);
 
 namespace Terminal42\CashctrlApi\Api;
 
-use Terminal42\CashctrlApi\Api\Filter\ListFilter;
 use Terminal42\CashctrlApi\ApiClientInterface;
 use Terminal42\CashctrlApi\Entity\InventoryStockCategory;
-use Terminal42\CashctrlApi\Result;
 
 /**
- * @method InventoryStockCategory|null              read(int $id)
- * @method array<InventoryStockCategory>|ListFilter list()
- * @method Result                                   create(InventoryStockCategory $entity)
- * @method Result                                   update(InventoryStockCategory $entity)
- * @method Result                                   delete(array $ids)
+ * @extends AbstractEndpoint<InventoryStockCategory>
  */
 class InventoryStockCategoryEndpoint extends AbstractEndpoint
 {

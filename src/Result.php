@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Terminal42\CashctrlApi;
 
+/**
+ * @extends \ArrayObject<string, mixed>
+ */
 class Result extends \ArrayObject
 {
     public function isSuccessful(): bool

@@ -7,19 +7,19 @@ namespace Terminal42\CashctrlApi\Entity;
 use Terminal42\CashctrlApi\XmlHelper;
 
 /**
- * @property             $createdBy
- * @property             $lastUpdated
- * @property             $lastUpdatedBy
- * @property             $associateName
- * @property             $recurrenceId
- * @property             $responsiblePersonId
- * @property             $responsiblePersonName
- * @property             $statusId
- * @property             $type
- * @property             $bookType
- * @property             $taxType
- * @property             $date
- * @property             $dateDue
+ * @property mixed       $createdBy
+ * @property mixed       $lastUpdated
+ * @property mixed       $lastUpdatedBy
+ * @property mixed       $associateName
+ * @property mixed       $recurrenceId
+ * @property mixed       $responsiblePersonId
+ * @property mixed       $responsiblePersonName
+ * @property mixed       $statusId
+ * @property mixed       $type
+ * @property mixed       $bookType
+ * @property mixed       $taxType
+ * @property mixed       $date
+ * @property mixed       $dateDue
  * @property string|null $dateDeliveryStart
  * @property string|null $dateDeliveryEnd
  * @property string|null $dateLastBooked
@@ -27,25 +27,25 @@ use Terminal42\CashctrlApi\XmlHelper;
  * @property float       $tax
  * @property float       $total
  * @property float       $open
- * @property             $groupOpen
- * @property             $qrReference
- * @property             $searchIndex
- * @property             $nameSingular
- * @property             $statusName
- * @property             $icon
- * @property             $actionId
- * @property             $sentStatusId
- * @property             $sent
- * @property             $sentBy
+ * @property mixed       $groupOpen
+ * @property mixed       $qrReference
+ * @property mixed       $searchIndex
+ * @property mixed       $nameSingular
+ * @property mixed       $statusName
+ * @property mixed       $icon
+ * @property mixed       $actionId
+ * @property mixed       $sentStatusId
+ * @property mixed       $sent
+ * @property mixed       $sentBy
  * @property string|null $downloaded
  * @property string|null $downloadedBy
  * @property string      $currencyCode
- * @property             $qrReferenceUpdatable
- * @property             $iso11649Reference
- * @property             $defaultCurrencyTotal
- * @property             $roundingDifference
- * @property             $foreignCurrency
- * @property             $due
+ * @property mixed       $qrReferenceUpdatable
+ * @property mixed       $iso11649Reference
+ * @property mixed       $defaultCurrencyTotal
+ * @property mixed       $roundingDifference
+ * @property mixed       $foreignCurrency
+ * @property mixed       $due
  * @property bool        $isBook
  * @property bool        $isRemoveStock
  * @property bool        $isAddStock
@@ -575,7 +575,7 @@ class Order extends AbstractEntity
         return $this;
     }
 
-    public static function create(array $data): self
+    public static function create(array $data): static
     {
         if (\is_array($data['items'] ?? null)) {
             $items = [];

@@ -10,10 +10,7 @@ use Terminal42\CashctrlApi\Entity\Customfield;
 use Terminal42\CashctrlApi\Result;
 
 /**
- * @method Customfield|null read(int $id)
- * @method Result           create(Customfield $customfield)
- * @method Result           update(Customfield $customfield)
- * @method Result           delete(array $ids)
+ * @extends AbstractCRUDEndpoint<Customfield>
  */
 class CustomfieldEndpoint extends AbstractCRUDEndpoint
 {
@@ -36,9 +33,6 @@ class CustomfieldEndpoint extends AbstractCRUDEndpoint
         parent::__construct($client, 'customfield');
     }
 
-    /**
-     * @return array<Customfield>|CustomfieldListFilter
-     */
     public function list(string $type): CustomfieldListFilter
     {
         return new CustomfieldListFilter(

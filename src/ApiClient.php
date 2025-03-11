@@ -42,10 +42,7 @@ class ApiClient implements ApiClientInterface
         $this->apiBase = 'https://'.$subdomain.'.cashctrl.com/api/v1/';
     }
 
-    /**
-     * @return Result|string
-     */
-    public function get(string $url, array $params = [], bool $throwValidationError = true)
+    public function get(string $url, array $params = [], bool $throwValidationError = true): Result|string
     {
         $this->throttle();
 

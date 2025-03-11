@@ -10,10 +10,7 @@ interface ApiClientInterface
 
     public const DATE_TIMEZONE = 'Europe/Zurich';
 
-    /**
-     * @return Result|string
-     */
-    public function get(string $url, array $params = [], bool $throwValidationError = true);
+    public function get(string $url, array $params = [], bool $throwValidationError = true): Result|string;
 
     public function post(string $url, array $params, bool $throwValidationError = true): Result;
 }

@@ -371,7 +371,7 @@ class Journal extends AbstractEntity
         return $this;
     }
 
-    public static function create(array $data): self
+    public static function create(array $data): static
     {
         if (\is_array($data['items'] ?? null)) {
             $items = [];
