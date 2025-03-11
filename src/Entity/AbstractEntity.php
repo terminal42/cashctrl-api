@@ -11,14 +11,14 @@ abstract class AbstractEntity implements EntityInterface
 {
     use PropertiesTrait;
 
-    protected ?int $id;
+    protected int|null $id;
 
-    public function __construct(int $id = null)
+    public function __construct(int|null $id = null)
     {
         $this->id = $id;
     }
 
-    public function getId(): ?int
+    public function getId(): int|null
     {
         return $this->id;
     }

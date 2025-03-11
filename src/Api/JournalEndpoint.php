@@ -4,17 +4,17 @@ declare(strict_types=1);
 
 namespace Terminal42\CashctrlApi\Api;
 
+use Terminal42\CashctrlApi\Api\Filter\ListFilter;
 use Terminal42\CashctrlApi\ApiClientInterface;
 use Terminal42\CashctrlApi\Entity\Journal;
 use Terminal42\CashctrlApi\Result;
-use Terminal42\CashctrlApi\Api\Filter\ListFilter;
 
 /**
- * @method Journal|null read(int $id)
- * @method Journal[]|ListFilter list()
- * @method Result create(Journal $entity)
- * @method Result update(Journal $entity)
- * @method Result delete(array $ids)
+ * @method Journal|null              read(int $id)
+ * @method array<Journal>|ListFilter list()
+ * @method Result                    create(Journal $entity)
+ * @method Result                    update(Journal $entity)
+ * @method Result                    delete(array $ids)
  */
 class JournalEndpoint extends AbstractEndpoint
 {

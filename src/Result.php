@@ -25,12 +25,12 @@ class Result extends \ArrayObject
         return isset($this['errorMessage']) ? [$this['errorMessage']] : [];
     }
 
-    public function insertId(): ?int
+    public function insertId(): int|null
     {
         return isset($this['insertId']) ? (int) $this['insertId'] : null;
     }
 
-    public function data(): ?array
+    public function data(): array|null
     {
         return isset($this['data']) ? (array) $this['data'] : null;
     }

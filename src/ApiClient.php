@@ -6,40 +6,40 @@ namespace Terminal42\CashctrlApi;
 
 use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\RequestFactoryInterface;
-use Terminal42\CashctrlApi\Exception\UnauthorizedException;
 use Psr\Http\Message\ResponseInterface;
-use Terminal42\CashctrlApi\Exception\ForbiddenException;
-use Terminal42\CashctrlApi\Exception\NotFoundException;
-use Terminal42\CashctrlApi\Exception\MethodNotAllowedException;
-use Terminal42\CashctrlApi\Exception\TooManyRequestsException;
-use Terminal42\CashctrlApi\Exception\ServerErrorException;
 use Psr\Http\Message\StreamFactoryInterface;
-use Terminal42\CashctrlApi\Exception\RuntimeException;
-use Terminal42\CashctrlApi\Exception\ValidationErrorException;
+use Terminal42\CashctrlApi\Exception\ForbiddenException;
 use Terminal42\CashctrlApi\Exception\InvalidArgumentException;
+use Terminal42\CashctrlApi\Exception\MethodNotAllowedException;
+use Terminal42\CashctrlApi\Exception\NotFoundException;
+use Terminal42\CashctrlApi\Exception\RuntimeException;
+use Terminal42\CashctrlApi\Exception\ServerErrorException;
+use Terminal42\CashctrlApi\Exception\TooManyRequestsException;
+use Terminal42\CashctrlApi\Exception\UnauthorizedException;
+use Terminal42\CashctrlApi\Exception\ValidationErrorException;
 
 class ApiClient implements ApiClientInterface
 {
     private const THROTTLE_REQUESTS = 4;
+
     private const THROTTLE_NANOSEC = 1000000000;
 
-    private ClientInterface $httpClient;
-    private RequestFactoryInterface $requestFactory;
-    private StreamFactoryInterface $streamFactory;
-    private string $apiBase;
-    private string $apiKey;
+    private readonly string $apiBase;
 
     private bool $throttled = false;
-    private int $requestCount = 0;
-    private ?int $lastRequest = null;
 
-    public function __construct(ClientInterface $httpClient, RequestFactoryInterface $requestFactory, StreamFactoryInterface $streamFactory, string $subdomain, string $apiKey)
-    {
-        $this->httpClient = $httpClient;
-        $this->requestFactory = $requestFactory;
-        $this->streamFactory = $streamFactory;
+    private int $requestCount = 0;
+
+    private int|null $lastRequest = null;
+
+    public function __construct(
+        private readonly ClientInterface $httpClient,
+        private readonly RequestFactoryInterface $requestFactory,
+        private readonly StreamFactoryInterface $streamFactory,
+        string $subdomain,
+        private readonly string $apiKey,
+    ) {
         $this->apiBase = 'https://'.$subdomain.'.cashctrl.com/api/v1/';
-        $this->apiKey = $apiKey;
     }
 
     /**
@@ -104,7 +104,7 @@ class ApiClient implements ApiClientInterface
         $result = \DateTime::createFromFormat(
             self::DATE_FORMAT,
             $datetime,
-            new \DateTimeZone(self::DATE_TIMEZONE)
+            new \DateTimeZone(self::DATE_TIMEZONE),
         );
 
         if (!$result instanceof \DateTime) {
@@ -114,16 +114,17 @@ class ApiClient implements ApiClientInterface
         return $result;
     }
 
-    private function throttle()
+    private function throttle(): void
     {
         if (!$this->throttled) {
             return;
         }
 
-        $this->requestCount++;
+        ++$this->requestCount;
 
         if (!$this->lastRequest) {
             $this->lastRequest = hrtime(true);
+
             return;
         }
 
@@ -135,7 +136,7 @@ class ApiClient implements ApiClientInterface
         $diff = $time - $this->lastRequest;
 
         if ($diff < self::THROTTLE_NANOSEC) {
-            usleep((int) (self::THROTTLE_NANOSEC / 1000));
+            usleep(self::THROTTLE_NANOSEC / 1000);
         }
 
         $this->lastRequest = hrtime(true);
@@ -149,7 +150,7 @@ class ApiClient implements ApiClientInterface
             403 => ForbiddenException::class,
             404 => NotFoundException::class,
             405 => MethodNotAllowedException::class,
-            429 => TooManyRequestsException::class
+            429 => TooManyRequestsException::class,
         ];
 
         $statusCode = $response->getStatusCode();
@@ -169,12 +170,12 @@ class ApiClient implements ApiClientInterface
 
     private function isJson(ResponseInterface $response): bool
     {
-        return false !== strpos(implode(';', (array) $response->getHeader('Content-Type')), 'application/json');
+        return str_contains(implode(';', $response->getHeader('Content-Type')), 'application/json');
     }
 
     private function createResult(string $content, bool $throwValidationError = true): Result
     {
-        $result = new Result(\json_decode($content, true, 512, JSON_THROW_ON_ERROR));
+        $result = new Result(json_decode($content, true, 512, JSON_THROW_ON_ERROR));
 
         if ($throwValidationError && !$result->isSuccessful()) {
             throw new ValidationErrorException($result);

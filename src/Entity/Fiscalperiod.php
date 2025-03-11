@@ -7,70 +7,80 @@ namespace Terminal42\CashctrlApi\Entity;
 class Fiscalperiod extends AbstractEntity
 {
     public const TYPE_EARLIEST = 'EARLIEST';
+
     public const TYPE_LATEST = 'LATEST';
 
-    protected ?string $name = null;
-    protected ?\DateTimeInterface $start = null;
-    protected ?\DateTimeInterface $end = null;
-    protected ?string $type = null;
-    protected ?bool $isCustom = null;
+    protected string|null $name = null;
 
-    public function getName(): ?string
+    protected \DateTimeInterface|null $start = null;
+
+    protected \DateTimeInterface|null $end = null;
+
+    protected string|null $type = null;
+
+    protected bool|null $isCustom = null;
+
+    public function getName(): string|null
     {
         return $this->name;
     }
 
-    public function setName(?string $name): Fiscalperiod
+    public function setName(string|null $name): self
     {
-        if (strlen($name) > 30) {
+        if (\strlen((string) $name) > 30) {
             throw new \LogicException('Fiscalperiod name cannot be longer than 30 characters.');
         }
 
         $this->name = $name;
+
         return $this;
     }
 
-    public function getStart(): ?\DateTimeInterface
+    public function getStart(): \DateTimeInterface|null
     {
         return $this->start;
     }
 
-    public function setStart(?\DateTimeInterface $start): Fiscalperiod
+    public function setStart(\DateTimeInterface|null $start): self
     {
         $this->start = $start;
+
         return $this;
     }
 
-    public function getEnd(): ?\DateTimeInterface
+    public function getEnd(): \DateTimeInterface|null
     {
         return $this->end;
     }
 
-    public function setEnd(?\DateTimeInterface $end): Fiscalperiod
+    public function setEnd(\DateTimeInterface|null $end): self
     {
         $this->end = $end;
+
         return $this;
     }
 
-    public function getType(): ?string
+    public function getType(): string|null
     {
         return $this->type;
     }
 
-    public function setType(?string $type): Fiscalperiod
+    public function setType(string|null $type): self
     {
         $this->type = $type;
+
         return $this;
     }
 
-    public function getIsCustom(): ?bool
+    public function getIsCustom(): bool|null
     {
         return $this->isCustom;
     }
 
-    public function setIsCustom(?bool $isCustom): Fiscalperiod
+    public function setIsCustom(bool|null $isCustom): self
     {
         $this->isCustom = $isCustom;
+
         return $this;
     }
 }

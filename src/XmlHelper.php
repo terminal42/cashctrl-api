@@ -20,6 +20,7 @@ class XmlHelper
         }
 
         $dom->normalizeDocument();
+
         foreach ($dom->getElementsByTagName('values') as $values) {
             foreach ($values->childNodes as $field) {
                 $data[(string) $field->nodeName] = (string) $field->nodeValue;
@@ -36,6 +37,7 @@ class XmlHelper
         $dom = new \DOMDocument();
         $values = $dom->createElement('values');
         $dom->appendChild($values);
+
         foreach ($data as $k => $v) {
             $field = $dom->createElement($k, $v);
             $values->appendChild($field);

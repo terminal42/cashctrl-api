@@ -11,23 +11,38 @@ class OrderCategoryStatus implements PropertiesInterface
     use PropertiesTrait;
 
     public const ICON_BLUE = 'BLUE';
+
     public const ICON_GREEN = 'GREEN';
+
     public const ICON_RED = 'RED';
+
     public const ICON_YELLOW = 'YELLOW';
+
     public const ICON_ORANGE = 'ORANGE';
+
     public const ICON_BLACK = 'BLACK';
+
     public const ICON_GRAY = 'GRAY';
+
     public const ICON_BROWN = 'BROWN';
+
     public const ICON_VIOLET = 'VIOLET';
+
     public const ICON_PINK = 'PINK';
 
     protected string $icon;
+
     protected string $name;
-    protected ?string $actionId = null;
-    protected ?bool $isAddStock = null;
-    protected ?bool $isBook = null;
-    protected ?bool $isClosed = null;
-    protected ?bool $isRemoveStock = null;
+
+    protected string|null $actionId = null;
+
+    protected bool|null $isAddStock = null;
+
+    protected bool|null $isBook = null;
+
+    protected bool|null $isClosed = null;
+
+    protected bool|null $isRemoveStock = null;
 
     public function __construct(string $icon, string $name)
     {
@@ -43,6 +58,7 @@ class OrderCategoryStatus implements PropertiesInterface
     public function setIcon(string $icon): self
     {
         $this->icon = $icon;
+
         return $this;
     }
 
@@ -54,68 +70,74 @@ class OrderCategoryStatus implements PropertiesInterface
     public function setName(string $name): self
     {
         $this->name = $name;
+
         return $this;
     }
 
-    public function getActionId(): ?string
+    public function getActionId(): string|null
     {
         return $this->actionId;
     }
 
-    public function setActionId(?string $actionId): self
+    public function setActionId(string|null $actionId): self
     {
         $this->actionId = $actionId;
+
         return $this;
     }
 
-    public function getIsAddStock(): ?bool
+    public function getIsAddStock(): bool|null
     {
         return $this->isAddStock;
     }
 
-    public function setIsAddStock(?bool $isAddStock): self
+    public function setIsAddStock(bool|null $isAddStock): self
     {
         $this->isAddStock = $isAddStock;
+
         return $this;
     }
 
-    public function getIsBook(): ?bool
+    public function getIsBook(): bool|null
     {
         return $this->isBook;
     }
 
-    public function setIsBook(?bool $isBook): self
+    public function setIsBook(bool|null $isBook): self
     {
         $this->isBook = $isBook;
+
         return $this;
     }
 
-    public function getIsClosed(): ?bool
+    public function getIsClosed(): bool|null
     {
         return $this->isClosed;
     }
 
-    public function setIsClosed(?bool $isClosed): self
+    public function setIsClosed(bool|null $isClosed): self
     {
         $this->isClosed = $isClosed;
+
         return $this;
     }
 
-    public function getIsRemoveStock(): ?bool
+    public function getIsRemoveStock(): bool|null
     {
         return $this->isRemoveStock;
     }
 
-    public function setIsRemoveStock(?bool $isRemoveStock): self
+    public function setIsRemoveStock(bool|null $isRemoveStock): self
     {
         $this->isRemoveStock = $isRemoveStock;
+
         return $this;
     }
 
     public function getLocaleName(string $language): string
     {
         // Not a localized name
-        if (0 !== strpos($this->name, '<values>')) {
+        if (!str_starts_with($this->name, '<values>')) {
             return $this->name;
         }
 
@@ -128,7 +150,7 @@ class OrderCategoryStatus implements PropertiesInterface
     {
         $data = [];
 
-        if (0 === strpos($this->name, '<values>')) {
+        if (str_starts_with($this->name, '<values>')) {
             $data = XmlHelper::parseValues($this->name);
         }
 

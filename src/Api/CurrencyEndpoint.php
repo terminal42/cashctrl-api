@@ -4,17 +4,17 @@ declare(strict_types=1);
 
 namespace Terminal42\CashctrlApi\Api;
 
+use Terminal42\CashctrlApi\Api\Filter\ListFilter;
 use Terminal42\CashctrlApi\ApiClientInterface;
 use Terminal42\CashctrlApi\Entity\Currency;
 use Terminal42\CashctrlApi\Result;
-use Terminal42\CashctrlApi\Api\Filter\ListFilter;
 
 /**
- * @method Currency|null read(int $id)
- * @method Currency[]|ListFilter list()
- * @method Result create(Currency $entity)
- * @method Result update(Currency $entity)
- * @method Result delete(array $ids)
+ * @method Currency|null              read(int $id)
+ * @method array<Currency>|ListFilter list()
+ * @method Result                     create(Currency $entity)
+ * @method Result                     update(Currency $entity)
+ * @method Result                     delete(array $ids)
  */
 class CurrencyEndpoint extends AbstractEndpoint
 {
@@ -23,7 +23,7 @@ class CurrencyEndpoint extends AbstractEndpoint
         parent::__construct($client, 'currency');
     }
 
-    public function exchangerate(string $from, string $to, \DateTimeInterface $date = null): Result
+    public function exchangerate(string $from, string $to, \DateTimeInterface|null $date = null): Result
     {
         $params = ['from' => $from, 'to' => $to];
 

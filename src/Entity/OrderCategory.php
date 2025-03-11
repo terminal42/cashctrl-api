@@ -7,33 +7,56 @@ namespace Terminal42\CashctrlApi\Entity;
 class OrderCategory extends AbstractEntity
 {
     public const TYPE_SALES = 'SALES';
+
     public const TYPE_PURCHASE = 'PURCHASE';
 
     protected int $accountId;
-    protected string $namePlural;
-    protected string $nameSingular;
-    protected array $status = [];
-    protected ?string $addressType = null;
-    protected ?array $bookTemplates = null;
-    protected ?string $bookType = null;
-    protected ?int $currencyId = null;
-    protected ?string $dueDays = null;
-    protected ?string $footer = null;
-    protected ?bool $hasDueDays = null;
-    protected ?string $header = null;
-    protected ?bool $isDisplayItemGross = null;
-    protected ?bool $isDisplayPrices = null;
-    protected ?bool $isInactive = null;
-    protected ?bool $isSwitchRecipient = null;
-    protected ?string $mail = null;
-    protected ?int $responsiblePersonId = null;
-    protected ?int $roundingId = null;
-    protected ?int $sentStatusId = null;
-    protected ?int $sequenceNrId = null;
-    protected ?int $templateId = null;
-    protected ?string $type = null;
 
-    public function __construct(int $accountId, string $namePlural, string $nameSingular, int $id = null)
+    protected string $namePlural;
+
+    protected string $nameSingular;
+
+    protected array $status = [];
+
+    protected string|null $addressType = null;
+
+    protected array|null $bookTemplates = null;
+
+    protected string|null $bookType = null;
+
+    protected int|null $currencyId = null;
+
+    protected string|null $dueDays = null;
+
+    protected string|null $footer = null;
+
+    protected bool|null $hasDueDays = null;
+
+    protected string|null $header = null;
+
+    protected bool|null $isDisplayItemGross = null;
+
+    protected bool|null $isDisplayPrices = null;
+
+    protected bool|null $isInactive = null;
+
+    protected bool|null $isSwitchRecipient = null;
+
+    protected string|null $mail = null;
+
+    protected int|null $responsiblePersonId = null;
+
+    protected int|null $roundingId = null;
+
+    protected int|null $sentStatusId = null;
+
+    protected int|null $sequenceNrId = null;
+
+    protected int|null $templateId = null;
+
+    protected string|null $type = null;
+
+    public function __construct(int $accountId, string $namePlural, string $nameSingular, int|null $id = null)
     {
         parent::__construct($id);
 
@@ -50,6 +73,7 @@ class OrderCategory extends AbstractEntity
     public function setAccountId(int $accountId): self
     {
         $this->accountId = $accountId;
+
         return $this;
     }
 
@@ -61,6 +85,7 @@ class OrderCategory extends AbstractEntity
     public function setNamePlural(string $namePlural): self
     {
         $this->namePlural = $namePlural;
+
         return $this;
     }
 
@@ -72,209 +97,228 @@ class OrderCategory extends AbstractEntity
     public function setNameSingular(string $nameSingular): self
     {
         $this->nameSingular = $nameSingular;
+
         return $this;
     }
 
-    public function getAddressType(): ?string
+    public function getAddressType(): string|null
     {
         return $this->addressType;
     }
 
-    public function setAddressType(?string $addressType): self
+    public function setAddressType(string|null $addressType): self
     {
         $this->addressType = $addressType;
+
         return $this;
     }
 
-    public function getBookType(): ?string
+    public function getBookType(): string|null
     {
         return $this->bookType;
     }
 
-    public function setBookType(?string $bookType): self
+    public function setBookType(string|null $bookType): self
     {
         $this->bookType = $bookType;
+
         return $this;
     }
 
-    public function getCurrencyId(): ?int
+    public function getCurrencyId(): int|null
     {
         return $this->currencyId;
     }
 
-    public function setCurrencyId(?int $currencyId): self
+    public function setCurrencyId(int|null $currencyId): self
     {
         $this->currencyId = $currencyId;
+
         return $this;
     }
 
-    public function getDueDays(): ?string
+    public function getDueDays(): string|null
     {
         return $this->dueDays;
     }
 
-    public function setDueDays(?string $dueDays): self
+    public function setDueDays(string|null $dueDays): self
     {
         $this->dueDays = $dueDays;
+
         return $this;
     }
 
-    public function getFooter(): ?string
+    public function getFooter(): string|null
     {
         return $this->footer;
     }
 
-    public function setFooter(?string $footer): self
+    public function setFooter(string|null $footer): self
     {
         $this->footer = $footer;
+
         return $this;
     }
 
-    public function getHasDueDays(): ?bool
+    public function getHasDueDays(): bool|null
     {
         return $this->hasDueDays;
     }
 
-    public function setHasDueDays(?bool $hasDueDays): self
+    public function setHasDueDays(bool|null $hasDueDays): self
     {
         $this->hasDueDays = $hasDueDays;
+
         return $this;
     }
 
-    public function getHeader(): ?string
+    public function getHeader(): string|null
     {
         return $this->header;
     }
 
-    public function setHeader(?string $header): self
+    public function setHeader(string|null $header): self
     {
         $this->header = $header;
+
         return $this;
     }
 
-    public function isDisplayItemGross(): ?bool
+    public function isDisplayItemGross(): bool|null
     {
         return $this->isDisplayItemGross;
     }
 
-    public function setIsDisplayItemGross(?bool $isDisplayItemGross): self
+    public function setIsDisplayItemGross(bool|null $isDisplayItemGross): self
     {
         $this->isDisplayItemGross = $isDisplayItemGross;
+
         return $this;
     }
 
-    public function isDisplayPrices(): ?bool
+    public function isDisplayPrices(): bool|null
     {
         return $this->isDisplayPrices;
     }
 
-    public function setIsDisplayPrices(?bool $isDisplayPrices): self
+    public function setIsDisplayPrices(bool|null $isDisplayPrices): self
     {
         $this->isDisplayPrices = $isDisplayPrices;
+
         return $this;
     }
 
-    public function isInactive(): ?bool
+    public function isInactive(): bool|null
     {
         return $this->isInactive;
     }
 
-    public function setIsInactive(?bool $isInactive): self
+    public function setIsInactive(bool|null $isInactive): self
     {
         $this->isInactive = $isInactive;
+
         return $this;
     }
 
-    public function isSwitchRecipient(): ?bool
+    public function isSwitchRecipient(): bool|null
     {
         return $this->isSwitchRecipient;
     }
 
-    public function setIsSwitchRecipient(?bool $isSwitchRecipient): self
+    public function setIsSwitchRecipient(bool|null $isSwitchRecipient): self
     {
         $this->isSwitchRecipient = $isSwitchRecipient;
+
         return $this;
     }
 
-    public function getMail(): ?string
+    public function getMail(): string|null
     {
         return $this->mail;
     }
 
-    public function setMail(?string $mail): self
+    public function setMail(string|null $mail): self
     {
         $this->mail = $mail;
+
         return $this;
     }
 
-    public function getResponsiblePersonId(): ?int
+    public function getResponsiblePersonId(): int|null
     {
         return $this->responsiblePersonId;
     }
 
-    public function setResponsiblePersonId(?int $responsiblePersonId): self
+    public function setResponsiblePersonId(int|null $responsiblePersonId): self
     {
         $this->responsiblePersonId = $responsiblePersonId;
+
         return $this;
     }
 
-    public function getRoundingId(): ?int
+    public function getRoundingId(): int|null
     {
         return $this->roundingId;
     }
 
-    public function setRoundingId(?int $roundingId): self
+    public function setRoundingId(int|null $roundingId): self
     {
         $this->roundingId = $roundingId;
+
         return $this;
     }
 
-    public function getSentStatusId(): ?int
+    public function getSentStatusId(): int|null
     {
         return $this->sentStatusId;
     }
 
-    public function setSentStatusId(?int $sentStatusId): self
+    public function setSentStatusId(int|null $sentStatusId): self
     {
         $this->sentStatusId = $sentStatusId;
+
         return $this;
     }
 
-    public function getSequenceNrId(): ?int
+    public function getSequenceNrId(): int|null
     {
         return $this->sequenceNrId;
     }
 
-    public function setSequenceNrId(?int $sequenceNrId): self
+    public function setSequenceNrId(int|null $sequenceNrId): self
     {
         $this->sequenceNrId = $sequenceNrId;
+
         return $this;
     }
 
-    public function getTemplateId(): ?int
+    public function getTemplateId(): int|null
     {
         return $this->templateId;
     }
 
-    public function setTemplateId(?int $templateId): self
+    public function setTemplateId(int|null $templateId): self
     {
         $this->templateId = $templateId;
+
         return $this;
     }
 
-    public function getType(): ?string
+    public function getType(): string|null
     {
         return $this->type;
     }
 
-    public function setType(?string $type): self
+    public function setType(string|null $type): self
     {
         $this->type = $type;
+
         return $this;
     }
 
     /**
-     * @return OrderCategoryStatus[]
+     * @return array<OrderCategoryStatus>
      */
     public function getStatus(): array
     {
@@ -282,7 +326,7 @@ class OrderCategory extends AbstractEntity
     }
 
     /**
-     * @param OrderCategoryStatus[] $status
+     * @param array<OrderCategoryStatus> $status
      */
     public function setStatus(array $status): self
     {
@@ -311,15 +355,15 @@ class OrderCategory extends AbstractEntity
         return $this;
     }
 
-    public function getBookTemplates(): ?array
+    public function getBookTemplates(): array|null
     {
         return $this->bookTemplates;
     }
 
     /**
-     * @param OrderCategoryBookTemplate[]|null $bookTemplates
+     * @param array<OrderCategoryBookTemplate>|null $bookTemplates
      */
-    public function setBookTemplates(?array $bookTemplates): self
+    public function setBookTemplates(array|null $bookTemplates): self
     {
         $this->bookTemplates = null;
 
@@ -361,6 +405,7 @@ class OrderCategory extends AbstractEntity
 
         if (isset($data['status']) && \is_array($data['status'])) {
             $instance->setStatus([]);
+
             foreach ($data['status'] as $row) {
                 $status = new OrderCategoryStatus($row['icon'], $row['name']);
                 $status->setActionId($row['actionId']);

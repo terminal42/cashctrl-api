@@ -9,13 +9,18 @@ class JournalItem implements PropertiesInterface
     use PropertiesTrait;
 
     protected int $accountId;
-    protected ?string $associateId = null;
-    protected $credit = null;
-    protected $debit = null;
-    protected ?string $description = null;
-    protected ?int $taxId = null;
 
-    public function __construct(int $accountId, ?string $description = null)
+    protected string|null $associateId = null;
+
+    protected $credit;
+
+    protected $debit;
+
+    protected string|null $description = null;
+
+    protected int|null $taxId = null;
+
+    public function __construct(int $accountId, string|null $description = null)
     {
         $this->accountId = $accountId;
         $this->description = $description;
@@ -29,17 +34,19 @@ class JournalItem implements PropertiesInterface
     public function setAccountId(int $accountId): self
     {
         $this->accountId = $accountId;
+
         return $this;
     }
 
-    public function getAssociateId(): ?string
+    public function getAssociateId(): string|null
     {
         return $this->associateId;
     }
 
-    public function setAssociateId(?string $associateId): self
+    public function setAssociateId(string|null $associateId): self
     {
         $this->associateId = $associateId;
+
         return $this;
     }
 
@@ -57,6 +64,7 @@ class JournalItem implements PropertiesInterface
     public function setCredit($credit): self
     {
         $this->credit = $credit;
+
         return $this;
     }
 
@@ -74,28 +82,31 @@ class JournalItem implements PropertiesInterface
     public function setDebit($debit): self
     {
         $this->debit = $debit;
+
         return $this;
     }
 
-    public function getDescription(): ?string
+    public function getDescription(): string|null
     {
         return $this->description;
     }
 
-    public function setDescription(?string $description): self
+    public function setDescription(string|null $description): self
     {
         $this->description = $description;
+
         return $this;
     }
 
-    public function getTaxId(): ?int
+    public function getTaxId(): int|null
     {
         return $this->taxId;
     }
 
-    public function setTaxId(?int $taxId): self
+    public function setTaxId(int|null $taxId): self
     {
         $this->taxId = $taxId;
+
         return $this;
     }
 }

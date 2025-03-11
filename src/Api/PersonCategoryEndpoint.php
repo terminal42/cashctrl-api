@@ -4,17 +4,17 @@ declare(strict_types=1);
 
 namespace Terminal42\CashctrlApi\Api;
 
+use Terminal42\CashctrlApi\Api\Filter\ListFilter;
 use Terminal42\CashctrlApi\ApiClientInterface;
 use Terminal42\CashctrlApi\Entity\PersonCategory;
 use Terminal42\CashctrlApi\Result;
-use Terminal42\CashctrlApi\Api\Filter\ListFilter;
 
 /**
- * @method PersonCategory|null read(int $id)
- * @method PersonCategory[]|ListFilter list()
- * @method Result create(PersonCategory $entity)
- * @method Result update(PersonCategory $entity)
- * @method Result delete(array $ids)
+ * @method PersonCategory|null              read(int $id)
+ * @method array<PersonCategory>|ListFilter list()
+ * @method Result                           create(PersonCategory $entity)
+ * @method Result                           update(PersonCategory $entity)
+ * @method Result                           delete(array $ids)
  */
 class PersonCategoryEndpoint extends AbstractEndpoint
 {
@@ -23,7 +23,7 @@ class PersonCategoryEndpoint extends AbstractEndpoint
         parent::__construct($client, 'person/category');
     }
 
-    public function tree(int $parent = null): Result
+    public function tree(int|null $parent = null): Result
     {
         $params = [];
 

@@ -10,18 +10,27 @@ use Terminal42\CashctrlApi\Exception\DomainException;
 
 class PersonListFilter extends ListFilter
 {
-    private ApiClientInterface $client;
+    protected int|null $categoryId = null;
 
-    protected ?int $categoryId = null;
-    protected ?string $columns = null;
-    protected ?string $dir = null;
-    protected ?int $limit = null;
-    protected ?bool $onlyActive = null;
-    protected ?bool $onlyNotes = null;
-    protected ?bool $onlyWithoutCategory = null;
-    protected ?string $query = null;
-    protected ?string $sort = null;
-    protected ?int $start = null;
+    protected string|null $columns = null;
+
+    protected string|null $dir = null;
+
+    protected int|null $limit = null;
+
+    protected bool|null $onlyActive = null;
+
+    protected bool|null $onlyNotes = null;
+
+    protected bool|null $onlyWithoutCategory = null;
+
+    protected string|null $query = null;
+
+    protected string|null $sort = null;
+
+    protected int|null $start = null;
+
+    private readonly ApiClientInterface $client;
 
     public function __construct(ApiClientInterface $client, string $urlPrefix, \Closure $createInstance)
     {
@@ -31,7 +40,7 @@ class PersonListFilter extends ListFilter
     }
 
     /**
-     * @return Person[]
+     * @return array<Person>
      */
     public function get(): array
     {

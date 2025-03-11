@@ -9,9 +9,12 @@ class OrderCategoryBookTemplate implements PropertiesInterface
     use PropertiesTrait;
 
     protected int $accountId;
+
     protected string $name;
-    protected ?bool $isAllowTax;
-    protected ?int $taxId;
+
+    protected bool|null $isAllowTax = null;
+
+    protected int|null $taxId = null;
 
     public function __construct(int $accountId, string $name)
     {
@@ -27,6 +30,7 @@ class OrderCategoryBookTemplate implements PropertiesInterface
     public function setAccountId(int $accountId): self
     {
         $this->accountId = $accountId;
+
         return $this;
     }
 
@@ -38,28 +42,31 @@ class OrderCategoryBookTemplate implements PropertiesInterface
     public function setName(string $name): self
     {
         $this->name = $name;
+
         return $this;
     }
 
-    public function getIsAllowTax(): ?bool
+    public function getIsAllowTax(): bool|null
     {
         return $this->isAllowTax;
     }
 
-    public function setIsAllowTax(?bool $isAllowTax): self
+    public function setIsAllowTax(bool|null $isAllowTax): self
     {
         $this->isAllowTax = $isAllowTax;
+
         return $this;
     }
 
-    public function getTaxId(): ?int
+    public function getTaxId(): int|null
     {
         return $this->taxId;
     }
 
-    public function setTaxId(?int $taxId): self
+    public function setTaxId(int|null $taxId): self
     {
         $this->taxId = $taxId;
+
         return $this;
     }
 }

@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace Terminal42\CashctrlApi\Api;
 
+use Terminal42\CashctrlApi\Api\Filter\PersonListFilter;
 use Terminal42\CashctrlApi\ApiClientInterface;
 use Terminal42\CashctrlApi\Entity\Person;
 use Terminal42\CashctrlApi\Result;
-use Terminal42\CashctrlApi\Api\Filter\PersonListFilter;
 
 /**
  * @method Person|null read(int $id)
- * @method Result create(Person $entity)
- * @method Result update(Person $entity)
- * @method Result delete(array $ids)
+ * @method Result      create(Person $entity)
+ * @method Result      update(Person $entity)
+ * @method Result      delete(array $ids)
  */
 class PersonEndpoint extends AbstractCRUDEndpoint
 {
@@ -23,13 +23,11 @@ class PersonEndpoint extends AbstractCRUDEndpoint
     }
 
     /**
-     * @return Person[]|PersonListFilter
+     * @return array<Person>|PersonListFilter
      */
     public function list(): PersonListFilter
     {
-        return new PersonListFilter($this->client, 'person', function (array $data) {
-            return $this->createInstance($data);
-        });
+        return new PersonListFilter($this->client, 'person', fn (array $data) => $this->createInstance($data));
     }
 
     public function categorize(array $ids, int $target): Result

@@ -7,17 +7,24 @@ namespace Terminal42\CashctrlApi\Entity;
 class Tax extends AbstractEntity
 {
     public const CALC_NET = 'NET';
+
     public const CALC_GROSS = 'GROSS';
 
     protected int $accountId;
-    protected string $name;
-    protected float $percentage;
-    protected ?string $calcType = null;
-    protected ?string $documentName = null;
-    protected ?bool $isInactive = null;
-    protected ?float $percentageFlat = null;
 
-    public function __construct(int $accountId, string $name, float $percentage, int $id = null)
+    protected string $name;
+
+    protected float $percentage;
+
+    protected string|null $calcType = null;
+
+    protected string|null $documentName = null;
+
+    protected bool|null $isInactive = null;
+
+    protected float|null $percentageFlat = null;
+
+    public function __construct(int $accountId, string $name, float $percentage, int|null $id = null)
     {
         parent::__construct($id);
 
@@ -31,9 +38,10 @@ class Tax extends AbstractEntity
         return $this->accountId;
     }
 
-    public function setAccountId(int $accountId): Tax
+    public function setAccountId(int $accountId): self
     {
         $this->accountId = $accountId;
+
         return $this;
     }
 
@@ -42,9 +50,10 @@ class Tax extends AbstractEntity
         return $this->name;
     }
 
-    public function setName(string $name): Tax
+    public function setName(string $name): self
     {
         $this->name = $name;
+
         return $this;
     }
 
@@ -53,53 +62,58 @@ class Tax extends AbstractEntity
         return $this->percentage;
     }
 
-    public function setPercentage(float $percentage): Tax
+    public function setPercentage(float $percentage): self
     {
         $this->percentage = $percentage;
+
         return $this;
     }
 
-    public function getCalcType(): ?string
+    public function getCalcType(): string|null
     {
         return $this->calcType;
     }
 
-    public function setCalcType(?string $calcType): Tax
+    public function setCalcType(string|null $calcType): self
     {
         $this->calcType = $calcType;
+
         return $this;
     }
 
-    public function getDocumentName(): ?string
+    public function getDocumentName(): string|null
     {
         return $this->documentName;
     }
 
-    public function setDocumentName(?string $documentName): Tax
+    public function setDocumentName(string|null $documentName): self
     {
         $this->documentName = $documentName;
+
         return $this;
     }
 
-    public function getIsInactive(): ?bool
+    public function getIsInactive(): bool|null
     {
         return $this->isInactive;
     }
 
-    public function setIsInactive(?bool $isInactive): Tax
+    public function setIsInactive(bool|null $isInactive): self
     {
         $this->isInactive = $isInactive;
+
         return $this;
     }
 
-    public function getPercentageFlat(): ?float
+    public function getPercentageFlat(): float|null
     {
         return $this->percentageFlat;
     }
 
-    public function setPercentageFlat(?float $percentageFlat): Tax
+    public function setPercentageFlat(float|null $percentageFlat): self
     {
         $this->percentageFlat = $percentageFlat;
+
         return $this;
     }
 }

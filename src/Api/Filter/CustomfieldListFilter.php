@@ -8,12 +8,12 @@ use Terminal42\CashctrlApi\ApiClientInterface;
 
 class CustomfieldListFilter extends ListFilter
 {
-    protected string $type;
-
-    public function __construct(ApiClientInterface $client, string $urlPrefix, \Closure $createInstance, string $type)
-    {
+    public function __construct(
+        ApiClientInterface $client,
+        string $urlPrefix,
+        \Closure $createInstance,
+        protected string $type,
+    ) {
         parent::__construct($client, $urlPrefix, $createInstance);
-
-        $this->type = $type;
     }
 }

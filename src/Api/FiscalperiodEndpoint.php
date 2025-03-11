@@ -4,17 +4,17 @@ declare(strict_types=1);
 
 namespace Terminal42\CashctrlApi\Api;
 
+use Terminal42\CashctrlApi\Api\Filter\ListFilter;
 use Terminal42\CashctrlApi\ApiClientInterface;
 use Terminal42\CashctrlApi\Entity\Fiscalperiod;
 use Terminal42\CashctrlApi\Result;
-use Terminal42\CashctrlApi\Api\Filter\ListFilter;
 
 /**
- * @method Fiscalperiod|null read(int $id)
- * @method Fiscalperiod[]|ListFilter list()
- * @method Result create(Fiscalperiod $entity)
- * @method Result update(Fiscalperiod $entity)
- * @method Result delete(array $ids)
+ * @method Fiscalperiod|null              read(int $id)
+ * @method array<Fiscalperiod>|ListFilter list()
+ * @method Result                         create(Fiscalperiod $entity)
+ * @method Result                         update(Fiscalperiod $entity)
+ * @method Result                         delete(array $ids)
  */
 class FiscalperiodEndpoint extends AbstractEndpoint
 {

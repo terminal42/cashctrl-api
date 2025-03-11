@@ -8,13 +8,13 @@ use Psr\Http\Message\ResponseInterface;
 
 class ServerErrorException extends ResponseException
 {
-    public function __construct(ResponseInterface $response, \Throwable $previous = null)
+    public function __construct(ResponseInterface $response, \Throwable|null $previous = null)
     {
         parent::__construct(
             'Something went wrong on our end - not your fault. Please contact support.',
             $response->getStatusCode(),
             $previous,
-            $response
+            $response,
         );
     }
 }

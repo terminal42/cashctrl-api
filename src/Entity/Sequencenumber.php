@@ -7,17 +7,24 @@ namespace Terminal42\CashctrlApi\Entity;
 class Sequencenumber extends AbstractEntity
 {
     public const TYPE_INVENTORY_STOCK = 'INVENTORY_STOCK';
+
     public const TYPE_INVENTORY_SERVICE = 'INVENTORY_SERVICE';
+
     public const TYPE_INVENTORY_ASSET = 'INVENTORY_ASSET';
+
     public const TYPE_JOURNAL = 'JOURNAL';
+
     public const TYPE_ORDER = 'ORDER';
+
     public const TYPE_PERSON = 'PERSON';
+
     public const TYPE_SALES_INVOICE = 'SALES_INVOICE';
 
     protected string $type;
-    protected ?int $categoryId;
 
-    public function __construct(string $type, int $id = null)
+    protected int|null $categoryId = null;
+
+    public function __construct(string $type, int|null $id = null)
     {
         parent::__construct($id);
 
@@ -32,17 +39,19 @@ class Sequencenumber extends AbstractEntity
     public function setType(string $type): self
     {
         $this->type = $type;
+
         return $this;
     }
 
-    public function getCategoryId(): ?int
+    public function getCategoryId(): int|null
     {
         return $this->categoryId;
     }
 
-    public function setCategoryId(?int $categoryId): self
+    public function setCategoryId(int|null $categoryId): self
     {
         $this->categoryId = $categoryId;
+
         return $this;
     }
 }

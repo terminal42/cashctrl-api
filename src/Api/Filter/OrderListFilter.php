@@ -5,29 +5,42 @@ declare(strict_types=1);
 namespace Terminal42\CashctrlApi\Api\Filter;
 
 use Terminal42\CashctrlApi\ApiClientInterface;
-use Terminal42\CashctrlApi\Exception\DomainException;
 use Terminal42\CashctrlApi\Entity\Order;
+use Terminal42\CashctrlApi\Exception\DomainException;
 
 class OrderListFilter extends ListFilter
 {
     public const TYPE_SALES = 'SALES';
+
     public const TYPE_PURCHASE = 'PURCHASE';
 
-    private ApiClientInterface $client;
+    protected int|null $categoryId = null;
 
-    protected ?int $categoryId = null;
-    protected ?string $columns = null;
-    protected ?string $dir = null;
-    protected ?int $fiscalPeriodId = null;
-    protected ?int $limit = null;
-    protected ?bool $onlyNotes = null;
-    protected ?bool $onlyOpen = null;
-    protected ?bool $onlyOverdue = null;
-    protected ?string $query = null;
-    protected ?string $sort = null;
-    protected ?int $start = null;
-    protected ?int $statusId = null;
-    protected ?string $type = null;
+    protected string|null $columns = null;
+
+    protected string|null $dir = null;
+
+    protected int|null $fiscalPeriodId = null;
+
+    protected int|null $limit = null;
+
+    protected bool|null $onlyNotes = null;
+
+    protected bool|null $onlyOpen = null;
+
+    protected bool|null $onlyOverdue = null;
+
+    protected string|null $query = null;
+
+    protected string|null $sort = null;
+
+    protected int|null $start = null;
+
+    protected int|null $statusId = null;
+
+    protected string|null $type = null;
+
+    private readonly ApiClientInterface $client;
 
     public function __construct(ApiClientInterface $client, string $urlPrefix, \Closure $createInstance)
     {
@@ -37,7 +50,7 @@ class OrderListFilter extends ListFilter
     }
 
     /**
-     * @return Order[]
+     * @return array<Order>
      */
     public function get(): array
     {

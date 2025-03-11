@@ -8,13 +8,13 @@ use Psr\Http\Message\ResponseInterface;
 
 class ForbiddenException extends ResponseException
 {
-    public function __construct(ResponseInterface $response, \Throwable $previous = null)
+    public function __construct(ResponseInterface $response, \Throwable|null $previous = null)
     {
         parent::__construct(
             'The API key doesn\'t have permissions to perform the request.',
             403,
             $previous,
-            $response
+            $response,
         );
     }
 }

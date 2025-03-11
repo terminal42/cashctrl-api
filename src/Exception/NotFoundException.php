@@ -8,13 +8,13 @@ use Psr\Http\Message\ResponseInterface;
 
 class NotFoundException extends ResponseException
 {
-    public function __construct(ResponseInterface $response, \Throwable $previous = null)
+    public function __construct(ResponseInterface $response, \Throwable|null $previous = null)
     {
         parent::__construct(
             'The requested endpoint doesn\'t exist.',
             404,
             $previous,
-            $response
+            $response,
         );
     }
 }

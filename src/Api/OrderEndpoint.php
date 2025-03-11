@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace Terminal42\CashctrlApi\Api;
 
+use Terminal42\CashctrlApi\Api\Filter\OrderListFilter;
 use Terminal42\CashctrlApi\ApiClientInterface;
 use Terminal42\CashctrlApi\Entity\Order;
 use Terminal42\CashctrlApi\Result;
-use Terminal42\CashctrlApi\Api\Filter\OrderListFilter;
 
 /**
  * @method Order|null read(int $id)
- * @method Result create(Order $entity)
- * @method Result update(Order $entity)
- * @method Result delete(array $ids)
+ * @method Result     create(Order $entity)
+ * @method Result     update(Order $entity)
+ * @method Result     delete(array $ids)
  */
 class OrderEndpoint extends AbstractCRUDEndpoint
 {
@@ -23,13 +23,11 @@ class OrderEndpoint extends AbstractCRUDEndpoint
     }
 
     /**
-     * @return Order[]|OrderListFilter
+     * @return array<Order>|OrderListFilter
      */
     public function list(): OrderListFilter
     {
-        return new OrderListFilter($this->client, 'order', function (array $data) {
-            return $this->createInstance($data);
-        });
+        return new OrderListFilter($this->client, 'order', fn (array $data) => $this->createInstance($data));
     }
 
     public function statusInfo(int $id)
@@ -42,7 +40,7 @@ class OrderEndpoint extends AbstractCRUDEndpoint
         return $this->post('update_status.json', ['id' => $id, 'statusId' => $statusId]);
     }
 
-    public function updateRecurrence(int $id, \DateTimeInterface $endDate = null, string $recurrence = null, \DateTimeInterface $startDate = null)
+    public function updateRecurrence(int $id, \DateTimeInterface|null $endDate = null, string|null $recurrence = null, \DateTimeInterface|null $startDate = null)
     {
         $params = ['id' => $id];
 

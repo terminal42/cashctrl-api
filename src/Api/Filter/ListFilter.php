@@ -13,19 +13,16 @@ class ListFilter implements \IteratorAggregate
     use PropertiesTrait;
 
     public const EQUALS = 'eq';
+
     public const NOT_EQUALS = 'neq';
 
-    private ApiClientInterface $client;
-    private string $urlPrefix;
-    private \Closure $createInstance;
+    protected array|null $filter = null;
 
-    protected ?array $filter = null;
-
-    public function __construct(ApiClientInterface $client, string $urlPrefix, \Closure $createInstance)
-    {
-        $this->client = $client;
-        $this->urlPrefix = $urlPrefix;
-        $this->createInstance = $createInstance;
+    public function __construct(
+        private ApiClientInterface $client,
+        private string $urlPrefix,
+        private \Closure $createInstance,
+    ) {
     }
 
     public function getIterator(): \ArrayIterator
@@ -34,7 +31,7 @@ class ListFilter implements \IteratorAggregate
     }
 
     /**
-     * @return EntityInterface[]
+     * @return array<EntityInterface>
      */
     public function get(): array
     {
@@ -43,7 +40,7 @@ class ListFilter implements \IteratorAggregate
         return array_map($this->createInstance, $result->data());
     }
 
-    public function filter(string $property, $value, string $comparison = null): self
+    public function filter(string $property, $value, string|null $comparison = null): self
     {
         if (null === $this->filter) {
             $this->filter = [];

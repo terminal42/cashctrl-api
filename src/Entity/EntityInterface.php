@@ -6,5 +6,5 @@ namespace Terminal42\CashctrlApi\Entity;
 
 interface EntityInterface extends PropertiesInterface
 {
-    public function getId(): ?int;
+    public function getId(): int|null;
 }

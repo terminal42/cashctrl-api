@@ -8,12 +8,10 @@ use Terminal42\CashctrlApi\Result;
 
 class ValidationErrorException extends RuntimeException
 {
-    private Result $result;
-
-    public function __construct(Result $result, \Throwable $previous = null)
-    {
-        $this->result = $result;
-
+    public function __construct(
+        private readonly Result $result,
+        \Throwable|null $previous = null,
+    ) {
         parent::__construct($this->generateMessage(), 0, $previous);
     }
 
@@ -33,14 +31,14 @@ class ValidationErrorException extends RuntimeException
         $errors = $this->getErrors();
 
         if (empty($errors)) {
-            return \json_encode($this->result->getArrayCopy(), JSON_THROW_ON_ERROR);
+            return json_encode($this->result->getArrayCopy(), JSON_THROW_ON_ERROR);
         }
 
         foreach ($errors as $error) {
-            if (!is_array($error)) {
+            if (!\is_array($error)) {
                 $lines[] = $error;
             } else {
-                $lines[] = sprintf('%s: %s', $error['field'], $error['message']);
+                $lines[] = \sprintf('%s: %s', $error['field'], $error['message']);
             }
         }
 

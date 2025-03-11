@@ -4,17 +4,17 @@ declare(strict_types=1);
 
 namespace Terminal42\CashctrlApi\Api;
 
+use Terminal42\CashctrlApi\Api\Filter\ListFilter;
 use Terminal42\CashctrlApi\ApiClientInterface;
 use Terminal42\CashctrlApi\Entity\CustomfieldGroup;
 use Terminal42\CashctrlApi\Result;
-use Terminal42\CashctrlApi\Api\Filter\ListFilter;
 
 /**
- * @method CustomfieldGroup|null read(int $id)
- * @method CustomfieldGroup[]|ListFilter list()
- * @method Result create(CustomfieldGroup $entity)
- * @method Result update(CustomfieldGroup $entity)
- * @method Result delete(array $ids)
+ * @method CustomfieldGroup|null              read(int $id)
+ * @method array<CustomfieldGroup>|ListFilter list()
+ * @method Result                             create(CustomfieldGroup $entity)
+ * @method Result                             update(CustomfieldGroup $entity)
+ * @method Result                             delete(array $ids)
  */
 class CustomfieldGroupEndpoint extends AbstractEndpoint
 {

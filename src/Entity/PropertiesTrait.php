@@ -11,12 +11,21 @@ trait PropertiesTrait
 {
     private array $additionalData = [];
 
+    /**
+     * @noinspection MagicMethodsValidityInspection
+     */
+    public function __get(string $key)
+    {
+        return $this->additionalData[$key] ?? null;
+    }
+
     public function toArray(): array
     {
         $ref = new \ReflectionClass($this);
         $props = $ref->getProperties(\ReflectionProperty::IS_PROTECTED);
 
         $data = [];
+
         foreach ($props as $prop) {
             $prop->setAccessible(true);
             $value = $prop->getValue($this);
@@ -28,29 +37,13 @@ trait PropertiesTrait
             $value = $this->convertValue($value);
 
             if (\is_array($value) || $value instanceof \JsonSerializable) {
-                $value = \json_encode($value, JSON_THROW_ON_ERROR);
+                $value = json_encode($value, JSON_THROW_ON_ERROR);
             }
 
             $data[$prop->getName()] = $value;
         }
 
         return $data;
-    }
-
-    private function convertValue($value)
-    {
-        if (\is_array($value)) {
-            foreach ($value as &$v) {
-                $v = $this->convertValue($v);
-            }
-        } elseif ($value instanceof \DateTimeInterface) {
-            // TODO what about time?
-            $value = $value->format('Y-m-d');
-        } elseif ($value instanceof PropertiesInterface) {
-            $value = $value->toArray();
-        }
-
-        return $value;
     }
 
     public static function create(array $data): self
@@ -77,10 +70,10 @@ trait PropertiesTrait
             if (null !== $type && null !== $v) {
                 if ($type->isBuiltin()) {
                     settype($v, $type->getName());
-                } elseif (\is_a($type->getName(), \DateTimeInterface::class, true)) {
+                } elseif (is_a($type->getName(), \DateTimeInterface::class, true)) {
                     try {
                         $v = ApiClient::parseDateTime($v);
-                    } catch (InvalidArgumentException $e) {
+                    } catch (InvalidArgumentException) {
                         continue;
                     }
                 } elseif (is_a($type->getName(), PropertiesInterface::class, true)) {
@@ -99,9 +92,19 @@ trait PropertiesTrait
         return $instance;
     }
 
-    /** @noinspection MagicMethodsValidityInspection */
-    public function __get(string $key)
+    private function convertValue($value)
     {
-        return $this->additionalData[$key] ?? null;
+        if (\is_array($value)) {
+            foreach ($value as &$v) {
+                $v = $this->convertValue($v);
+            }
+        } elseif ($value instanceof \DateTimeInterface) {
+            // TODO what about time?
+            $value = $value->format('Y-m-d');
+        } elseif ($value instanceof PropertiesInterface) {
+            $value = $value->toArray();
+        }
+
+        return $value;
     }
 }

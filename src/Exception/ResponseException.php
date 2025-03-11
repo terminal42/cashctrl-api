@@ -8,9 +8,9 @@ use Psr\Http\Message\ResponseInterface;
 
 class ResponseException extends RuntimeException
 {
-    private ?ResponseInterface $response;
+    private readonly ResponseInterface|null $response;
 
-    public function __construct(string $message = '', int $code = 0, \Throwable $previous = null, ResponseInterface $response = null)
+    public function __construct(string $message = '', int $code = 0, \Throwable|null $previous = null, ResponseInterface|null $response = null)
     {
         if (null !== $response) {
             if ($message) {
@@ -25,7 +25,7 @@ class ResponseException extends RuntimeException
         $this->response = $response;
     }
 
-    public function getResponse(): ?ResponseInterface
+    public function getResponse(): ResponseInterface|null
     {
         return $this->response;
     }

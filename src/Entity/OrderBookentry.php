@@ -5,36 +5,45 @@ declare(strict_types=1);
 namespace Terminal42\CashctrlApi\Entity;
 
 /**
- * @property-read string $created
- * @property-read string $createdBy
- * @property-read string $lastUpdated
- * @property-read string $lastUpdatedBy
- * @property-read int|null $debitId
- * @property-read int|null $creditId
- * @property-read int|null $importEntryId
- * @property-read string $type
- * @property-read string $name
- * @property-read string $debitName
- * @property-read string $creditName
- * @property-read float $defaultCurrencyAmount
- * @property-read float $netAmount
- * @property-read float $taxAmount
- * @property-read bool $isAllowTax
+ * @property string   $created
+ * @property string   $createdBy
+ * @property string   $lastUpdated
+ * @property string   $lastUpdatedBy
+ * @property int|null $debitId
+ * @property int|null $creditId
+ * @property int|null $importEntryId
+ * @property string   $type
+ * @property string   $name
+ * @property string   $debitName
+ * @property string   $creditName
+ * @property float    $defaultCurrencyAmount
+ * @property float    $netAmount
+ * @property float    $taxAmount
+ * @property bool     $isAllowTax
  */
 class OrderBookentry extends AbstractEntity
 {
     protected int $accountId;
-    protected ?float $amount = null;
-    protected int $orderId;
-    protected ?int $currencyId = null;
-    protected ?float $currencyRate = null;
-    protected ?\DateTimeInterface $date = null;
-    protected ?string $description = null;
-    protected ?string $reference = null;
-    protected ?int $taxId = null;
-    protected ?int $templateId = null;
 
-    public function __construct(int $accountId, int $orderId, int $id = null)
+    protected float|null $amount = null;
+
+    protected int $orderId;
+
+    protected int|null $currencyId = null;
+
+    protected float|null $currencyRate = null;
+
+    protected \DateTimeInterface|null $date = null;
+
+    protected string|null $description = null;
+
+    protected string|null $reference = null;
+
+    protected int|null $taxId = null;
+
+    protected int|null $templateId = null;
+
+    public function __construct(int $accountId, int $orderId, int|null $id = null)
     {
         parent::__construct($id);
 
@@ -50,17 +59,19 @@ class OrderBookentry extends AbstractEntity
     public function setAccountId(int $accountId): self
     {
         $this->accountId = $accountId;
+
         return $this;
     }
 
-    public function getAmount(): ?float
+    public function getAmount(): float|null
     {
         return $this->amount;
     }
 
-    public function setAmount(?float $amount): self
+    public function setAmount(float|null $amount): self
     {
         $this->amount = $amount;
+
         return $this;
     }
 
@@ -72,83 +83,91 @@ class OrderBookentry extends AbstractEntity
     public function setOrderId(int $orderId): self
     {
         $this->orderId = $orderId;
+
         return $this;
     }
 
-    public function getCurrencyId(): ?int
+    public function getCurrencyId(): int|null
     {
         return $this->currencyId;
     }
 
-    public function setCurrencyId(?int $currencyId): self
+    public function setCurrencyId(int|null $currencyId): self
     {
         $this->currencyId = $currencyId;
+
         return $this;
     }
 
-    public function getCurrencyRate(): ?float
+    public function getCurrencyRate(): float|null
     {
         return $this->currencyRate;
     }
 
-    public function setCurrencyRate(?float $currencyRate): self
+    public function setCurrencyRate(float|null $currencyRate): self
     {
         $this->currencyRate = $currencyRate;
+
         return $this;
     }
 
-    public function getDate(): ?\DateTimeInterface
+    public function getDate(): \DateTimeInterface|null
     {
         return $this->date;
     }
 
-    public function setDate(?\DateTimeInterface $date): self
+    public function setDate(\DateTimeInterface|null $date): self
     {
         $this->date = $date;
+
         return $this;
     }
 
-    public function getDescription(): ?string
+    public function getDescription(): string|null
     {
         return $this->description;
     }
 
-    public function setDescription(?string $description): self
+    public function setDescription(string|null $description): self
     {
         $this->description = $description;
+
         return $this;
     }
 
-    public function getReference(): ?string
+    public function getReference(): string|null
     {
         return $this->reference;
     }
 
-    public function setReference(?string $reference): self
+    public function setReference(string|null $reference): self
     {
         $this->reference = $reference;
+
         return $this;
     }
 
-    public function getTaxId(): ?int
+    public function getTaxId(): int|null
     {
         return $this->taxId;
     }
 
-    public function setTaxId(?int $taxId): self
+    public function setTaxId(int|null $taxId): self
     {
         $this->taxId = $taxId;
+
         return $this;
     }
 
-    public function getTemplateId(): ?int
+    public function getTemplateId(): int|null
     {
         return $this->templateId;
     }
 
-    public function setTemplateId(?int $templateId): self
+    public function setTemplateId(int|null $templateId): self
     {
         $this->templateId = $templateId;
+
         return $this;
     }
 }

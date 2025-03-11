@@ -11,9 +11,9 @@ use Terminal42\CashctrlApi\Result;
 
 /**
  * @method Account|null read(int $id)
- * @method Result create(Account $account)
- * @method Result update(Account $account)
- * @method Result delete(array $ids)
+ * @method Result       create(Account $account)
+ * @method Result       update(Account $account)
+ * @method Result       delete(array $ids)
  */
 class AccountEndpoint extends AbstractEndpoint
 {
@@ -23,16 +23,14 @@ class AccountEndpoint extends AbstractEndpoint
     }
 
     /**
-     * @return Account[]|AccountListFilter
+     * @return array<Account>|AccountListFilter
      */
     public function list(): AccountListFilter
     {
-        return new AccountListFilter($this->client, 'account', function (array $data) {
-            return $this->createInstance($data);
-        });
+        return new AccountListFilter($this->client, 'account', fn (array $data) => $this->createInstance($data));
     }
 
-    public function balance(int $id, \DateTimeInterface $date = null)
+    public function balance(int $id, \DateTimeInterface|null $date = null)
     {
         $params = ['id' => $id];
 
