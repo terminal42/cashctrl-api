@@ -30,6 +30,7 @@ class Journal extends AbstractEntity
     protected ?float $currencyRate = null;
     protected ?\DateTimeInterface $dateAdded = null;
     protected ?int $daysBefore = null;
+    protected ?array $items = null;
     protected ?string $notes = null;
     protected ?string $notifyEmail = null;
     protected ?int $notifyPersonId = null;
@@ -137,6 +138,53 @@ class Journal extends AbstractEntity
     public function setDateAdded(?\DateTimeInterface $dateAdded): Journal
     {
         $this->dateAdded = $dateAdded;
+        return $this;
+    }
+
+    /**
+     * @return JournalItem[]|null
+     */
+    public function getItems(): ?array
+    {
+        return $this->items;
+    }
+
+    /**
+     * @param JournalItem[]|null $items
+     */
+    public function setItems(?array $items): self
+    {
+        $this->items = null;
+
+        foreach ($items as $item) {
+            $this->addItem($item);
+        }
+
+        return $this;
+    }
+
+    public function addItem(JournalItem $item): self
+    {
+        if (null === $this->items) {
+            $this->items = [];
+        }
+
+        $this->items[] = $item;
+
+        return $this;
+    }
+
+    public function removeItem(JournalItem $item): self
+    {
+        if (null === $this->items) {
+            return $this;
+        }
+
+        if (false !== ($key = array_search($item, $this->items, true))) {
+            unset($this->items[$key]);
+            $this->items = array_values($this->items);
+        }
+
         return $this;
     }
 
@@ -270,5 +318,18 @@ class Journal extends AbstractEntity
     {
         $this->endDate = $endDate;
         return $this;
+    }
+
+    public static function create(array $data): self
+    {
+        if (\is_array($data['items'] ?? null)) {
+            $items = [];
+            foreach ($data['items'] as $item) {
+                $items[] = JournalItem::create($item);
+            }
+            $data['items'] = $items;
+        }
+
+        return parent::create($data);
     }
 }
