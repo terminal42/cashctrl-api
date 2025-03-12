@@ -37,7 +37,7 @@ class ApiClient implements ApiClientInterface
         private readonly RequestFactoryInterface $requestFactory,
         private readonly StreamFactoryInterface $streamFactory,
         string $subdomain,
-        private readonly string $apiKey,
+        #[\SensitiveParameter] private readonly string $apiKey,
     ) {
         $this->apiBase = 'https://'.$subdomain.'.cashctrl.com/api/v1/';
     }
