@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Terminal42\CashctrlApi\Api\Filter;
 
 use Terminal42\CashctrlApi\ApiClientInterface;
+use Terminal42\CashctrlApi\SerializeableTrait;
 
 /**
  * @template TEntity
@@ -13,6 +14,8 @@ use Terminal42\CashctrlApi\ApiClientInterface;
  */
 class ListFilter implements \IteratorAggregate
 {
+    use SerializeableTrait;
+
     public const EQUALS = 'eq';
 
     public const NOT_EQUALS = 'neq';
@@ -62,21 +65,5 @@ class ListFilter implements \IteratorAggregate
         $this->filter[] = $filter;
 
         return $this;
-    }
-
-    /**
-     * @return array{
-     *     filter: array<array{
-     *         field: string,
-     *         value: float|string,
-     *         comparison?: string
-     *     }>
-     * }
-     */
-    public function toArray(): array
-    {
-        return [
-            'filter' => $this->filter,
-        ];
     }
 }
