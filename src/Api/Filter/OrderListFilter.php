@@ -6,6 +6,7 @@ namespace Terminal42\CashctrlApi\Api\Filter;
 
 use Terminal42\CashctrlApi\ApiClientInterface;
 use Terminal42\CashctrlApi\Entity\Order;
+use Terminal42\CashctrlApi\Enum\OrderType;
 use Terminal42\CashctrlApi\Exception\DomainException;
 
 /**
@@ -13,10 +14,6 @@ use Terminal42\CashctrlApi\Exception\DomainException;
  */
 class OrderListFilter extends ListFilter
 {
-    public const TYPE_SALES = 'SALES';
-
-    public const TYPE_PURCHASE = 'PURCHASE';
-
     protected int|null $categoryId = null;
 
     protected string|null $columns = null;
@@ -41,7 +38,7 @@ class OrderListFilter extends ListFilter
 
     protected int|null $statusId = null;
 
-    protected string|null $type = null;
+    protected OrderType|null $type = null;
 
     private readonly ApiClientInterface $client;
 
@@ -102,7 +99,7 @@ class OrderListFilter extends ListFilter
         return $this;
     }
 
-    public function ofType(string $type): self
+    public function ofType(OrderType $type): self
     {
         $this->type = $type;
 
