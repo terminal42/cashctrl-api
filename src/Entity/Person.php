@@ -438,13 +438,7 @@ class Person extends AbstractEntity
             $instance->setAddresses(null);
 
             foreach ($data['addresses'] as $row) {
-                $instance->addAddress(new PersonAddress(
-                    $row['type'],
-                    $row['address'],
-                    $row['zip'],
-                    $row['city'],
-                    $row['country'],
-                ));
+                $instance->addAddress(PersonAddress::create($row));
             }
         }
 
@@ -452,7 +446,7 @@ class Person extends AbstractEntity
             $instance->setContacts(null);
 
             foreach ($data['contacts'] as $row) {
-                $instance->addContact(new PersonContact($row['address'], $row['type']));
+                $instance->addContact(PersonContact::create($row));
             }
         }
 

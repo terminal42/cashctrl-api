@@ -407,13 +407,7 @@ class OrderCategory extends AbstractEntity
             $instance->setStatus([]);
 
             foreach ($data['status'] as $row) {
-                $status = new OrderCategoryStatus($row['icon'], $row['name']);
-                $status->setActionId($row['actionId']);
-                $status->setIsAddStock($row['isAddStock'] ?? null);
-                $status->setIsBook($row['isBook'] ?? null);
-                $status->setIsClosed($row['isClosed'] ?? null);
-                $status->setIsRemoveStock($row['isRemoveStock'] ?? null);
-                $instance->addStatus($status);
+                $instance->addStatus(OrderCategoryStatus::create($row));
             }
         }
 
