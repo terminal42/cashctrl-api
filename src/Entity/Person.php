@@ -307,7 +307,7 @@ class Person extends AbstractEntity
     }
 
     /**
-     * @param ?array<PersonAddress> $addresses
+     * @param array<PersonAddress>|null $addresses
      */
     public function setAddresses(array|null $addresses): self
     {

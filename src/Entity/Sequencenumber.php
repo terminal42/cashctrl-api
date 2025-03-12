@@ -4,39 +4,27 @@ declare(strict_types=1);
 
 namespace Terminal42\CashctrlApi\Entity;
 
+use Terminal42\CashctrlApi\Enum\SequencenumberType;
+
 class Sequencenumber extends AbstractEntity
 {
-    public const TYPE_INVENTORY_STOCK = 'INVENTORY_STOCK';
-
-    public const TYPE_INVENTORY_SERVICE = 'INVENTORY_SERVICE';
-
-    public const TYPE_INVENTORY_ASSET = 'INVENTORY_ASSET';
-
-    public const TYPE_JOURNAL = 'JOURNAL';
-
-    public const TYPE_ORDER = 'ORDER';
-
-    public const TYPE_PERSON = 'PERSON';
-
-    public const TYPE_SALES_INVOICE = 'SALES_INVOICE';
-
-    protected string $type;
+    protected SequencenumberType $type;
 
     protected int|null $categoryId = null;
 
-    public function __construct(string $type, int|null $id = null)
+    public function __construct(SequencenumberType $type, int|null $id = null)
     {
         parent::__construct($id);
 
         $this->type = $type;
     }
 
-    public function getType(): string
+    public function getType(): SequencenumberType
     {
         return $this->type;
     }
 
-    public function setType(string $type): self
+    public function setType(SequencenumberType $type): self
     {
         $this->type = $type;
 

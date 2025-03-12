@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Terminal42\CashctrlApi\Entity;
 
+use Terminal42\CashctrlApi\Enum\OrderItemType;
+
 /**
  * @property string      $id
  * @property string      $created
@@ -35,14 +37,6 @@ class OrderItem implements PropertiesInterface
 {
     use PropertiesTrait;
 
-    public const TYPE_ARTICLE = 'ARTICLE';
-
-    public const TYPE_TEXT = 'TEXT';
-
-    public const TYPE_PAGEBREAK = 'PAGEBREAK';
-
-    public const TYPE_SUBTOTAL = 'SUBTOTAL';
-
     protected int $accountId;
 
     protected string $name;
@@ -61,7 +55,7 @@ class OrderItem implements PropertiesInterface
 
     protected int|null $taxId = null;
 
-    protected string|null $type = null;
+    protected OrderItemType|null $type = null;
 
     protected int|null $unitId = null;
 
@@ -180,12 +174,12 @@ class OrderItem implements PropertiesInterface
         return $this;
     }
 
-    public function getType(): string|null
+    public function getType(): OrderItemType|null
     {
         return $this->type;
     }
 
-    public function setType(string|null $type): self
+    public function setType(OrderItemType|null $type): self
     {
         $this->type = $type;
 

@@ -4,34 +4,11 @@ declare(strict_types=1);
 
 namespace Terminal42\CashctrlApi\Entity;
 
+use Terminal42\CashctrlApi\Enum\NotifyType;
+use Terminal42\CashctrlApi\Enum\Recurrence;
+
 class Journal extends AbstractEntity
 {
-    public const NOTIFY_NONE = 'NONE';
-
-    public const NOTIFY_USER = 'USER';
-
-    public const NOTIFY_PERSON = 'PERSON';
-
-    public const NOTIFY_RESPONSIBLE_PERSON = 'RESPONSIBLE_PERSON';
-
-    public const NOTIFY_EMAIL = 'EMAIL';
-
-    public const RECURRENCE_YEARLY = 'YEARLY';
-
-    public const RECURRENCE_SEMESTRAL = 'SEMESTRAL';
-
-    public const RECURRENCE_QUARTERLY = 'QUARTERLY';
-
-    public const RECURRENCE_BI_MONTHLY = 'BI_MONTHLY';
-
-    public const RECURRENCE_MONTHLY = 'MONTHLY';
-
-    public const RECURRENCE_WEEKLY = 'WEEKLY';
-
-    public const RECURRENCE_BI_WEEKLY = 'BI_WEEKLY';
-
-    public const RECURRENCE_DAILY = 'DAILY';
-
     protected float $amount;
 
     protected int $creditId;
@@ -58,7 +35,7 @@ class Journal extends AbstractEntity
 
     protected int|null $notifyPersonId = null;
 
-    protected string|null $notifyType = null;
+    protected NotifyType|null $notifyType = null;
 
     protected int|null $notifyUserId = null;
 
@@ -68,7 +45,7 @@ class Journal extends AbstractEntity
 
     protected int|null $taxId = null;
 
-    protected string|null $recurrence = null;
+    protected Recurrence|null $recurrence = null;
 
     protected \DateTimeInterface|null $startDate = null;
 
@@ -275,12 +252,12 @@ class Journal extends AbstractEntity
         return $this;
     }
 
-    public function getNotifyType(): string|null
+    public function getNotifyType(): NotifyType|null
     {
         return $this->notifyType;
     }
 
-    public function setNotifyType(string|null $notifyType): self
+    public function setNotifyType(NotifyType|null $notifyType): self
     {
         $this->notifyType = $notifyType;
 
@@ -335,12 +312,12 @@ class Journal extends AbstractEntity
         return $this;
     }
 
-    public function getRecurrence(): string|null
+    public function getRecurrence(): Recurrence|null
     {
         return $this->recurrence;
     }
 
-    public function setRecurrence(string|null $recurrence): self
+    public function setRecurrence(Recurrence|null $recurrence): self
     {
         $this->recurrence = $recurrence;
 

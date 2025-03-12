@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Terminal42\CashctrlApi\Entity;
 
+use Terminal42\CashctrlApi\Enum\AddressType;
+use Terminal42\CashctrlApi\Enum\BookType;
+use Terminal42\CashctrlApi\Enum\OrderCategoryType;
+
 class OrderCategory extends AbstractEntity
 {
-    public const TYPE_SALES = 'SALES';
-
-    public const TYPE_PURCHASE = 'PURCHASE';
-
     protected int $accountId;
 
     protected string $namePlural;
@@ -18,11 +18,11 @@ class OrderCategory extends AbstractEntity
 
     protected array $status = [];
 
-    protected string|null $addressType = null;
+    protected AddressType|null $addressType = null;
 
     protected array|null $bookTemplates = null;
 
-    protected string|null $bookType = null;
+    protected BookType|null $bookType = null;
 
     protected int|null $currencyId = null;
 
@@ -54,7 +54,7 @@ class OrderCategory extends AbstractEntity
 
     protected int|null $templateId = null;
 
-    protected string|null $type = null;
+    protected OrderCategoryType|null $type = null;
 
     public function __construct(int $accountId, string $namePlural, string $nameSingular, int|null $id = null)
     {
@@ -101,24 +101,24 @@ class OrderCategory extends AbstractEntity
         return $this;
     }
 
-    public function getAddressType(): string|null
+    public function getAddressType(): AddressType|null
     {
         return $this->addressType;
     }
 
-    public function setAddressType(string|null $addressType): self
+    public function setAddressType(AddressType|null $addressType): self
     {
         $this->addressType = $addressType;
 
         return $this;
     }
 
-    public function getBookType(): string|null
+    public function getBookType(): BookType|null
     {
         return $this->bookType;
     }
 
-    public function setBookType(string|null $bookType): self
+    public function setBookType(BookType|null $bookType): self
     {
         $this->bookType = $bookType;
 
@@ -305,12 +305,12 @@ class OrderCategory extends AbstractEntity
         return $this;
     }
 
-    public function getType(): string|null
+    public function getType(): OrderCategoryType|null
     {
         return $this->type;
     }
 
-    public function setType(string|null $type): self
+    public function setType(OrderCategoryType|null $type): self
     {
         $this->type = $type;
 

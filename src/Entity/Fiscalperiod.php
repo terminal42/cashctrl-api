@@ -4,19 +4,17 @@ declare(strict_types=1);
 
 namespace Terminal42\CashctrlApi\Entity;
 
+use Terminal42\CashctrlApi\Enum\FiscalperiodType;
+
 class Fiscalperiod extends AbstractEntity
 {
-    public const TYPE_EARLIEST = 'EARLIEST';
-
-    public const TYPE_LATEST = 'LATEST';
-
     protected string|null $name = null;
 
     protected \DateTimeInterface|null $start = null;
 
     protected \DateTimeInterface|null $end = null;
 
-    protected string|null $type = null;
+    protected FiscalperiodType|null $type = null;
 
     protected bool|null $isCustom = null;
 
@@ -60,12 +58,12 @@ class Fiscalperiod extends AbstractEntity
         return $this;
     }
 
-    public function getType(): string|null
+    public function getType(): FiscalperiodType|null
     {
         return $this->type;
     }
 
-    public function setType(string|null $type): self
+    public function setType(FiscalperiodType|null $type): self
     {
         $this->type = $type;
 

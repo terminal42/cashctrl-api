@@ -75,6 +75,8 @@ trait PropertiesTrait
 
                 if ($type->isBuiltin()) {
                     settype($v, $class);
+                } elseif (is_a($class, \BackedEnum::class, true)) {
+                    $v = $class::from($v);
                 } elseif (is_a($class, \DateTimeInterface::class, true)) {
                     try {
                         $v = ApiClient::parseDateTime($v);
@@ -105,6 +107,8 @@ trait PropertiesTrait
             foreach ($value as &$v) {
                 $v = $this->convertValue($v);
             }
+        } elseif ($value instanceof \BackedEnum) {
+            $value = $value->value;
         } elseif ($value instanceof \DateTimeInterface) {
             // TODO what about time?
             $value = $value->format('Y-m-d');

@@ -4,19 +4,13 @@ declare(strict_types=1);
 
 namespace Terminal42\CashctrlApi\Entity;
 
+use Terminal42\CashctrlApi\Enum\AddressType;
+
 class PersonAddress implements PropertiesInterface
 {
     use PropertiesTrait;
 
-    public const TYPE_MAIN = 'MAIN';
-
-    public const TYPE_INVOICE = 'INVOICE';
-
-    public const TYPE_DELIVERY = 'DELIVERY';
-
-    public const TYPE_OTHER = 'OTHER';
-
-    protected string $type;
+    protected AddressType $type;
 
     protected string|null $address = null;
 
@@ -26,7 +20,7 @@ class PersonAddress implements PropertiesInterface
 
     protected string|null $country = null;
 
-    public function __construct(string $type, string|null $address = null, string|null $zip = null, string|null $city = null, string|null $country = null)
+    public function __construct(AddressType $type, string|null $address = null, string|null $zip = null, string|null $city = null, string|null $country = null)
     {
         $this->type = $type;
         $this->address = $address;
@@ -35,12 +29,12 @@ class PersonAddress implements PropertiesInterface
         $this->country = $country;
     }
 
-    public function getType(): string
+    public function getType(): AddressType
     {
         return $this->type;
     }
 
-    public function setType(string $type): self
+    public function setType(AddressType $type): self
     {
         $this->type = $type;
 

@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Terminal42\CashctrlApi\Entity;
 
+use Terminal42\CashctrlApi\Enum\NotifyType;
+use Terminal42\CashctrlApi\Enum\Recurrence;
 use Terminal42\CashctrlApi\XmlHelper;
 
 /**
@@ -55,32 +57,6 @@ use Terminal42\CashctrlApi\XmlHelper;
  */
 class Order extends AbstractEntity
 {
-    public const RECURRENCE_YEARLY = 'YEARLY';
-
-    public const RECURRENCE_SEMESTRAL = 'SEMESTRAL';
-
-    public const RECURRENCE_QUARTERLY = 'QUARTERLY';
-
-    public const RECURRENCE_BI_MONTHLY = 'BI_MONTHLY';
-
-    public const RECURRENCE_MONTHLY = 'MONTHLY';
-
-    public const RECURRENCE_WEEKLY = 'WEEKLY';
-
-    public const RECURRENCE_BI_WEEKLY = 'BI_WEEKLY';
-
-    public const RECURRENCE_DAILY = 'DAILY';
-
-    public const NOTIFY_TYPE_NONE = 'NONE';
-
-    public const NOTIFY_TYPE_USER = 'USER';
-
-    public const NOTIFY_TYPE_PERSON = 'PERSON';
-
-    public const NOTIFY_TYPE_RESPONSIBLE_PERSON = 'RESPONSIBLE_PERSON';
-
-    public const NOTIFY_TYPE_EMAIL = 'EMAIL';
-
     protected int $associateId;
 
     protected int $categoryId;
@@ -119,7 +95,7 @@ class Order extends AbstractEntity
 
     protected int|null $notifyPersonId = null;
 
-    protected string|null $notifyType = null;
+    protected NotifyType|null $notifyType = null;
 
     protected int|null $notifyUserId = null;
 
@@ -127,7 +103,7 @@ class Order extends AbstractEntity
 
     protected int|null $previousId = null;
 
-    protected string|null $recurrence = null;
+    protected Recurrence|null $recurrence = null;
 
     protected int|null $responsiblePersonId = null;
 
@@ -413,12 +389,12 @@ class Order extends AbstractEntity
         return $this;
     }
 
-    public function getNotifyType(): string|null
+    public function getNotifyType(): NotifyType|null
     {
         return $this->notifyType;
     }
 
-    public function setNotifyType(string|null $notifyType): self
+    public function setNotifyType(NotifyType|null $notifyType): self
     {
         $this->notifyType = $notifyType;
 
@@ -461,12 +437,12 @@ class Order extends AbstractEntity
         return $this;
     }
 
-    public function getRecurrence(): string|null
+    public function getRecurrence(): Recurrence|null
     {
         return $this->recurrence;
     }
 
-    public function setRecurrence(string|null $recurrence): self
+    public function setRecurrence(Recurrence|null $recurrence): self
     {
         $this->recurrence = $recurrence;
 

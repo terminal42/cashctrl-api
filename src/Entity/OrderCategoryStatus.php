@@ -4,33 +4,14 @@ declare(strict_types=1);
 
 namespace Terminal42\CashctrlApi\Entity;
 
+use Terminal42\CashctrlApi\Enum\IconColor;
 use Terminal42\CashctrlApi\XmlHelper;
 
 class OrderCategoryStatus implements PropertiesInterface
 {
     use PropertiesTrait;
 
-    public const ICON_BLUE = 'BLUE';
-
-    public const ICON_GREEN = 'GREEN';
-
-    public const ICON_RED = 'RED';
-
-    public const ICON_YELLOW = 'YELLOW';
-
-    public const ICON_ORANGE = 'ORANGE';
-
-    public const ICON_BLACK = 'BLACK';
-
-    public const ICON_GRAY = 'GRAY';
-
-    public const ICON_BROWN = 'BROWN';
-
-    public const ICON_VIOLET = 'VIOLET';
-
-    public const ICON_PINK = 'PINK';
-
-    protected string $icon;
+    protected IconColor $icon;
 
     protected string $name;
 
@@ -44,18 +25,18 @@ class OrderCategoryStatus implements PropertiesInterface
 
     protected bool|null $isRemoveStock = null;
 
-    public function __construct(string $icon, string $name)
+    public function __construct(IconColor $icon, string $name)
     {
         $this->icon = $icon;
         $this->name = $name;
     }
 
-    public function getIcon(): string
+    public function getIcon(): IconColor
     {
         return $this->icon;
     }
 
-    public function setIcon(string $icon): self
+    public function setIcon(IconColor $icon): self
     {
         $this->icon = $icon;
 
