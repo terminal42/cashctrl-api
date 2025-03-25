@@ -12,9 +12,9 @@ class JournalItem implements PropertiesInterface
 
     protected string|null $associateId = null;
 
-    protected float|string $credit;
+    protected float|string|null $credit = null;
 
-    protected float|string $debit;
+    protected float|string|null $debit = null;
 
     protected string|null $description = null;
 
