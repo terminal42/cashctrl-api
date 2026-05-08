@@ -4,79 +4,142 @@ declare(strict_types=1);
 
 namespace Terminal42\CashctrlApi\Entity;
 
+/**
+ * @property float      $currentPercentage
+ * @property float|null $currentPercentageFlat
+ * @property string     $accountDisplay
+ * @property bool       $isFlat
+ */
 class Tax extends AbstractEntity
 {
-    public const CALC_NET = 'NET';
+    protected string $code;
 
-    public const CALC_GROSS = 'GROSS';
+    /**
+     * @var array<TaxComponent>
+     */
+    protected array $components;
 
-    protected int $accountId;
+    /**
+     * @var array<TaxRate>
+     */
+    protected array $rates;
 
-    protected string $name;
-
-    protected float $percentage;
-
-    protected string|null $calcType = null;
+    protected string|null $description = null;
 
     protected string|null $documentName = null;
 
+    protected bool|null $isDisplayTaxRate = null;
+
     protected bool|null $isInactive = null;
 
-    protected float|null $percentageFlat = null;
-
-    public function __construct(int $accountId, string $name, float $percentage, int|null $id = null)
+    public function __construct(string $code, array $components, array $rates, int|null $id = null)
     {
         parent::__construct($id);
 
-        $this->accountId = $accountId;
-        $this->name = $name;
-        $this->percentage = $percentage;
+        $this->code = $code;
+
+        $this->setComponents($components);
+        $this->setRates($rates);
     }
 
-    public function getAccountId(): int
+    public function getCode(): string
     {
-        return $this->accountId;
+        return $this->code;
     }
 
-    public function setAccountId(int $accountId): self
+    public function setCode(string $code): self
     {
-        $this->accountId = $accountId;
+        $this->code = $code;
 
         return $this;
     }
 
-    public function getName(): string
+    /**
+     * @return array<TaxComponent>
+     */
+    public function getComponents(): array
     {
-        return $this->name;
+        return $this->components;
     }
 
-    public function setName(string $name): self
+    /**
+     * @param array<TaxComponent> $components
+     */
+    public function setComponents(array $components): self
     {
-        $this->name = $name;
+        $this->components = [];
+
+        foreach ($components as $component) {
+            $this->addComponent($component);
+        }
 
         return $this;
     }
 
-    public function getPercentage(): float
+    public function addComponent(TaxComponent $component): self
     {
-        return $this->percentage;
-    }
-
-    public function setPercentage(float $percentage): self
-    {
-        $this->percentage = $percentage;
+        $this->components[] = $component;
 
         return $this;
     }
 
-    public function getCalcType(): string|null
+    public function removeComponent(TaxComponent $component): self
     {
-        return $this->calcType;
+        if (false !== ($key = array_search($component, $this->components, true))) {
+            unset($this->components[$key]);
+            $this->components = array_values($this->components);
+        }
+
+        return $this;
     }
 
-    public function setCalcType(string|null $calcType): self
+    /**
+     * @return array<TaxRate>
+     */
+    public function getRates(): array
     {
-        $this->calcType = $calcType;
+        return $this->rates;
+    }
+
+    /**
+     * @param array<TaxRate> $rates
+     */
+    public function setRates(array $rates): self
+    {
+        $this->rates = [];
+
+        foreach ($rates as $rate) {
+            $this->addRate($rate);
+        }
+
+        return $this;
+    }
+
+    public function addRate(TaxRate $rate): self
+    {
+        $this->rates[] = $rate;
+
+        return $this;
+    }
+
+    public function removeRate(TaxRate $rate): self
+    {
+        if (false !== ($key = array_search($rate, $this->rates, true))) {
+            unset($this->rates[$key]);
+            $this->rates = array_values($this->rates);
+        }
+
+        return $this;
+    }
+
+    public function getDescription(): string|null
+    {
+        return $this->description;
+    }
+
+    public function setDescription(string|null $description): self
+    {
+        $this->description = $description;
 
         return $this;
     }
@@ -93,6 +156,18 @@ class Tax extends AbstractEntity
         return $this;
     }
 
+    public function getIsDisplayTaxRate(): bool|null
+    {
+        return $this->isDisplayTaxRate;
+    }
+
+    public function setIsDisplayTaxRate(bool|null $isDisplayTaxRate): self
+    {
+        $this->isDisplayTaxRate = $isDisplayTaxRate;
+
+        return $this;
+    }
+
     public function getIsInactive(): bool|null
     {
         return $this->isInactive;
@@ -105,15 +180,26 @@ class Tax extends AbstractEntity
         return $this;
     }
 
-    public function getPercentageFlat(): float|null
+    public static function create(array $data): static
     {
-        return $this->percentageFlat;
-    }
+        $instance = parent::create($data);
 
-    public function setPercentageFlat(float|null $percentageFlat): self
-    {
-        $this->percentageFlat = $percentageFlat;
+        if (isset($data['components']) && \is_array($data['components'])) {
+            $instance->setComponents([]);
 
-        return $this;
+            foreach ($data['components'] as $row) {
+                $instance->addComponent(TaxComponent::create($row));
+            }
+        }
+
+        if (isset($data['rates']) && \is_array($data['rates'])) {
+            $instance->setRates([]);
+
+            foreach ($data['rates'] as $row) {
+                $instance->addRate(TaxRate::create($row));
+            }
+        }
+
+        return $instance;
     }
 }

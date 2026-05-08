@@ -17,7 +17,7 @@ use Terminal42\CashctrlApi\Enum\OrderItemType;
  * @property array       $attachments
  * @property array       $allocations
  * @property int         $pos
- * @property string|null $taxName
+ * @property string|null $taxCode
  * @property mixed       $discountInherited
  * @property mixed       $discountEffective
  * @property float       $netTotal
